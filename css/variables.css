@@ -1,0 +1,120 @@
+/* Typography, Color, and Spacing Tokens */
+
+:root {
+  /* ==========================================
+     1. TYPOGRAPHY SYSTEM (Fluid clamp scale)
+     ========================================== */
+  --font-primary: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-secondary: 'Trispace', monospace;
+
+  /* Typographical Scales */
+  --fs-hero: clamp(3.5rem, 9.5vw, 9rem);       /* Cinematic display titles */
+  --fs-h1: clamp(2.2rem, 5.5vw, 4.5rem);      /* Primary section headers */
+  --fs-h2: clamp(1.6rem, 3.5vw, 2.5rem);      /* Sub-sections / project names */
+  --fs-h3: clamp(1.2rem, 2vw, 1.8rem);        /* Secondary structural headings */
+  --fs-body: clamp(0.95rem, 1.1vw, 1.15rem);  /* Regular description copy */
+  --fs-meta: clamp(0.7rem, 0.8vw, 0.85rem);   /* Tech-minimalist metadata & labels */
+
+  /* Font Weights */
+  --fw-thin: 100;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-black: 900;
+
+  /* Line Heights */
+  --lh-tight: 0.95;
+  --lh-medium: 1.25;
+  --lh-relaxed: 1.65;
+
+  /* Letter Spacing */
+  --ls-normal: 0;
+  --ls-wide: 0.1em;
+  --ls-extra-wide: 0.25em;
+
+  /* ==========================================
+     2. COLOR PALETTE (Regola 60-30-10)
+     ========================================== */
+  /* 60% Dominant: Backgrounds & Surfaces */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f6f6f6;
+  --color-bg-dark: #090909;
+
+  /* 30% Secondary: Content, Gridlines & Borders */
+  --color-text-primary: #0a0a0a;
+  --color-text-muted: #666666;
+  --color-text-light: #ffffff;
+  --color-text-light-muted: #a0a0a0;
+  
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-dark: rgba(255, 255, 255, 0.12);
+  --color-grid-lines: rgba(0, 0, 0, 0.03);
+  --color-grid-lines-dark: rgba(255, 255, 255, 0.03);
+
+  /* 10% Accent Palette (Neon Green, Electric Blue, Bright Orange) */
+  --color-accent-green: #00ff66;
+  --color-accent-blue: #0088ff;
+  --color-accent-orange: #ff5500;
+  
+  /* Fallback or Default Accent */
+  --color-accent: var(--color-accent-green);
+
+  /* ==========================================
+     3. SPACING & LAYOUT SYSTEM
+     ========================================== */
+  --space-xxs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-xs: clamp(0.5rem, 1vw, 1rem);
+  --space-sm: clamp(1.5rem, 2.5vw, 2.5rem);
+  --space-md: clamp(3rem, 5vw, 5rem);
+  --space-lg: clamp(5rem, 8vw, 8rem);
+  --space-xl: clamp(8rem, 12vw, 12rem);
+  --space-xxl: clamp(10rem, 16vw, 18rem);
+
+  /* Layout Widths and Heights */
+  --header-height: 90px;
+  --max-content-width: 1600px;
+  
+  /* Transitions */
+  --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-cinematic: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================
+   4. LAYOUT UTILITIES
+   ========================================== */
+.container {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-sm);
+}
+
+/* White Space Utility Helpers */
+.py-xs  { padding-top: var(--space-xs); padding-bottom: var(--space-xs); }
+.py-sm  { padding-top: var(--space-sm); padding-bottom: var(--space-sm); }
+.py-md  { padding-top: var(--space-md); padding-bottom: var(--space-md); }
+.py-lg  { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
+.py-xl  { padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
+.py-xxl { padding-top: var(--space-xxl); padding-bottom: var(--space-xxl); }
+
+.my-xs  { margin-top: var(--space-xs); margin-bottom: var(--space-xs); }
+.my-sm  { margin-top: var(--space-sm); margin-bottom: var(--space-sm); }
+.my-md  { margin-top: var(--space-md); margin-bottom: var(--space-md); }
+.my-lg  { margin-top: var(--space-lg); margin-bottom: var(--space-lg); }
+.my-xl  { margin-top: var(--space-xl); margin-bottom: var(--space-xl); }
+.my-xxl { margin-top: var(--space-xxl); margin-bottom: var(--space-xxl); }
+
+/* Visibility / State Helpers */
+.hidden {
+  display: none !important;
+}
