@@ -502,17 +502,5 @@ function initSmoothScroll() {
     });
   }
 
-  // Intercept project subpage link clicks on file:// protocol to allow local inspection
-  if (window.location.protocol === 'file:') {
-    document.querySelectorAll('a[href^="/p"]').forEach(link => {
-      const href = link.getAttribute('href');
-      // Resolve absolute route to a local file path (e.g. "/pLeo" -> "./pLeo.html")
-      const localHref = '.' + href + '.html';
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.location.href = localHref;
-      });
-    });
-  }
 }
 
