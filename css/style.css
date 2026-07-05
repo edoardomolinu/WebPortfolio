@@ -383,6 +383,15 @@ p {
   background-color: transparent; /* Transparent so the fixed dot grid background is visible */
 }
 
+.project-link-wrapper {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  cursor: pointer;
+}
+
 .project-layout {
   display: flex;
   flex-direction: column;
@@ -429,7 +438,10 @@ p {
 
 .project-reveal-frame:hover {
   transform: scale(1.025); /* Slightly increases size on hover */
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08); /* Project a light shadow on the background */
+  /* Volumetric light effect: projects a soft pure white (#FFFFFF) glow along with a depth shadow */
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.9), 
+              0 24px 50px rgba(0, 0, 0, 0.12), 
+              0 8px 16px rgba(0, 0, 0, 0.04);
 }
 
 .project-reveal-inner {
@@ -706,8 +718,748 @@ p {
     align-items: flex-start;
     gap: var(--space-xs);
   }
-  
   .contact-section {
     padding-bottom: 19px; /* Bottom padding matched to mobile logo top distance (19px) */
+  }
+}
+
+/* ==========================================
+   Project Detail Page Styles
+   ========================================== */
+.project-page {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+.project-detail-section {
+  padding-top: calc(var(--header-height) + var(--space-md));
+  padding-bottom: 0;
+}
+
+.project-detail-title {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size: clamp(2.5rem, 6.5vw, 5.5rem); /* Responsive fluid scale reaching 88px (5.5rem) on desktop */
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+  text-align: left;
+  text-transform: none; /* Preserve exact casing */
+}
+
+/* Static Image Containers: STRICTLY sharp corners (border-radius: 0) and static flow */
+.project-detail-image-container {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0 !important;
+  background-color: var(--color-bg-secondary);
+}
+
+.project-detail-image-container.cover-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  margin-bottom: calc(2 * var(--space-md)); /* Double space between image and text block */
+}
+
+.project-detail-image-container.cover-frame img,
+.project-detail-image-container.cover-frame .project-detail-img {
+  height: 100% !important;
+}
+
+/* LeoTrailer Section Row layout (Image aligned right, text block left aligned and split top/bottom) */
+.pd-trailer-section-row {
+  position: relative;
+  width: 100%;
+  margin-top: calc(2 * var(--space-md));
+  margin-bottom: calc(2 * var(--space-md));
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-detail-image-container.trailer-frame-row {
+  width: 50%;
+  margin-left: auto;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.project-detail-image-container.trailer-frame-row img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0 !important;
+}
+
+.pd-trailer-text-left-col {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 44%; /* Spans columns 1 and 2 of 4 (approx 44% width, leaving gutter before 50% image starts) */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Top title top-aligned, paragraph bottom-aligned */
+  z-index: 2;
+}
+
+.pd-trailer-subtitle {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  margin: 0;
+  text-transform: none; /* Exact casing */
+  text-align: left;
+}
+
+.pd-trailer-paragraph {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  line-height: 1.6;
+  color: #000000;
+  margin: 0;
+  text-align: left;
+}
+
+.project-detail-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+/* Content block styles (Hanken Grotesk, dark text, left margins) */
+.project-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: 0;
+  margin-bottom: calc(2 * var(--space-md)); /* Double space between text block and next block */
+  align-items: flex-start;
+  text-align: left;
+}
+
+.project-detail-subtitle {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  line-height: 1.15;
+  color: var(--color-text-primary);
+  text-transform: none; /* Preserve case */
+  margin: 0;
+}
+
+.project-detail-paragraph {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-regular);
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
+  line-height: 1.65;
+  color: var(--color-text-primary);
+  max-width: 66.6%; /* Max 2/3 of page width */
+  margin: 0;
+}
+
+/* Design Pillars Section */
+.pd-design-pillars {
+  margin-top: calc(2 * var(--space-md)); /* Double spacing from the previous block */
+  margin-bottom: calc(2 * var(--space-md));
+}
+
+.pd-pillars-title {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  text-transform: none;
+  margin-bottom: var(--space-md);
+  text-align: left;
+}
+
+.pd-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-md);
+}
+
+.pd-pillar-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) 0;
+  max-width: 66.6%; /* Narrow width by 1/3 */
+  margin: 0 auto; /* Center inside grid cell */
+}
+
+.pd-pillar-icon {
+  color: var(--color-text-primary);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pd-pillar-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+}
+
+.pd-pillar-subtitle {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+  margin: 0;
+  text-transform: none;
+}
+
+.pd-pillar-text {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-regular);
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* All items span 2 columns to ensure uniform width */
+.pd-pillar-box.pillar-1,
+.pd-pillar-box.pillar-2 {
+  grid-column: span 2;
+}
+
+/* Align pillars 4 and 5 in Row 2 directly under the spacing of Row 1 pillars (columns 2-3 and 4-5) */
+.pd-pillar-box.pillar-row2-first {
+  grid-column: 2 / span 2;
+}
+
+.pd-pillar-box.pillar-row2-second {
+  grid-column: 4 / span 2;
+}
+
+/* Moodboard Section */
+.pd-moodboard {
+  margin-top: calc(2 * var(--space-md)); /* Double spacing from the previous block */
+  margin-bottom: calc(2 * var(--space-md));
+}
+
+.pd-moodboard-title {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  text-transform: none;
+  margin-bottom: var(--space-md);
+  text-align: left;
+}
+
+.pd-moodboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: var(--space-xs); /* Elegant proportional gap */
+  align-items: stretch;
+  aspect-ratio: 32 / 15; /* Increased height by 1/4 (from 32/12 to 32/15) */
+  width: 100%; /* Spans from left to right margin */
+}
+
+.pd-mb-item.mb-lm1 {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 2;
+}
+
+.pd-mb-item.mb-lm2 {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.pd-mb-item.mb-lm3 {
+  grid-column: 3 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.pd-mb-item.mb-lm4 {
+  grid-column: 4 / span 1;
+  grid-row: 1 / span 2;
+}
+
+.pd-mb-item.mb-lm5 {
+  grid-column: 2 / span 2;
+  grid-row: 2 / span 1;
+}
+
+.pd-mb-item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0 !important;
+  background-color: var(--color-bg-secondary);
+}
+
+.pd-mb-item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+/* LeoConcept container increased by a third (to 66.6%) and centered */
+.project-detail-image-container.concept-frame {
+  width: 66.6%;
+  margin: 0 auto calc(2 * var(--space-md));
+}
+
+/* LeoKitchen overlay styles */
+.project-detail-kitchen-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0 !important;
+  margin-bottom: calc(2 * var(--space-md));
+  background-color: var(--color-bg-secondary);
+}
+
+.project-detail-kitchen-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+.project-detail-kitchen-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--space-md) var(--space-sm) var(--space-lg);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.project-detail-kitchen-text {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.6;
+  color: #ffffff;
+  text-align: center;
+  max-width: 800px;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Mechanism Section */
+.pd-mechanism-section {
+  position: relative;
+  width: 100%;
+  margin-top: calc(2 * var(--space-md));
+  margin-bottom: calc(2 * var(--space-md));
+}
+
+.pd-mechanism-title {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  text-transform: none;
+  margin-bottom: var(--space-md);
+  text-align: left;
+}
+
+.pd-mechanism-content {
+  position: relative;
+  width: 100%;
+}
+
+.pd-mechanism-img-container {
+  width: 66.6%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.pd-mechanism-img-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+/* Diagonal Texts */
+.pd-mechanism-text-bl {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 15%; /* Fits in the left margin space */
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(0.85rem, 1.1vw, 1.15rem);
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  text-align: left;
+  margin: 0;
+  transform: translateY(-100%);
+}
+
+.pd-mechanism-text-tr {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15%; /* Fits in the right margin space */
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(0.85rem, 1.1vw, 1.15rem);
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  text-align: right;
+  margin: 0;
+  transform: translateY(100%);
+}
+
+/* Handles Row Side-by-Side */
+.pd-handles-row {
+  display: flex;
+  gap: var(--space-xs); /* Elegant proportional gutter */
+  width: 100%;
+  margin-top: calc(2 * var(--space-md));
+  margin-bottom: calc(2 * var(--space-md));
+}
+
+.pd-handle-col {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 0 !important;
+  background-color: var(--color-bg-secondary);
+}
+
+.pd-handle-col img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+/* Foot Section Overlay */
+.project-detail-foot-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0 !important;
+  margin-top: calc(2 * var(--space-md));
+  margin-bottom: calc(2 * var(--space-md));
+  background-color: var(--color-bg-secondary);
+}
+
+.project-detail-foot-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+.project-detail-foot-overlay {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  width: 50%; /* Right 2 columns of 4-column layout */
+  padding: var(--space-md);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.project-detail-foot-text {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  line-height: 1.6;
+  color: #000000;
+  text-align: left;
+  margin: 0;
+}
+
+/* Titles Left */
+.pd-section-title-left {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  text-transform: none;
+  margin-bottom: var(--space-md);
+  text-align: left;
+}
+
+.pd-foot-section .pd-section-title-left,
+.pd-colors-section .pd-section-title-left {
+  margin-bottom: calc(0.5 * var(--space-md));
+}
+
+.pd-control-knob-content .pd-section-title-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+}
+
+/* Sections Spacer */
+.pd-foot-section,
+.pd-control-knob-section,
+.pd-crumb-tray-section,
+.pd-colors-section {
+  margin-top: calc(2 * var(--space-md));
+  margin-bottom: calc(2 * var(--space-md));
+}
+
+/* Control Knob Content layout container */
+.pd-control-knob-content {
+  position: relative;
+  width: 100%;
+}
+
+/* Knob Frame matching LeoHandle1 size & aspect ratio, aligned right */
+.project-detail-image-container.knob-frame {
+  width: calc(50% - var(--space-xs) / 2);
+  margin-left: auto;
+  margin-right: 0;
+  aspect-ratio: 829 / 942;
+  overflow: hidden;
+}
+
+.project-detail-image-container.knob-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+.pd-knob-text-block {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 44%; /* Matching horizontal width of pd-trailer-paragraph */
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  z-index: 2;
+}
+
+.pd-knob-text {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  line-height: 1.6;
+  color: #000000;
+  margin: 0;
+}
+
+/* Next Project Section Styles */
+.pd-next-project-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: calc(2 * var(--space-md));
+  margin-bottom: calc(2.5 * var(--space-md));
+  width: 100%;
+  position: relative;
+  padding-top: calc(2 * var(--space-md));
+}
+
+.pd-next-project-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  max-width: 45%;
+}
+
+.pd-next-project-label {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  line-height: 1.6;
+  color: #000000;
+}
+
+.pd-next-project-title {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.pd-next-project-preview {
+  width: 50%;
+  display: block;
+  overflow: hidden;
+  border-radius: 0 !important;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+.pd-next-project-preview:hover {
+  opacity: 0.9;
+  transform: scale(1.015);
+}
+
+.pd-next-project-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+@media (max-width: 992px) {
+  /* Fallback to simple grid/stack for tablets */
+  .pd-pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pd-pillar-box.pillar-1,
+  .pd-pillar-box.pillar-2,
+  .pd-pillar-box.pillar-row2-first,
+  .pd-pillar-box.pillar-row2-second {
+    grid-column: span 1 !important;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-detail-paragraph {
+    max-width: 100%;
+  }
+
+  .pd-next-project-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding-top: var(--space-md);
+    margin-top: var(--space-md);
+  }
+
+  .pd-next-project-text {
+    max-width: 100%;
+  }
+
+  .pd-next-project-preview {
+    width: 100%;
+  }
+
+  .pd-trailer-section-row {
+    flex-direction: column;
+  }
+
+  .project-detail-image-container.trailer-frame-row {
+    width: 100%;
+  }
+
+  .pd-trailer-text-left-col {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: var(--space-md);
+    gap: var(--space-xs);
+  }
+
+  .pd-moodboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    aspect-ratio: auto;
+    width: 100%;
+  }
+  
+  .pd-mb-item.mb-lm1,
+  .pd-mb-item.mb-lm2,
+  .pd-mb-item.mb-lm3,
+  .pd-mb-item.mb-lm4,
+  .pd-mb-item.mb-lm5 {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+    aspect-ratio: 16 / 9;
+  }
+  
+  .project-detail-image-container.concept-frame {
+    width: 100%;
+  }
+
+  .pd-mechanism-img-container {
+    width: 100%;
+  }
+  
+  .pd-mechanism-text-bl,
+  .pd-mechanism-text-tr {
+    position: relative;
+    width: 100%;
+    text-align: left;
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-xs);
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    transform: none;
+  }
+
+  .pd-handles-row {
+    flex-direction: column;
+  }
+
+  .project-detail-foot-overlay {
+    position: relative;
+    top: auto;
+    transform: none;
+    width: 100%;
+    right: auto;
+    padding: var(--space-xs) 0;
+  }
+  
+  .project-detail-image-container.knob-frame {
+    width: 100%;
+    aspect-ratio: auto;
+  }
+
+  .pd-knob-text-block {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    margin-top: var(--space-xs);
+  }
+
+  .pd-control-knob-content .pd-section-title-left {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: var(--space-md);
+  }
+}
+
+@media (max-width: 576px) {
+  /* Fallback to single column for mobile */
+  .pd-pillars-grid {
+    grid-template-columns: 1fr;
   }
 }

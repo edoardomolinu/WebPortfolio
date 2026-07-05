@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initInteractiveGrid();
   initContactSpotlight();
   initFooterReveal();
+  initSmoothScroll();
 });
 
 /**
@@ -291,7 +292,13 @@ function initInteractiveGrid() {
     targetMouseY = -1000;
   });
   
-  const spacing = 112;
+  let isProjectHovered = false;
+  document.querySelectorAll('.project-reveal-frame').forEach(frame => {
+    frame.addEventListener('mouseenter', () => { isProjectHovered = true; });
+    frame.addEventListener('mouseleave', () => { isProjectHovered = false; });
+  });
+  
+  const spacing = 149;
   const hoverRadius = 120;
   
   function animate() {
@@ -325,7 +332,7 @@ function initInteractiveGrid() {
         
         let drawX = baseX;
         let drawY = baseY;
-        let radius = 1.2;
+        let radius = 1.8; // Base size increased by 50% from 1.2 to 1.8
         
         if (dist < hoverRadius) {
           const force = (hoverRadius - dist) / hoverRadius; // 0 to 1
@@ -336,16 +343,27 @@ function initInteractiveGrid() {
           drawX = baseX + Math.cos(angle) * pushDist;
           drawY = baseY + Math.sin(angle) * pushDist;
           
-          // Scale adjustment (subtle growth)
-          radius = 1.2 + force * 1.0; // Grows up to 2.2px
+          // Scale adjustment (subtle growth, increased by 50%)
+          radius = 1.8 + force * 1.5; // Grows up to 3.3px
         }
+        
+        // Jitter vibration effect when a project visual frame is hovered
+        let jitterX = 0;
+        let jitterY = 0;
+        if (isProjectHovered) {
+          jitterX = (Math.random() - 0.5) * 3.8; // more perceptible jitter
+          jitterY = (Math.random() - 0.5) * 3.8;
+        }
+        
+        const finalX = drawX + jitterX;
+        const finalY = drawY + jitterY;
         
         // Draw rotated square (45-degree diamond)
         ctx.beginPath();
-        ctx.moveTo(drawX, drawY - radius); // Top point
-        ctx.lineTo(drawX + radius, drawY); // Right point
-        ctx.lineTo(drawX, drawY + radius); // Bottom point
-        ctx.lineTo(drawX - radius, drawY); // Left point
+        ctx.moveTo(finalX, finalY - radius); // Top point
+        ctx.lineTo(finalX + radius, finalY); // Right point
+        ctx.lineTo(finalX, finalY + radius); // Bottom point
+        ctx.lineTo(finalX - radius, finalY); // Left point
         ctx.closePath();
         ctx.fillStyle = "#000000";
         ctx.fill();
@@ -432,5 +450,69 @@ function initFooterReveal() {
   
   // Initial compute
   updateMargin();
+}
+
+/**
+ * Smooth navigation scroll interceptor and hash handler.
+ * Automatically scrolls to the bottom of the page when #contact is clicked or loaded.
+ */
+function initSmoothScroll() {
+  document.querySelectorAll('.header__link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      const hashIndex = href.indexOf('#');
+      if (hashIndex !== -1) {
+        const hash = href.substring(hashIndex);
+        
+        // Check if we are currently on the homepage
+        const isHomePage = window.location.pathname.endsWith('index.html') || 
+                           window.location.pathname === '/' || 
+                           !window.location.pathname.includes('.html');
+        
+        if (isHomePage) {
+          if (hash === '#contact') {
+            e.preventDefault();
+            window.scrollTo({
+              top: document.body.scrollHeight,
+              behavior: 'smooth'
+            });
+          } else {
+            const targetElem = document.querySelector(hash);
+            if (targetElem) {
+              e.preventDefault();
+              targetElem.scrollIntoView({
+                behavior: 'smooth'
+              });
+            }
+          }
+        }
+      }
+    });
+  });
+
+  // Handle page load with hash = #contact
+  if (window.location.hash === '#contact') {
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: 'smooth'
+        });
+      }, 150);
+    });
+  }
+
+  // Intercept project subpage link clicks on file:// protocol to allow local inspection
+  if (window.location.protocol === 'file:') {
+    document.querySelectorAll('a[href^="/p"]').forEach(link => {
+      const href = link.getAttribute('href');
+      // Resolve absolute route to a local file path (e.g. "/pLeo" -> "./pLeo.html")
+      const localHref = '.' + href + '.html';
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = localHref;
+      });
+    });
+  }
 }
 
