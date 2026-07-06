@@ -1080,7 +1080,7 @@ p {
   line-height: 1.2;
   color: var(--color-text-primary);
   text-transform: none;
-  margin-bottom: var(--space-md);
+  margin-bottom: 30px;
   text-align: left;
 }
 
