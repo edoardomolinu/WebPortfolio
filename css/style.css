@@ -1164,7 +1164,7 @@ p {
   width: 100%;
   overflow: hidden;
   border-radius: 0 !important;
-  margin-top: calc(2 * var(--space-md));
+  margin-top: 50px;
   margin-bottom: calc(2 * var(--space-md));
   background-color: var(--color-bg-secondary);
 }
