@@ -263,7 +263,7 @@ function initInteractiveGrid() {
   const canvas = document.getElementById('work-grid-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  const workSection = document.getElementById('work');
+  const workSection = document.getElementById('work') || document.querySelector('.pd-next-project-section');
   if (!workSection) return;
   
   function resizeCanvas() {
@@ -293,7 +293,7 @@ function initInteractiveGrid() {
   });
   
   let isProjectHovered = false;
-  document.querySelectorAll('.project-reveal-frame').forEach(frame => {
+  document.querySelectorAll('.project-reveal-frame, .pd-next-project-preview').forEach(frame => {
     frame.addEventListener('mouseenter', () => { isProjectHovered = true; });
     frame.addEventListener('mouseleave', () => { isProjectHovered = false; });
   });

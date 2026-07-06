@@ -1297,6 +1297,8 @@ p {
   width: 100%;
   position: relative;
   padding-top: calc(2 * var(--space-md));
+  overflow: hidden;
+  clip-path: inset(0);
 }
 
 .pd-next-project-text {
@@ -1314,10 +1316,10 @@ p {
 .pd-next-project-label {
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
-  font-size: 44px;
+  font-size: 66px;
   line-height: 1.05;
   letter-spacing: -0.03em;
-  color: #E1E1E1;
+  color: #000000;
   text-transform: none;
   margin: 0;
   text-align: left;
@@ -1346,7 +1348,7 @@ p {
 }
 
 .pd-next-project-preview:hover {
-  opacity: 0.9;
+  opacity: 1;
   transform: scale(1.015);
 }
 
