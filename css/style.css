@@ -1313,14 +1313,15 @@ p {
 
 .pd-next-project-label {
   font-family: var(--font-primary);
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-regular);
   font-size: clamp(2.5rem, 6.5vw, 5.5rem);
   line-height: 1.05;
   letter-spacing: -0.03em;
-  color: #EDEDED;
+  color: #E1E1E1;
   text-transform: none;
   margin: 0;
   text-align: left;
+  white-space: nowrap;
 }
 
 .pd-next-project-title {
