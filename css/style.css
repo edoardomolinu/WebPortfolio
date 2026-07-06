@@ -139,7 +139,7 @@ p {
 .header__link {
   text-decoration: none;
   font-family: var(--font-primary);
-  font-size: calc(var(--fs-meta) * 1.5);
+  font-size: 18px;
   font-weight: var(--fw-regular);
   color: #000000;
   transition: var(--transition-smooth);
