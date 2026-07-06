@@ -13,6 +13,13 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--color-bg-primary);
+  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;          /* Chrome, Safari, Opera */
 }
 
 body {
@@ -91,7 +98,7 @@ p {
   justify-content: space-between;
   align-items: center;
   padding: 0 var(--space-sm);
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: none;
@@ -100,7 +107,7 @@ p {
 
 .header--shrunk {
   height: 70px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .header--hidden {
@@ -258,6 +265,7 @@ p {
   align-items: center;
   gap: 12px;
   pointer-events: none;
+  mix-blend-mode: difference;
 }
 
 .scroll-diamonds-wave {
@@ -270,7 +278,7 @@ p {
 .scroll-diamond-dot {
   width: 6px;
   height: 6px;
-  background-color: #2E2E2E;
+  background-color: #ffffff;
   transform: rotate(45deg);
   will-change: transform;
   animation: diamondWave 1.8s infinite ease-in-out;
