@@ -1314,7 +1314,7 @@ p {
 .pd-next-project-label {
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
-  font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+  font-size: 44px;
   line-height: 1.05;
   letter-spacing: -0.03em;
   color: #E1E1E1;
