@@ -1549,3 +1549,7 @@ p {
 .p-10ext .p10ext-black-bg-wrapper .pd-mechanism-text-bl {
   color: #ffffff;
 }
+
+.project-detail-image-container.concept-frame.full-width-concept {
+  width: 100%;
+}
