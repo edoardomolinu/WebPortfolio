@@ -1538,11 +1538,14 @@ p {
   margin-bottom: calc(2 * var(--space-md));
 }
 
-.p10ext-black-bg-wrapper .project-detail-kitchen-container {
+.p10ext-black-bg-wrapper .pd-mechanism-section {
   margin-bottom: 0;
 }
 
 .p-10ext .p10ext-black-bg-wrapper .pd-moodboard-title,
-.p-10ext .p10ext-black-bg-wrapper .project-detail-kitchen-text {
+.p-10ext .p10ext-black-bg-wrapper .project-detail-kitchen-text,
+.p-10ext .p10ext-black-bg-wrapper .pd-mechanism-title,
+.p-10ext .p10ext-black-bg-wrapper .pd-mechanism-text-tr,
+.p-10ext .p10ext-black-bg-wrapper .pd-mechanism-text-bl {
   color: #ffffff;
 }
