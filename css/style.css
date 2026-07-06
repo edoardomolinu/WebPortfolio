@@ -1516,3 +1516,8 @@ p {
 .project-detail-section .pd-next-project-preview {
   border-radius: 8px !important;
 }
+
+/* Page-specific styling for p10ext.html */
+.p-10ext .pd-pillar-icon {
+  color: #A12101;
+}
