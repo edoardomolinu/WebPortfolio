@@ -91,7 +91,7 @@ p {
   justify-content: space-between;
   align-items: center;
   padding: 0 var(--space-sm);
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: none;
@@ -100,7 +100,7 @@ p {
 
 .header--shrunk {
   height: 70px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .header--hidden {
