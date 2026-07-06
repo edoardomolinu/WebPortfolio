@@ -1560,12 +1560,13 @@ p {
   align-items: flex-end;
   justify-content: flex-end;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
-  padding: var(--space-md);
+  padding: var(--space-md) 0 var(--space-md) var(--space-md);
 }
 
 .p-10ext .project-detail-kitchen-text {
   text-align: right;
   max-width: 44%;
+  margin-right: 0;
 }
 
 /* 10EXT specific mechanism image container width */
