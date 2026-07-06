@@ -1285,7 +1285,7 @@ p {
   justify-content: space-between;
   align-items: center;
   margin-top: calc(2 * var(--space-md));
-  margin-bottom: calc(2.5 * var(--space-md));
+  margin-bottom: 170px;
   width: 100%;
   position: relative;
   padding-top: calc(2 * var(--space-md));
