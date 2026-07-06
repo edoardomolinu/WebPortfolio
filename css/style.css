@@ -1572,4 +1572,37 @@ p {
 /* 10EXT specific mechanism image container width */
 .p-10ext .pd-mechanism-img-container {
   width: 100%;
+  position: relative;
+}
+
+/* 10EXT overlay text styling over Steel Skeleton image */
+.pd-mechanism-overlay-text {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  max-width: 800px;
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1rem, 1.4vw, 1.35rem);
+  line-height: 1.6;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .p-10ext .pd-mechanism-overlay-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin-top: var(--space-md);
+    color: #ffffff;
+    text-align: center;
+  }
 }
