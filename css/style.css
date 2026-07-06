@@ -1212,9 +1212,12 @@ p {
   text-align: left;
 }
 
-.pd-foot-section .pd-section-title-left,
-.pd-colors-section .pd-section-title-left {
+.pd-foot-section .pd-section-title-left {
   margin-bottom: calc(0.5 * var(--space-md));
+}
+
+.pd-colors-section .pd-section-title-left {
+  margin-bottom: 0px;
 }
 
 .pd-control-knob-content .pd-section-title-left {
