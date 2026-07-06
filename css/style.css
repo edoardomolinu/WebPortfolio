@@ -1303,7 +1303,7 @@ p {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
-  max-width: 45%;
+  max-width: 22%;
 }
 
 .pd-next-project-label {
@@ -1324,7 +1324,7 @@ p {
 }
 
 .pd-next-project-preview {
-  width: 50%;
+  width: 75%;
   display: block;
   overflow: hidden;
   border-radius: 0 !important;
