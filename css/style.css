@@ -1553,3 +1553,22 @@ p {
 .project-detail-image-container.concept-frame.full-width-concept {
   width: 100%;
 }
+
+/* 10EXT specific alignment for Context text block inside overlay */
+.p-10ext .project-detail-kitchen-overlay {
+  height: 100%;
+  align-items: flex-end;
+  justify-content: flex-end;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+  padding: var(--space-md);
+}
+
+.p-10ext .project-detail-kitchen-text {
+  text-align: right;
+  max-width: 44%;
+}
+
+/* 10EXT specific mechanism image container width */
+.p-10ext .pd-mechanism-img-container {
+  width: 100%;
+}
