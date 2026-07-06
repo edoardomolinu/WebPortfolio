@@ -793,6 +793,10 @@ p {
   margin-bottom: 0;
 }
 
+.project-detail-image-container.trailer-frame-row.full-width-trailer {
+  width: 100%;
+}
+
 .project-detail-image-container.trailer-frame-row img {
   width: 100%;
   height: auto;
