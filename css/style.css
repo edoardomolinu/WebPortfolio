@@ -1498,3 +1498,14 @@ p {
     grid-template-columns: 1fr;
   }
 }
+
+/* Rounded corners for all images and containers on the project detail page */
+.project-detail-section img,
+.project-detail-section .project-detail-image-container,
+.project-detail-section .pd-mb-item,
+.project-detail-section .pd-handle-col,
+.project-detail-section .project-detail-foot-container,
+.project-detail-section .project-detail-kitchen-container,
+.project-detail-section .pd-next-project-preview {
+  border-radius: 8px !important;
+}
