@@ -1608,6 +1608,18 @@ p {
 }
 
 /* User Experience Section Styles for p10ext.html */
+.p-10ext .pd-ux-section {
+  position: relative;
+}
+
+.p-10ext .pd-ux-section .pd-section-title-left {
+  position: absolute;
+  top: calc(2 * var(--space-md));
+  left: 0;
+  margin: 0;
+  z-index: 10;
+}
+
 .p-10ext .pd-handles-row .pd-handle-col {
   position: relative;
 }
@@ -1616,7 +1628,7 @@ p {
   position: absolute;
   top: 60%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0);
   width: 32%;
   max-width: 500px;
   text-align: center;
@@ -1637,6 +1649,13 @@ p {
 }
 
 @media (max-width: 768px) {
+  .p-10ext .pd-ux-section .pd-section-title-left {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: var(--space-md);
+  }
+
   .p-10ext .pd-ux-overlay-text {
     position: relative;
     top: auto;
