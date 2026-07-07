@@ -1606,3 +1606,49 @@ p {
     text-align: center;
   }
 }
+
+/* User Experience Section Styles for p10ext.html */
+.p-10ext .pd-handles-row .pd-handle-col {
+  position: relative;
+}
+
+.pd-ux-overlay-text {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32%;
+  max-width: 500px;
+  text-align: center;
+  z-index: 5;
+}
+
+.pd-ux-overlay-text p {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+  line-height: 1.5;
+  color: #000000;
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.pd-ux-overlay-text p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .p-10ext .pd-ux-overlay-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin-top: var(--space-md);
+    padding: 0;
+  }
+  
+  .p-10ext .pd-ux-overlay-text p {
+    color: var(--color-text-primary);
+  }
+}
