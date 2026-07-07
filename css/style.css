@@ -1610,19 +1610,10 @@ p {
 /* User Experience Section Styles for p10ext.html */
 .p-10ext .pd-ux-section {
   position: relative;
-  margin-top: calc(2 * var(--space-md));
 }
 
 .p-10ext .pd-ux-section .pd-handles-row {
-  margin-top: 0 !important;
-}
-
-.p-10ext .pd-ux-section .pd-section-title-left {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0;
-  z-index: 10;
+  margin-top: var(--space-md);
 }
 
 .p-10ext .pd-handles-row .pd-handle-col {
@@ -1653,16 +1644,23 @@ p {
   margin-bottom: 0;
 }
 
-@media (max-width: 768px) {
-  .p-10ext .pd-ux-section .pd-section-title-left {
-    position: relative;
-    top: auto;
-    left: auto;
-    margin-bottom: var(--space-md);
-  }
+/* Trailer layout styles for p10ext.html to position text outside image */
+.pd-trailer-section-row-p10ext {
+  position: relative;
+  width: 100%;
+  margin-top: calc(2 * var(--space-md));
+  margin-bottom: calc(2 * var(--space-md));
+}
 
-  .p-10ext .pd-ux-section .pd-handles-row {
-    margin-top: var(--space-md) !important;
+.pd-trailer-text-block-p10ext {
+  width: 44%;
+  max-width: 800px;
+  margin-bottom: var(--space-md);
+}
+
+@media (max-width: 768px) {
+  .pd-trailer-text-block-p10ext {
+    width: 100%;
   }
 
   .p-10ext .pd-ux-overlay-text {
