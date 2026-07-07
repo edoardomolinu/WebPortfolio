@@ -1658,9 +1658,38 @@ p {
   margin-bottom: var(--space-md);
 }
 
+.p-10ext .full-width-trailer {
+  position: relative;
+}
+
+.pd-trailer-paragraph-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 44%;
+  z-index: 5;
+}
+
+.p-10ext .pd-trailer-paragraph-overlay .pd-trailer-paragraph {
+  color: #ffffff;
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .pd-trailer-text-block-p10ext {
     width: 100%;
+  }
+
+  .p-10ext .pd-trailer-paragraph-overlay {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    margin-top: var(--space-md);
+  }
+
+  .p-10ext .pd-trailer-paragraph-overlay .pd-trailer-paragraph {
+    color: #000000;
   }
 
   .p-10ext .pd-ux-overlay-text {
