@@ -1610,11 +1610,16 @@ p {
 /* User Experience Section Styles for p10ext.html */
 .p-10ext .pd-ux-section {
   position: relative;
+  margin-top: calc(2 * var(--space-md));
+}
+
+.p-10ext .pd-ux-section .pd-handles-row {
+  margin-top: 0 !important;
 }
 
 .p-10ext .pd-ux-section .pd-section-title-left {
   position: absolute;
-  top: calc(2 * var(--space-md));
+  top: 0;
   left: 0;
   margin: 0;
   z-index: 10;
@@ -1654,6 +1659,10 @@ p {
     top: auto;
     left: auto;
     margin-bottom: var(--space-md);
+  }
+
+  .p-10ext .pd-ux-section .pd-handles-row {
+    margin-top: var(--space-md) !important;
   }
 
   .p-10ext .pd-ux-overlay-text {
