@@ -1610,6 +1610,7 @@ p {
 /* User Experience Section Styles for p10ext.html */
 .p-10ext .pd-ux-section {
   position: relative;
+  margin-top: 170px;
 }
 
 .p-10ext .pd-ux-section .pd-handles-row {
