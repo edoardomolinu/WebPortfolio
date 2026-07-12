@@ -1732,6 +1732,16 @@ p {
   position: relative;
 }
 
+.p-luminair .pd-crumb-tray-section .cover-frame {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-top: var(--space-md);
+  margin-bottom: calc(2 * var(--space-md));
+}
+
 @media (max-width: 768px) {
   .p-luminair .pd-ux-overlay-text {
     position: relative;
