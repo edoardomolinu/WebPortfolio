@@ -83,7 +83,6 @@ function setupDynamicHeader() {
   if (!header) return;
   
   let lastScrollY = window.scrollY;
-  const headerHeight = 90; // default header height
   
   window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
@@ -93,6 +92,13 @@ function setupDynamicHeader() {
       header.classList.add('header--shrunk');
     } else {
       header.classList.remove('header--shrunk');
+    }
+    
+    // Hide header on scroll down, show on scroll up
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      header.classList.add('header--hidden');
+    } else {
+      header.classList.remove('header--hidden');
     }
     
     lastScrollY = currentScrollY;
