@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Climbex project details. Designed by Edoardo Molinu.">
+  <title>Climbex - Edoardo Molinu</title>
+  
+  <!-- Preconnect and Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@700&family=Trispace:wght@100..800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="./css/style.css?v=8.7">
+</head>
+<body class="project-page p-climbex">
+
+  <!-- CAD Construction Lines (Decorative tech-minimal grid overlay) -->
+  <div class="cad-grid-background">
+    <div class="cad-line-vertical cad-line-left"></div>
+    <div class="cad-line-vertical cad-line-right"></div>
+  </div>
+
+  <!-- Navbar Component (identical to index.html with relative link destinations) -->
+  <header class="header">
+    <a href="./index.html" class="header__logo">
+      <img src="./asset/img/Logo.jpg" alt="Edoardo Molinu Logo" class="header__logo-img">
+    </a>
+    <nav class="header__nav">
+      <a href="./index.html#work" class="header__link">Work</a>
+      <a href="./index.html#about" class="header__link">About</a>
+      <a href="./index.html#contact" class="header__link">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main Content wrapper to keep global page behaviors consistent -->
+  <main class="main-content">
+    <section class="project-detail-section">
+      <div class="container">
+        
+        <!-- A. Titolo Principale -->
+        <h1 class="project-detail-title">Climbex</h1>
+        
+        <!-- B. Prima Immagine -->
+        <div class="project-detail-image-container cover-frame">
+          <img src="./asset/img/ClimBEXHero.jpg" alt="Climbex Cover" class="project-detail-img">
+        </div>
+
+        <!-- N. Sezione Next Project Link -->
+        <section class="pd-next-project-section">
+          <canvas id="work-grid-canvas" class="work-section__canvas-bg"></canvas>
+          <div class="pd-next-project-text">
+            <span class="pd-next-project-label">Next Project</span>
+            <h2 class="pd-next-project-title">Leo</h2>
+          </div>
+          <a href="./pLeo.html" class="pd-next-project-preview">
+            <img src="./asset/img/Leo_Hero.jpg" alt="Next Project Preview: Leo" style="margin-bottom: 170px;">
+          </a>
+        </section>
+        
+      </div>
+    </section>
+  </main>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="container contact-container">
+      
+      <!-- Top Text -->
+      <div class="contact-top reveal-zoom-in">
+        <h3 class="contact-message">End of Portfolio. Start of a Conversation.</h3>
+      </div>
+      
+      <!-- Middle Links -->
+      <div class="contact-links-grid reveal-zoom-in">
+        <div class="contact-link-item">
+          <a href="https://www.linkedin.com/in/edoardomolinu/" target="_blank" rel="noopener">Linkedin</a>
+        </div>
+        <div class="contact-link-item">
+          <a href="mailto:edoardo.molinu@outlook.com">Email</a>
+        </div>
+        <div class="contact-link-item">
+          <a href="tel:+393343000234">+39 334.3000.234</a>
+        </div>
+      </div>
+      
+      <!-- Bottom Credits -->
+      <div class="contact-bottom reveal-zoom-in">
+        <span class="contact-credits">© 2026 Edoardo Molinu. All rights reserved.</span>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- JS Scripts -->
+  <script src="./js/main.js"></script>
+</body>
+</html>
