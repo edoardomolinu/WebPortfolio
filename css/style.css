@@ -1727,6 +1727,20 @@ p {
   margin-top: var(--space-md);
   margin-bottom: calc(2 * var(--space-md));
 }
+.p-luminair .pd-ux-overlay-text {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 32%;
+  max-width: 500px;
+  text-align: center;
+  z-index: 5;
+}
+
+.p-luminair .pd-ux-overlay-text p {
+  color: #000000 !important;
+}
 
 .p-luminair .pd-handles-row .pd-handle-col {
   position: relative;
