@@ -1941,3 +1941,102 @@ p {
     padding: 0 var(--space-sm);
   }
 }
+
+/* Annotated callout styles for ClimbexAreas.jpg */
+.pd-climbex-areas-section {
+  position: relative;
+}
+
+.pd-climbex-area-label {
+  position: absolute;
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(0.75rem, 1.1vw, 1rem);
+  color: #000000;
+  white-space: nowrap;
+  z-index: 5;
+  text-transform: none;
+}
+
+/* Left Side Labels */
+.pd-climbex-label-slingshot {
+  left: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
+  top: 23%;
+}
+
+.pd-climbex-label-strapsupport {
+  left: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
+  top: 55%;
+}
+
+.pd-climbex-label-softpads {
+  left: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
+  top: 77.5%;
+}
+
+/* Bottom Labels */
+.pd-climbex-label-heelrubber {
+  left: 38.5vw;
+  top: 84.5%;
+}
+
+.pd-climbex-label-frontsolerubber {
+  left: 51vw;
+  top: 84.5%;
+}
+
+/* Right Side Labels */
+.pd-climbex-label-pullonloops {
+  right: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
+  top: 23%;
+}
+
+.pd-climbex-label-closingsystem {
+  right: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
+  top: 40%;
+}
+
+.pd-climbex-label-tongue {
+  right: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
+  top: 58%;
+}
+
+.pd-climbex-label-toecap {
+  right: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
+  top: 84.5%;
+}
+
+.pd-climbex-areas-mobile-list {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .pd-climbex-areas-mobile-list {
+    display: block !important;
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+  
+  .pd-climbex-area-label {
+    display: none !important;
+  }
+  
+  .pd-climbex-areas-mobile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xs);
+    padding: 0 var(--space-sm);
+  }
+  
+  .pd-climbex-area-mobile-item {
+    font-family: var(--font-primary);
+    font-size: clamp(0.8rem, 1.2vw, 1rem);
+    font-weight: var(--fw-medium);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-secondary);
+    padding: var(--space-xs);
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid var(--color-grid-lines);
+  }
+}
