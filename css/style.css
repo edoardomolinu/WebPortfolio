@@ -2045,3 +2045,15 @@ p {
   width: 100% !important;
   margin: 0 auto calc(2 * var(--space-md)) auto !important;
 }
+
+/* Double the margins (half the width of standard centered images) for ClimbexStrap.jpg */
+.pd-climbex-strap-container {
+  width: 50% !important;
+  max-width: 700px !important;
+}
+
+@media (max-width: 768px) {
+  .pd-climbex-strap-container {
+    width: 80% !important;
+  }
+}
