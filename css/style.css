@@ -1718,6 +1718,16 @@ p {
   width: 100%;
 }
 
+.p-luminair .pd-ux-section .pd-handles-row {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-top: var(--space-md);
+  margin-bottom: calc(2 * var(--space-md));
+}
+
 .p-luminair .pd-handles-row .pd-handle-col {
   position: relative;
 }
