@@ -1708,3 +1708,8 @@ p {
     color: var(--color-text-primary);
   }
 }
+
+/* Page-specific styling for pluminair.html */
+.p-luminair .pd-pillar-icon {
+  color: #5180B2;
+}
