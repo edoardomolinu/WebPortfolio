@@ -1713,3 +1713,24 @@ p {
 .p-luminair .pd-pillar-icon {
   color: #5180B2;
 }
+
+.p-luminair .pd-mechanism-img-container {
+  width: 100%;
+}
+
+.p-luminair .pd-handles-row .pd-handle-col {
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .p-luminair .pd-ux-overlay-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin-top: var(--space-md);
+    padding: 0;
+  }
+}
