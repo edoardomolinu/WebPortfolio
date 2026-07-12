@@ -746,7 +746,7 @@ p {
 
 .project-detail-title {
   font-family: var(--font-primary);
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-regular);
   font-size: clamp(2.5rem, 6.5vw, 5.5rem); /* Responsive fluid scale reaching 88px (5.5rem) on desktop */
   line-height: 1.05;
   letter-spacing: -0.03em;
