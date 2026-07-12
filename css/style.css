@@ -1830,11 +1830,32 @@ p {
   margin-bottom: var(--space-xxs);
 }
 
+.pd-climbex-right-overlay-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
+  width: 38%;
+  max-width: 500px;
+  z-index: 5;
+}
+
+.pd-climbex-right-overlay-text p {
+  color: #000000;
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(0.9rem, 1.2vw, 1.15rem);
+  line-height: 1.6;
+  margin-bottom: var(--space-xs);
+}
+
 @media (max-width: 768px) {
-  .pd-climbex-left-overlay-text {
+  .pd-climbex-left-overlay-text,
+  .pd-climbex-right-overlay-text {
     position: relative;
     top: auto;
     left: auto;
+    right: auto;
     transform: none;
     width: 100%;
     max-width: 100%;
