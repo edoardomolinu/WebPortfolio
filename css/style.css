@@ -1842,3 +1842,81 @@ p {
     padding: 0 var(--space-sm);
   }
 }
+
+/* Annotated callout styles for ClimbexHoof.jpg */
+.pd-climbex-hoof-title {
+  position: absolute;
+  top: 10%;
+  left: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.2rem, 1.8vw, 1.8rem);
+  color: #000000;
+  text-transform: none;
+  margin: 0;
+  z-index: 5;
+}
+
+.pd-climbex-hoof-left-callout {
+  position: absolute;
+  bottom: 10%;
+  left: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
+  width: 30%;
+  max-width: 380px;
+  text-align: left;
+  z-index: 5;
+}
+
+.pd-climbex-hoof-right-callout {
+  position: absolute;
+  top: 15%;
+  right: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
+  width: 30%;
+  max-width: 380px;
+  text-align: left;
+  z-index: 5;
+}
+
+.pd-climbex-hoof-left-callout h4,
+.pd-climbex-hoof-right-callout h4 {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size: clamp(1rem, 1.4vw, 1.4rem);
+  color: #000000;
+  text-transform: none;
+  margin-bottom: var(--space-xs);
+}
+
+.pd-climbex-hoof-left-callout p,
+.pd-climbex-hoof-right-callout p {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+  line-height: 1.5;
+  color: #000000;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .pd-climbex-hoof-title {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-md);
+    padding: 0 var(--space-sm);
+  }
+  
+  .pd-climbex-hoof-left-callout,
+  .pd-climbex-hoof-right-callout {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    width: 100%;
+    max-width: 100%;
+    margin-top: var(--space-md);
+    padding: 0 var(--space-sm);
+  }
+}
