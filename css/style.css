@@ -70,7 +70,7 @@ h1, h2, h3, h4 {
 
 p {
   font-size: var(--fs-body);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   line-height: var(--lh-relaxed);
   color: var(--color-text-muted);
 }
@@ -836,7 +836,7 @@ p {
 
 .pd-trailer-paragraph {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.28;
   color: #000000;
@@ -875,7 +875,7 @@ p {
 
 .project-detail-paragraph {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.28;
   color: var(--color-text-primary);
@@ -944,7 +944,7 @@ p {
 
 .pd-pillar-text {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.14rem, 1.32vw, 1.32rem);
   line-height: 1.28;
   color: var(--color-text-primary);
@@ -1077,7 +1077,7 @@ p {
 
 .project-detail-kitchen-text {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.2rem, 1.68vw, 1.5rem);
   line-height: 1.28;
   color: #ffffff;
@@ -1136,7 +1136,7 @@ p {
   left: 0;
   width: 18%; /* Increased horizontal space by 20% */
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.02rem, 1.32vw, 1.38rem);
   line-height: 1.2;
   color: var(--color-text-primary);
@@ -1152,7 +1152,7 @@ p {
   right: 0;
   width: 18%; /* Increased horizontal space by 20% */
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.02rem, 1.32vw, 1.38rem);
   line-height: 1.2;
   color: var(--color-text-primary);
@@ -1223,7 +1223,7 @@ p {
 
 .project-detail-foot-text {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.28;
   color: #000000;
@@ -1303,7 +1303,7 @@ p {
 
 .pd-knob-text {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.28;
   color: #000000;
@@ -1845,7 +1845,7 @@ p {
 
 .pd-climbex-center-text {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.2rem, 1.62vw, 1.56rem);
   line-height: 1.28;
   color: var(--color-text-primary);
@@ -1876,7 +1876,7 @@ p {
 .pd-climbex-left-overlay-text p {
   color: #000000;
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.08rem, 1.44vw, 1.38rem);
   line-height: 1.28;
   margin-bottom: var(--space-xs);
@@ -1890,7 +1890,7 @@ p {
 
 .pd-climbex-left-overlay-text li {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.08rem, 1.44vw, 1.38rem);
   line-height: 1.28;
   margin-bottom: var(--space-xxs);
@@ -1909,7 +1909,7 @@ p {
 .pd-climbex-right-overlay-text p {
   color: #000000;
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.08rem, 1.44vw, 1.38rem);
   line-height: 1.28;
   margin-bottom: var(--space-xs);
@@ -1979,7 +1979,7 @@ p {
 .pd-climbex-hoof-left-callout p,
 .pd-climbex-hoof-right-callout p {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.02rem, 1.32vw, 1.26rem);
   line-height: 1.2;
   color: #000000;
@@ -2152,7 +2152,7 @@ p {
 
 .pd-leo-center-text {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: clamp(1.2rem, 1.62vw, 1.56rem);
   line-height: 1.28;
   color: var(--color-text-primary);
