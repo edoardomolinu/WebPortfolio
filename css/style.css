@@ -773,6 +773,12 @@ p {
   padding-bottom: 0;
 }
 
+.project-detail-section .container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
+}
+
 .project-detail-title {
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
