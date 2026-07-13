@@ -428,6 +428,13 @@ p {
   letter-spacing: -0.02em;
   margin-bottom: 0;
   text-transform: none;
+  line-height: 1.5; /* Increased interlinea by 20% */
+}
+
+.work-section p,
+.work-section .project-title,
+.pd-next-project-section p {
+  line-height: 1.5;
 }
 
 .project-reveal-frame {
