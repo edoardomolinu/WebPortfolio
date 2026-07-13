@@ -1260,10 +1260,8 @@ p {
 }
 
 .pd-control-knob-content .pd-section-title-left {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0;
+  position: relative;
+  margin-bottom: var(--space-xs);
 }
 
 /* Sections Spacer */
