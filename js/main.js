@@ -260,10 +260,9 @@ function initProjectRevealScroll() {
 }
 
 /**
- * Interactive Canvas Dot Grid Background
- * Spacing is 168px (tripled from 56px).
- * Dots are responsive to mouse movement with magnetic push and brightness highlight.
- * Real-time coordinates update even during scroll movements for high-fidelity response.
+ * Static Canvas Dot Grid Background for Work section.
+ * Spacing is 119px (reduced by 20% from 149px).
+ * Displays a clean, static grid of 45-degree rotated squares without animation or interactive hover physics.
  */
 function initInteractiveGrid() {
   const canvas = document.getElementById('work-grid-canvas');
@@ -272,53 +271,16 @@ function initInteractiveGrid() {
   const workSection = document.getElementById('work') || document.querySelector('.pd-next-project-section');
   if (!workSection) return;
   
-  function resizeCanvas() {
+  const spacing = 119; // Reduced spacing by 20% (149 * 0.8 = 119.2)
+  const radius = 1.8;  // Base size of 45-degree diamond square
+
+  function drawGrid() {
     const dpr = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    ctx.scale(dpr, dpr);
-  }
-  
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-  
-  let mouseX = -1000;
-  let mouseY = -1000;
-  let targetMouseX = -1000;
-  let targetMouseY = -1000;
-  
-  window.addEventListener('mousemove', (e) => {
-    // Screen coordinates mapping 1:1 to position: fixed canvas
-    targetMouseX = e.clientX;
-    targetMouseY = e.clientY;
-  });
-  
-  window.addEventListener('mouseleave', () => {
-    targetMouseX = -1000;
-    targetMouseY = -1000;
-  });
-  
-  let isProjectHovered = false;
-  document.querySelectorAll('.project-reveal-frame, .pd-next-project-preview').forEach(frame => {
-    frame.addEventListener('mouseenter', () => { isProjectHovered = true; });
-    frame.addEventListener('mouseleave', () => { isProjectHovered = false; });
-  });
-  
-  const spacing = 149;
-  const hoverRadius = 120;
-  
-  function animate() {
-    // Smooth physical inertia
-    if (targetMouseX === -1000) {
-      mouseX += (-1000 - mouseX) * 0.08;
-      mouseY += (-1000 - mouseY) * 0.08;
-    } else {
-      mouseX += (targetMouseX - mouseX) * 0.08;
-      mouseY += (targetMouseY - mouseY) * 0.08;
-    }
-    
     const width = window.innerWidth;
     const height = window.innerHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
     ctx.clearRect(0, 0, width, height);
     
     const cols = Math.ceil(width / spacing) + 1;
@@ -327,59 +289,27 @@ function initInteractiveGrid() {
     const offsetX = (width % spacing) / 2;
     const offsetY = (height % spacing) / 2;
     
+    ctx.fillStyle = "#000000";
+
     for (let c = 0; c < cols; c++) {
       for (let r = 0; r < rows; r++) {
-        const baseX = c * spacing + offsetX;
-        const baseY = r * spacing + offsetY;
+        const drawX = c * spacing + offsetX;
+        const drawY = r * spacing + offsetY;
         
-        const dx = baseX - mouseX;
-        const dy = baseY - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        
-        let drawX = baseX;
-        let drawY = baseY;
-        let radius = 1.8; // Base size increased by 50% from 1.2 to 1.8
-        
-        if (dist < hoverRadius) {
-          const force = (hoverRadius - dist) / hoverRadius; // 0 to 1
-          
-          // Magnetic push away from cursor (subtle push)
-          const angle = Math.atan2(dy, dx);
-          const pushDist = force * 6; 
-          drawX = baseX + Math.cos(angle) * pushDist;
-          drawY = baseY + Math.sin(angle) * pushDist;
-          
-          // Scale adjustment (subtle growth, increased by 50%)
-          radius = 1.8 + force * 1.5; // Grows up to 3.3px
-        }
-        
-        // Jitter vibration effect when a project visual frame is hovered
-        let jitterX = 0;
-        let jitterY = 0;
-        if (isProjectHovered) {
-          jitterX = (Math.random() - 0.5) * 3.8; // more perceptible jitter
-          jitterY = (Math.random() - 0.5) * 3.8;
-        }
-        
-        const finalX = drawX + jitterX;
-        const finalY = drawY + jitterY;
-        
-        // Draw rotated square (45-degree diamond)
+        // Draw static 45-degree rotated square (diamond)
         ctx.beginPath();
-        ctx.moveTo(finalX, finalY - radius); // Top point
-        ctx.lineTo(finalX + radius, finalY); // Right point
-        ctx.lineTo(finalX, finalY + radius); // Bottom point
-        ctx.lineTo(finalX - radius, finalY); // Left point
+        ctx.moveTo(drawX, drawY - radius); // Top point
+        ctx.lineTo(drawX + radius, drawY); // Right point
+        ctx.lineTo(drawX, drawY + radius); // Bottom point
+        ctx.lineTo(drawX - radius, drawY); // Left point
         ctx.closePath();
-        ctx.fillStyle = "#000000";
         ctx.fill();
       }
     }
-    
-    requestAnimationFrame(animate);
   }
   
-  animate();
+  window.addEventListener('resize', drawGrid);
+  drawGrid();
 }
 
 /**
