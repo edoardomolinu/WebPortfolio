@@ -2057,3 +2057,36 @@ p {
     width: 80% !important;
   }
 }
+
+/* Styling overrides for pLeo.html */
+.pd-leo-subtitle-block {
+  margin-top: calc(2 * var(--space-md));
+  margin-bottom: calc(2 * var(--space-md));
+  text-align: left;
+}
+
+.pd-leo-fullscreen-img {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-top: calc(2 * var(--space-md));
+  margin-bottom: calc(2 * var(--space-md));
+}
+
+.pd-leo-center-text-block {
+  max-width: 750px;
+  margin: calc(2 * var(--space-md)) auto;
+  text-align: center;
+  padding: 0 var(--space-sm);
+}
+
+.pd-leo-center-text {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1rem, 1.35vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  margin: 0;
+}
