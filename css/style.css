@@ -2156,13 +2156,9 @@ p {
 }
 
 .pd-leo-center-text-block {
-  width: 44%;
-  max-width: 800px;
-  margin-top: calc(3 * var(--space-md));
-  margin-bottom: calc(3 * var(--space-md));
-  margin-left: auto;
-  margin-right: 0;
-  padding: 0;
+  max-width: 1125px;
+  margin: calc(3 * var(--space-md)) auto;
+  padding: 0 var(--space-sm);
 }
 
 .pd-leo-center-text {
@@ -2173,13 +2169,4 @@ p {
   color: var(--color-text-primary);
   text-align: left;
   margin: 0;
-}
-
-@media (max-width: 768px) {
-  .pd-leo-center-text-block {
-    width: 100%;
-    max-width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-  }
 }
