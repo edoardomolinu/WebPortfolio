@@ -50,6 +50,23 @@ function initScrollReveal() {
   });
 
   textElements.forEach(el => textObserver.observe(el));
+
+  // Top-to-Bottom Fluid Image Mask Reveal when element arrives in position
+  const imageElements = document.querySelectorAll('.img-reveal-top-down');
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '0px 0px -10% 0px',
+    threshold: 0.2
+  });
+
+  imageElements.forEach(el => imageObserver.observe(el));
 }
 
 /**
