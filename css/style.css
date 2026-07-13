@@ -1089,7 +1089,7 @@ p {
   font-size: clamp(1.2rem, 1.68vw, 1.5rem);
   line-height: 1.28;
   color: #ffffff;
-  text-align: center;
+  text-align: left;
   max-width: 800px;
   margin: 0;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
