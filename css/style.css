@@ -1557,6 +1557,7 @@ p {
 }
 
 /* STRICTLY SHARP CORNERS (border-radius: 0 !important) for all full-screen / full-width breakout images across all sections */
+.cover-frame,
 .full-width-concept,
 .full-width-trailer,
 .pd-climbex-fullscreen-img,
@@ -1565,6 +1566,7 @@ p {
 .project-detail-kitchen-container,
 .project-detail-foot-container,
 .p-luminair .pd-crumb-tray-section .cover-frame,
+.cover-frame img,
 .full-width-concept img,
 .full-width-trailer img,
 .pd-climbex-fullscreen-img img,
@@ -1574,6 +1576,7 @@ p {
 .project-detail-foot-container img,
 .project-detail-foot-img,
 .project-detail-kitchen-img,
+.project-detail-section .cover-frame,
 .project-detail-section .full-width-concept,
 .project-detail-section .full-width-trailer,
 .project-detail-section .pd-climbex-fullscreen-img,
@@ -1581,6 +1584,7 @@ p {
 .project-detail-section .pd-leo-fullscreen-img,
 .project-detail-section .project-detail-kitchen-container,
 .project-detail-section .project-detail-foot-container,
+.project-detail-section .cover-frame img,
 .project-detail-section .full-width-concept img,
 .project-detail-section .full-width-trailer img,
 .project-detail-section .pd-climbex-fullscreen-img img,
