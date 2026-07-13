@@ -833,8 +833,8 @@ p {
 
 .pd-trailer-subtitle {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
-  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.15;
   color: var(--color-text-primary);
   margin: 0;
@@ -873,8 +873,8 @@ p {
 
 .project-detail-subtitle {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
-  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.15;
   color: var(--color-text-primary);
   text-transform: none; /* Preserve case */
@@ -899,8 +899,8 @@ p {
 
 .pd-pillars-title {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
-  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.15;
   color: var(--color-text-primary);
   text-transform: none;
@@ -942,8 +942,8 @@ p {
 
 .pd-pillar-subtitle {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
-  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.15;
   color: var(--color-text-primary);
   margin: 0;
@@ -983,8 +983,8 @@ p {
 
 .pd-moodboard-title {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
-  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.15;
   color: var(--color-text-primary);
   text-transform: none;
@@ -1105,8 +1105,8 @@ p {
 
 .pd-mechanism-title {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
-  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.15;
   color: var(--color-text-primary);
   text-transform: none;
@@ -1242,8 +1242,8 @@ p {
 /* Titles Left */
 .pd-section-title-left {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
-  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.15;
   color: var(--color-text-primary);
   text-transform: none;
@@ -1948,8 +1948,8 @@ p {
   top: 10%;
   left: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
-  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.15;
   color: #000000;
   text-transform: none;
@@ -1980,8 +1980,8 @@ p {
 .pd-climbex-hoof-left-callout h4,
 .pd-climbex-hoof-right-callout h4 {
   font-family: var(--font-primary);
-  font-weight: var(--fw-regular);
-  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
   line-height: 1.15;
   color: #000000;
   text-transform: none;
