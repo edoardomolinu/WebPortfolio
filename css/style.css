@@ -772,15 +772,23 @@ p {
 }
 
 .project-detail-image-container.cover-frame {
-  width: 100%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw !important;
+  max-width: 100vw !important;
   aspect-ratio: 16 / 9;
   overflow: hidden;
+  border-radius: 0 !important;
   margin-bottom: calc(3 * var(--space-md)); /* Increased section spacing by 50% */
 }
 
 .project-detail-image-container.cover-frame img,
 .project-detail-image-container.cover-frame .project-detail-img {
+  width: 100%;
   height: 100% !important;
+  object-fit: cover;
+  border-radius: 0 !important;
 }
 
 /* LeoTrailer Section Row layout (Image aligned right, text block left aligned and split top/bottom) */
