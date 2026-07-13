@@ -547,7 +547,7 @@ p {
 /* Top-to-Bottom Fluid Image Reveal Animation on position arrival */
 .img-reveal-top-down {
   clip-path: inset(0 0 100% 0);
-  transition: clip-path 1.0s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
+  transition: clip-path 2.0s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
   will-change: clip-path;
 }
 
