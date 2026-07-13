@@ -1045,7 +1045,10 @@ p {
 /* LeoKitchen overlay styles */
 .project-detail-kitchen-container {
   position: relative;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw !important;
+  max-width: 100vw !important;
   overflow: hidden;
   border-radius: 0 !important;
   margin-bottom: calc(2 * var(--space-md));
@@ -1127,7 +1130,7 @@ p {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 15%; /* Fits in the left margin space */
+  width: 18%; /* Increased horizontal space by 20% */
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
   font-size: clamp(1.02rem, 1.32vw, 1.38rem);
@@ -1142,7 +1145,7 @@ p {
   position: absolute;
   top: 0;
   right: 0;
-  width: 15%; /* Fits in the right margin space */
+  width: 18%; /* Increased horizontal space by 20% */
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
   font-size: clamp(1.02rem, 1.32vw, 1.38rem);
@@ -1180,7 +1183,10 @@ p {
 /* Foot Section Overlay */
 .project-detail-foot-container {
   position: relative;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw !important;
+  max-width: 100vw !important;
   overflow: hidden;
   border-radius: 0 !important;
   margin-top: 50px;
@@ -1200,9 +1206,9 @@ p {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 0;
-  width: 50%; /* Right 2 columns of 4-column layout */
-  padding: var(--space-md);
+  right: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
+  width: 38%;
+  max-width: 500px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
