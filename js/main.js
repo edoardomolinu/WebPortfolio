@@ -62,11 +62,18 @@ function initScrollReveal() {
     });
   }, {
     root: null,
-    rootMargin: '0px 0px -10% 0px',
-    threshold: 0.2
+    rootMargin: '0px 0px -5% 0px',
+    threshold: 0 // Threshold 0 required for clipped elements
   });
 
-  imageElements.forEach(el => imageObserver.observe(el));
+  imageElements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.9) {
+      el.classList.add('visible');
+    } else {
+      imageObserver.observe(el);
+    }
+  });
 }
 
 /**
