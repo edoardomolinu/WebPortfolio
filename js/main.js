@@ -62,13 +62,13 @@ function initScrollReveal() {
     });
   }, {
     root: null,
-    rootMargin: '0px 0px -5% 0px',
-    threshold: 0 // Threshold 0 required for clipped elements
+    rootMargin: '0px 0px -25% 0px', // Triggers when container is 25% clear in position on screen
+    threshold: 0
   });
 
   imageElements.forEach(el => {
     const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.9) {
+    if (rect.top < window.innerHeight * 0.5) {
       el.classList.add('visible');
     } else {
       imageObserver.observe(el);
