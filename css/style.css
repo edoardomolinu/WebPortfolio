@@ -775,7 +775,7 @@ p {
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  margin-bottom: calc(2 * var(--space-md)); /* Double space between image and text block */
+  margin-bottom: calc(3 * var(--space-md)); /* Increased section spacing by 50% */
 }
 
 .project-detail-image-container.cover-frame img,
@@ -787,8 +787,8 @@ p {
 .pd-trailer-section-row {
   position: relative;
   width: 100%;
-  margin-top: calc(2 * var(--space-md));
-  margin-bottom: calc(2 * var(--space-md));
+  margin-top: calc(3 * var(--space-md));
+  margin-bottom: calc(3 * var(--space-md));
   display: flex;
   justify-content: space-between;
 }
@@ -858,7 +858,7 @@ p {
   flex-direction: column;
   gap: var(--space-xs);
   margin-top: 0;
-  margin-bottom: calc(2 * var(--space-md)); /* Double space between text block and next block */
+  margin-bottom: calc(3 * var(--space-md)); /* Increased section spacing by 50% */
   align-items: flex-start;
   text-align: left;
 }
@@ -885,8 +885,8 @@ p {
 
 /* Design Pillars Section */
 .pd-design-pillars {
-  margin-top: calc(2 * var(--space-md)); /* Double spacing from the previous block */
-  margin-bottom: calc(2 * var(--space-md));
+  margin-top: calc(3 * var(--space-md));
+  margin-bottom: calc(3 * var(--space-md));
 }
 
 .pd-pillars-title {
@@ -969,8 +969,8 @@ p {
 
 /* Moodboard Section */
 .pd-moodboard {
-  margin-top: calc(2 * var(--space-md)); /* Double spacing from the previous block */
-  margin-bottom: calc(2 * var(--space-md));
+  margin-top: calc(3 * var(--space-md));
+  margin-bottom: calc(3 * var(--space-md));
 }
 
 .pd-moodboard-title {
@@ -1039,7 +1039,7 @@ p {
 /* LeoConcept container increased by a third (to 66.6%) and centered */
 .project-detail-image-container.concept-frame {
   width: 66.6%;
-  margin: 0 auto calc(2 * var(--space-md));
+  margin: 0 auto calc(3 * var(--space-md));
 }
 
 /* LeoKitchen overlay styles */
@@ -1051,7 +1051,7 @@ p {
   max-width: 100vw !important;
   overflow: hidden;
   border-radius: 0 !important;
-  margin-bottom: calc(2 * var(--space-md));
+  margin-bottom: calc(3 * var(--space-md));
   background-color: var(--color-bg-secondary);
 }
 
@@ -1091,8 +1091,8 @@ p {
 .pd-mechanism-section {
   position: relative;
   width: 100%;
-  margin-top: calc(2 * var(--space-md));
-  margin-bottom: calc(2 * var(--space-md));
+  margin-top: calc(3 * var(--space-md));
+  margin-bottom: calc(3 * var(--space-md));
 }
 
 .pd-mechanism-title {
@@ -1117,7 +1117,8 @@ p {
   position: relative;
 }
 
-.pd-mechanism-img-container img {
+.pd-mechanism-img-container img,
+.pd-mechanism-img-container video {
   width: 100%;
   height: auto;
   display: block;
@@ -1139,6 +1140,7 @@ p {
   text-align: left;
   margin: 0;
   transform: translateY(-100%);
+  z-index: 10;
 }
 
 .pd-mechanism-text-tr {
@@ -1154,6 +1156,7 @@ p {
   text-align: right;
   margin: 0;
   transform: translateY(100%);
+  z-index: 10;
 }
 
 /* Handles Row Side-by-Side */
@@ -1161,8 +1164,8 @@ p {
   display: flex;
   gap: var(--space-xs); /* Elegant proportional gutter */
   width: 100%;
-  margin-top: calc(2 * var(--space-md));
-  margin-bottom: calc(2 * var(--space-md));
+  margin-top: calc(3 * var(--space-md));
+  margin-bottom: calc(3 * var(--space-md));
 }
 
 .pd-handle-col {
@@ -1190,7 +1193,7 @@ p {
   overflow: hidden;
   border-radius: 0 !important;
   margin-top: 50px;
-  margin-bottom: calc(2 * var(--space-md));
+  margin-bottom: calc(3 * var(--space-md));
   background-color: var(--color-bg-secondary);
 }
 
@@ -1257,8 +1260,8 @@ p {
 .pd-control-knob-section,
 .pd-crumb-tray-section,
 .pd-colors-section {
-  margin-top: calc(2 * var(--space-md));
-  margin-bottom: calc(2 * var(--space-md));
+  margin-top: calc(3 * var(--space-md));
+  margin-bottom: calc(3 * var(--space-md));
 }
 
 /* Control Knob Content layout container */
@@ -1309,11 +1312,11 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: calc(2 * var(--space-md));
+  margin-top: calc(3 * var(--space-md));
   margin-bottom: 170px;
   width: 100%;
   position: relative;
-  padding-top: calc(2 * var(--space-md));
+  padding-top: calc(3 * var(--space-md));
   overflow: hidden;
   clip-path: inset(0);
 }
@@ -1820,7 +1823,7 @@ p {
 /* Page-specific styling for pclimbex.html */
 .pd-climbex-center-text-block {
   max-width: 1125px;
-  margin: calc(2 * var(--space-md)) auto;
+  margin: calc(3 * var(--space-md)) auto;
   text-align: center;
   padding: 0 var(--space-sm);
 }
@@ -1841,8 +1844,8 @@ p {
   transform: translateX(-50%);
   width: 100vw !important;
   max-width: 100vw !important;
-  margin-top: calc(2 * var(--space-md));
-  margin-bottom: calc(2 * var(--space-md));
+  margin-top: calc(3 * var(--space-md));
+  margin-bottom: calc(3 * var(--space-md));
 }
 
 .pd-climbex-left-overlay-text {
@@ -2093,7 +2096,7 @@ p {
 
 .pd-climbex-centered-margin-img {
   width: 100% !important;
-  margin: 0 auto calc(2 * var(--space-md)) auto !important;
+  margin: 0 auto calc(3 * var(--space-md)) auto !important;
 }
 
 /* Double the margins (half the width of standard centered images) for ClimbexStrap.jpg */
@@ -2110,8 +2113,8 @@ p {
 
 /* Styling overrides for pLeo.html */
 .pd-leo-subtitle-block {
-  margin-top: calc(2 * var(--space-md));
-  margin-bottom: calc(2 * var(--space-md));
+  margin-top: calc(3 * var(--space-md));
+  margin-bottom: calc(3 * var(--space-md));
   text-align: left;
 }
 
@@ -2121,13 +2124,13 @@ p {
   transform: translateX(-50%);
   width: 100vw !important;
   max-width: 100vw !important;
-  margin-top: calc(2 * var(--space-md));
-  margin-bottom: calc(2 * var(--space-md));
+  margin-top: calc(3 * var(--space-md));
+  margin-bottom: calc(3 * var(--space-md));
 }
 
 .pd-leo-center-text-block {
   max-width: 1125px;
-  margin: calc(2 * var(--space-md)) auto;
+  margin: calc(3 * var(--space-md)) auto;
   text-align: center;
   padding: 0 var(--space-sm);
 }
