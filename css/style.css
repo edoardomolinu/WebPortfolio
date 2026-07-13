@@ -1470,11 +1470,23 @@ p {
     width: 100%;
   }
   
-  .pd-mechanism-text-bl,
-  .pd-mechanism-text-tr {
+  .pd-mechanism-text-bl {
     position: relative;
     width: 100%;
     text-align: left;
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-xs);
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    transform: none;
+  }
+
+  .pd-mechanism-text-tr {
+    position: relative;
+    width: 100%;
+    text-align: right;
     margin-top: var(--space-xs);
     margin-bottom: var(--space-xs);
     left: auto;
