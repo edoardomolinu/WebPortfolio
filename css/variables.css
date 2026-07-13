@@ -12,7 +12,7 @@
   --fs-h1: clamp(2.2rem, 5.5vw, 4.5rem);      /* Primary section headers */
   --fs-h2: clamp(1.6rem, 3.5vw, 2.5rem);      /* Sub-sections / project names */
   --fs-h3: clamp(1.2rem, 2vw, 1.8rem);        /* Secondary structural headings */
-  --fs-body: clamp(0.95rem, 1.1vw, 1.15rem);  /* Regular description copy */
+  --fs-body: clamp(1.15rem, 1.35vw, 1.38rem);  /* Regular description copy (+20%) */
   --fs-meta: clamp(0.7rem, 0.8vw, 0.85rem);   /* Tech-minimalist metadata & labels */
 
   /* Font Weights */
@@ -26,8 +26,8 @@
 
   /* Line Heights */
   --lh-tight: 0.95;
-  --lh-medium: 1.25;
-  --lh-relaxed: 1.65;
+  --lh-medium: 1.15;
+  --lh-relaxed: 1.32;                          /* Reduced line height (-20%) */
 
   /* Letter Spacing */
   --ls-normal: 0;

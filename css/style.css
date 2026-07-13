@@ -70,7 +70,7 @@ h1, h2, h3, h4 {
 
 p {
   font-size: var(--fs-body);
-  font-weight: var(--fw-light);
+  font-weight: var(--fw-regular);
   line-height: var(--lh-relaxed);
   color: var(--color-text-muted);
 }
@@ -818,9 +818,9 @@ p {
 
 .pd-trailer-subtitle {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-regular);
   font-size: clamp(1.6rem, 2.5vw, 2.3rem);
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--color-text-primary);
   margin: 0;
   text-transform: none; /* Exact casing */
@@ -829,9 +829,9 @@ p {
 
 .pd-trailer-paragraph {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(1rem, 1.3vw, 1.25rem);
-  line-height: 1.6;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
+  line-height: 1.28;
   color: #000000;
   margin: 0;
   text-align: left;
@@ -858,8 +858,8 @@ p {
 
 .project-detail-subtitle {
   font-family: var(--font-primary);
-  font-weight: var(--fw-bold);
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
   line-height: 1.15;
   color: var(--color-text-primary);
   text-transform: none; /* Preserve case */
@@ -869,8 +869,8 @@ p {
 .project-detail-paragraph {
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
-  font-size: clamp(1rem, 1.2vw, 1.25rem);
-  line-height: 1.65;
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
+  line-height: 1.28;
   color: var(--color-text-primary);
   max-width: 66.6%; /* Max 2/3 of page width */
   margin: 0;
@@ -884,9 +884,9 @@ p {
 
 .pd-pillars-title {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-regular);
   font-size: clamp(1.6rem, 2.5vw, 2.3rem);
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--color-text-primary);
   text-transform: none;
   margin-bottom: var(--space-md);
@@ -927,9 +927,9 @@ p {
 
 .pd-pillar-subtitle {
   font-family: var(--font-primary);
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-regular);
   font-size: clamp(1.2rem, 1.8vw, 1.5rem);
-  line-height: 1.25;
+  line-height: 1.15;
   color: var(--color-text-primary);
   margin: 0;
   text-transform: none;
@@ -938,8 +938,8 @@ p {
 .pd-pillar-text {
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
-  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
-  line-height: 1.6;
+  font-size: clamp(1.14rem, 1.32vw, 1.32rem);
+  line-height: 1.28;
   color: var(--color-text-primary);
   opacity: 0.8;
   margin: 0;
@@ -968,9 +968,9 @@ p {
 
 .pd-moodboard-title {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-regular);
   font-size: clamp(1.6rem, 2.5vw, 2.3rem);
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--color-text-primary);
   text-transform: none;
   margin-bottom: var(--space-md);
@@ -1067,9 +1067,9 @@ p {
 
 .project-detail-kitchen-text {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(1rem, 1.4vw, 1.25rem);
-  line-height: 1.6;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.2rem, 1.68vw, 1.5rem);
+  line-height: 1.28;
   color: #ffffff;
   text-align: center;
   max-width: 800px;
@@ -1087,9 +1087,9 @@ p {
 
 .pd-mechanism-title {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-regular);
   font-size: clamp(1.6rem, 2.5vw, 2.3rem);
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--color-text-primary);
   text-transform: none;
   margin-bottom: 30px;
@@ -1122,9 +1122,9 @@ p {
   left: 0;
   width: 15%; /* Fits in the left margin space */
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(0.85rem, 1.1vw, 1.15rem);
-  line-height: 1.5;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.02rem, 1.32vw, 1.38rem);
+  line-height: 1.2;
   color: var(--color-text-primary);
   text-align: left;
   margin: 0;
@@ -1137,9 +1137,9 @@ p {
   right: 0;
   width: 15%; /* Fits in the right margin space */
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(0.85rem, 1.1vw, 1.15rem);
-  line-height: 1.5;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.02rem, 1.32vw, 1.38rem);
+  line-height: 1.2;
   color: var(--color-text-primary);
   text-align: right;
   margin: 0;
@@ -1204,9 +1204,9 @@ p {
 
 .project-detail-foot-text {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(1rem, 1.3vw, 1.25rem);
-  line-height: 1.6;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
+  line-height: 1.28;
   color: #000000;
   text-align: left;
   margin: 0;
@@ -1215,9 +1215,9 @@ p {
 /* Titles Left */
 .pd-section-title-left {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-regular);
   font-size: clamp(1.6rem, 2.5vw, 2.3rem);
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--color-text-primary);
   text-transform: none;
   margin-bottom: var(--space-md);
@@ -1284,9 +1284,9 @@ p {
 
 .pd-knob-text {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(1rem, 1.3vw, 1.25rem);
-  line-height: 1.6;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
+  line-height: 1.28;
   color: #000000;
   margin: 0;
 }
@@ -1771,7 +1771,7 @@ p {
 
 /* Page-specific styling for pclimbex.html */
 .pd-climbex-center-text-block {
-  max-width: 750px;
+  max-width: 1125px;
   margin: calc(2 * var(--space-md)) auto;
   text-align: center;
   padding: 0 var(--space-sm);
@@ -1779,9 +1779,9 @@ p {
 
 .pd-climbex-center-text {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(1rem, 1.35vw, 1.3rem);
-  line-height: 1.6;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.2rem, 1.62vw, 1.56rem);
+  line-height: 1.28;
   color: var(--color-text-primary);
   margin: 0;
 }
@@ -1810,9 +1810,9 @@ p {
 .pd-climbex-left-overlay-text p {
   color: #000000;
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(0.9rem, 1.2vw, 1.15rem);
-  line-height: 1.6;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.08rem, 1.44vw, 1.38rem);
+  line-height: 1.28;
   margin-bottom: var(--space-xs);
 }
 
@@ -1824,9 +1824,9 @@ p {
 
 .pd-climbex-left-overlay-text li {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(0.9rem, 1.2vw, 1.15rem);
-  line-height: 1.6;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.08rem, 1.44vw, 1.38rem);
+  line-height: 1.28;
   margin-bottom: var(--space-xxs);
 }
 
@@ -1843,9 +1843,9 @@ p {
 .pd-climbex-right-overlay-text p {
   color: #000000;
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(0.9rem, 1.2vw, 1.15rem);
-  line-height: 1.6;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.08rem, 1.44vw, 1.38rem);
+  line-height: 1.28;
   margin-bottom: var(--space-xs);
 }
 
@@ -1870,8 +1870,9 @@ p {
   top: 10%;
   left: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(1.2rem, 1.8vw, 1.8rem);
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  line-height: 1.15;
   color: #000000;
   text-transform: none;
   margin: 0;
@@ -1901,8 +1902,9 @@ p {
 .pd-climbex-hoof-left-callout h4,
 .pd-climbex-hoof-right-callout h4 {
   font-family: var(--font-primary);
-  font-weight: var(--fw-bold);
-  font-size: clamp(1rem, 1.4vw, 1.4rem);
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  line-height: 1.15;
   color: #000000;
   text-transform: none;
   margin-bottom: var(--space-xs);
@@ -1911,9 +1913,9 @@ p {
 .pd-climbex-hoof-left-callout p,
 .pd-climbex-hoof-right-callout p {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
-  line-height: 1.5;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.02rem, 1.32vw, 1.26rem);
+  line-height: 1.2;
   color: #000000;
   margin: 0;
 }
@@ -2076,7 +2078,7 @@ p {
 }
 
 .pd-leo-center-text-block {
-  max-width: 750px;
+  max-width: 1125px;
   margin: calc(2 * var(--space-md)) auto;
   text-align: center;
   padding: 0 var(--space-sm);
@@ -2084,9 +2086,9 @@ p {
 
 .pd-leo-center-text {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(1rem, 1.35vw, 1.3rem);
-  line-height: 1.6;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.2rem, 1.62vw, 1.56rem);
+  line-height: 1.28;
   color: var(--color-text-primary);
   margin: 0;
 }
