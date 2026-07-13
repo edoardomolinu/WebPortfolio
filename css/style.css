@@ -1207,8 +1207,8 @@ p {
   top: 50%;
   transform: translateY(-50%);
   right: calc((100vw - min(100vw - 2 * var(--space-sm), var(--max-content-width))) / 2);
-  width: 38%;
-  max-width: 500px;
+  width: 47.5%; /* Increased horizontal space towards left by 25% (38% * 1.25) */
+  max-width: 625px; /* Increased max-width by 25% (500px * 1.25) */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
