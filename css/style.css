@@ -1739,9 +1739,9 @@ p {
 
 .pd-ux-overlay-text p {
   font-family: var(--font-primary);
-  font-weight: var(--fw-medium);
-  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
-  line-height: 1.5;
+  font-weight: var(--fw-light);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
+  line-height: 1.28;
   color: #000000;
   margin: 0 0 var(--space-xs) 0;
 }
