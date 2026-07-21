@@ -2204,9 +2204,10 @@ p {
   justify-content: space-between;
   align-items: flex-start;
   gap: var(--space-md);
-  max-width: 1125px;
-  margin: calc(3 * var(--space-md)) auto;
-  padding: 0 var(--space-sm);
+  width: 100%;
+  max-width: 100%;
+  margin: calc(3 * var(--space-md)) 0;
+  padding: 0;
 }
 
 .pd-two-col-text-left {
