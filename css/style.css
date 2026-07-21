@@ -2197,3 +2197,36 @@ p {
   text-align: left;
   margin: 0;
 }
+
+/* Two Column Left/Right Text Row */
+.pd-two-col-text-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-md);
+  max-width: 1125px;
+  margin: calc(3 * var(--space-md)) auto;
+  padding: 0 var(--space-sm);
+}
+
+.pd-two-col-text-left {
+  width: 44%;
+  text-align: left;
+}
+
+.pd-two-col-text-right {
+  width: 44%;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .pd-two-col-text-row {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .pd-two-col-text-left,
+  .pd-two-col-text-right {
+    width: 100%;
+    text-align: left;
+  }
+}
