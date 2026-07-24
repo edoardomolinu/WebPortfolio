@@ -2215,8 +2215,18 @@ p {
   text-align: left;
 }
 
+.pd-two-col-text-left .project-detail-paragraph {
+  max-width: 100%;
+}
+
 .pd-two-col-text-right {
   width: 44%;
+  text-align: right;
+}
+
+.pd-two-col-text-right .project-detail-paragraph {
+  max-width: 100%;
+  margin-left: auto;
   text-align: right;
 }
 
@@ -2228,6 +2238,9 @@ p {
   .pd-two-col-text-left,
   .pd-two-col-text-right {
     width: 100%;
+    text-align: left;
+  }
+  .pd-two-col-text-right .project-detail-paragraph {
     text-align: left;
   }
 }
