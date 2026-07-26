@@ -2230,13 +2230,25 @@ p {
   text-align: right;
 }
 
+.pd-center-text-col {
+  width: 33%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.pd-center-text-col .project-detail-paragraph {
+  max-width: 100%;
+}
+
 @media (max-width: 768px) {
   .pd-two-col-text-row {
     flex-direction: column;
     gap: var(--space-sm);
   }
   .pd-two-col-text-left,
-  .pd-two-col-text-right {
+  .pd-two-col-text-right,
+  .pd-center-text-col {
     width: 100%;
     text-align: left;
   }
