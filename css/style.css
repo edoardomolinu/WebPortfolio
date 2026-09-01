@@ -2259,3 +2259,61 @@ p {
     text-align: left;
   }
 }
+
+/* Climbex Foot Rubber Specs Section (under CLFoot.webp) */
+.pd-climbex-foot-specs-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 850px;
+  margin: calc(2.5 * var(--space-md)) auto calc(3 * var(--space-md));
+  padding: 0 var(--space-sm);
+  gap: var(--space-md);
+}
+
+.pd-climbex-foot-spec-col {
+  flex: 1;
+  max-width: 360px;
+  text-align: left;
+}
+
+.pd-climbex-foot-spec-title {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-semibold);
+  font-size: clamp(1.15rem, 1.45vw, 1.4rem);
+  line-height: 1.2;
+  color: #000000;
+  text-transform: none;
+  margin-bottom: var(--space-xs);
+}
+
+.pd-climbex-foot-spec-list {
+  list-style-type: disc;
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.pd-climbex-foot-spec-list li {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-light);
+  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+  line-height: 1.35;
+  color: #000000;
+  margin-bottom: 0.35rem;
+}
+
+.pd-climbex-foot-spec-list li:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .pd-climbex-foot-specs-row {
+    flex-direction: column;
+    gap: var(--space-md);
+    margin: var(--space-md) auto;
+  }
+  .pd-climbex-foot-spec-col {
+    max-width: 100%;
+  }
+}
