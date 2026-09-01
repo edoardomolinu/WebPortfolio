@@ -1954,6 +1954,7 @@ p {
   font-size: clamp(1.08rem, 1.44vw, 1.38rem);
   line-height: 1.28;
   margin-bottom: var(--space-xs);
+  text-align: right;
 }
 
 @media (max-width: 768px) {
