@@ -2163,8 +2163,8 @@ p {
 
 /* Left-aligned, proportional size for ClimbexStrap.jpg */
 .pd-climbex-strap-container {
-  width: 50% !important;
-  max-width: 650px !important;
+  width: 65% !important;
+  max-width: 845px !important;
   margin: calc(3 * var(--space-md)) auto calc(3 * var(--space-md)) 0 !important;
 }
 
