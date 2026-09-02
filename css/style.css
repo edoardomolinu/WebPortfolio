@@ -2331,3 +2331,64 @@ p {
     transform: none;
   }
 }
+
+/* Climbex Video Section (Left text, Right 1:1 masked square video) */
+.pd-climbex-video-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: calc(3 * var(--space-md));
+  margin-bottom: calc(3 * var(--space-md));
+  gap: var(--space-lg);
+}
+
+.pd-climbex-video-text {
+  width: 38%;
+  max-width: 500px;
+  text-align: left;
+}
+
+.pd-climbex-video-text p {
+  color: #000000;
+  font-family: var(--font-primary);
+  font-weight: var(--fw-light);
+  font-size: clamp(1.08rem, 1.44vw, 1.38rem);
+  line-height: 1.28;
+  margin: 0;
+}
+
+.pd-climbex-video-container {
+  width: 50%;
+  max-width: 650px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 0 !important;
+  background-color: var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pd-climbex-video-sq {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 !important;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .pd-climbex-video-row {
+    flex-direction: column-reverse;
+    gap: var(--space-md);
+  }
+  .pd-climbex-video-text {
+    width: 100%;
+    max-width: 100%;
+  }
+  .pd-climbex-video-container {
+    width: 100%;
+    max-width: 100%;
+  }
+}
