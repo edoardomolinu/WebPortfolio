@@ -2267,7 +2267,7 @@ p {
   align-items: flex-start;
   width: 100%;
   max-width: 850px;
-  margin: calc(2.5 * var(--space-md)) auto calc(3 * var(--space-md));
+  margin: var(--space-sm) auto calc(3 * var(--space-md));
   padding: 0 var(--space-sm);
   gap: var(--space-md);
 }
@@ -2276,6 +2276,10 @@ p {
   flex: 1;
   max-width: 360px;
   text-align: left;
+}
+
+.pd-climbex-foot-spec-col--right {
+  transform: translateX(25%);
 }
 
 .pd-climbex-foot-spec-title {
@@ -2315,5 +2319,8 @@ p {
   }
   .pd-climbex-foot-spec-col {
     max-width: 100%;
+  }
+  .pd-climbex-foot-spec-col--right {
+    transform: none;
   }
 }
