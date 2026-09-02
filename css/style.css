@@ -1606,11 +1606,16 @@ p {
 .project-detail-section .project-detail-kitchen-container,
 .project-detail-section .project-detail-foot-container,
 .project-detail-section .cover-frame img,
+.project-detail-section .cover-frame video,
 .project-detail-section .full-width-concept img,
+.project-detail-section .full-width-concept video,
 .project-detail-section .full-width-trailer img,
+.project-detail-section .full-width-trailer video,
 .project-detail-section .pd-climbex-fullscreen-img img,
+.project-detail-section .pd-climbex-fullscreen-img video,
 .project-detail-section .pd-climbex-fullscreen-img-overlay img,
 .project-detail-section .pd-leo-fullscreen-img img,
+.project-detail-section .pd-leo-fullscreen-img video,
 .project-detail-section .project-detail-kitchen-container img,
 .project-detail-section .project-detail-foot-container img {
   border-radius: 0 !important;
