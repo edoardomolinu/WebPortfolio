@@ -2344,8 +2344,8 @@ p {
 }
 
 .pd-climbex-video-text {
-  width: 38%;
-  max-width: 500px;
+  width: 28%;
+  max-width: 380px;
   text-align: left;
 }
 
@@ -2359,8 +2359,8 @@ p {
 }
 
 .pd-climbex-video-container {
-  width: 50%;
-  max-width: 650px;
+  width: 65%;
+  max-width: 975px;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 0 !important;
