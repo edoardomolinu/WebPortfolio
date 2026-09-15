@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@700&family=Trispace:wght@100..800&display=swap" rel="stylesheet">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="./css/style.css?v=8.7">
+  <link rel="stylesheet" href="./css/style.css?v=13.1">
 </head>
 <body>
 
@@ -25,7 +25,7 @@
   <!-- Header Navigation -->
   <header class="header">
     <a href="#" class="header__logo">
-      <span class="header__logo-text">E.Molinu 2026</span>
+      <span class="header__logo-text">Edo.Molinu 26</span>
     </a>
     <nav class="header__nav">
       <a href="#work" class="header__link">Work</a>
@@ -78,91 +78,108 @@
 
   <!-- Work Section -->
   <section class="work-section" id="work">
-    <canvas id="work-grid-canvas" class="work-section__canvas-bg"></canvas>
-    
-    <!-- Project 1: Neon Green Accent -->
-    <div class="project-block" id="project-01">
-      <div class="container">
-        <a href="./pLeo.html" class="project-link-wrapper">
-          <div class="project-layout">
-            
-            <div class="project-reveal-frame">
-              <div class="project-reveal-inner">
-                <img class="project-image-reveal" src="./asset/img/Leo_Hero.jpg" alt="Leo | Casa Bugatti">
-              </div>
+    <div class="container work-container">
+      
+      <!-- Left Column: Scrolling Visuals (Images glide vertically with page scroll) -->
+      <div class="work-visuals-col">
+        
+        <!-- Visual 1: Leo | Casa Bugatti -->
+        <div class="work-visual-item" data-index="0" id="project-01">
+          <a href="./pLeo.html" class="work-visual-link">
+            <div class="work-visual-frame">
+              <img class="work-visual-img" src="./asset/img/Leo_Hero.webp" alt="Leo | Casa Bugatti">
             </div>
-            
-            <div class="project-info reveal-up">
-              <h2 class="project-title">Leo | Casa Bugatti</h2>
+            <div class="work-mobile-info">
+              <h2 class="work-info-title">Leo | Casa Bugatti</h2>
+              <p class="work-info-desc">A toaster that transcends the role of a simple appliance into a collectible piece of art, transforming the bread-toasting ritual into an iconic experience tailored for modern luxury micro-living.</p>
             </div>
-            
-          </div>
-        </a>
-      </div>
-    </div>
+          </a>
+        </div>
 
-    <!-- Project 2: Electric Blue Accent -->
-    <div class="project-block" id="project-02">
-      <div class="container">
-        <a href="./p10ext.html" class="project-link-wrapper">
-          <div class="project-layout">
-            
-            <div class="project-reveal-frame">
-              <div class="project-reveal-inner">
-                <img class="project-image-reveal" src="./asset/img/10EXT_Hero.jpg" alt="10EXT | Politecnico di Milano">
-              </div>
+        <!-- Visual 2: 10EXT | Politecnico di Milano -->
+        <div class="work-visual-item" data-index="1" id="project-02">
+          <a href="./p10ext.html" class="work-visual-link">
+            <div class="work-visual-frame">
+              <img class="work-visual-img" src="./asset/img/10EXT_Hero.webp" alt="10EXT | Politecnico di Milano">
             </div>
-            
-            <div class="project-info reveal-up">
-              <h2 class="project-title">10EXT | Politecnico di Milano</h2>
+            <div class="work-mobile-info">
+              <h2 class="work-info-title">10EXT | Politecnico di Milano</h2>
+              <p class="work-info-desc">An automated industrial machine engineered to close the loop on polymer recycling for small businesses, producing high-precision, production-ready spools for 3D printing.</p>
             </div>
-            
-          </div>
-        </a>
-      </div>
-    </div>
+          </a>
+        </div>
 
-    <!-- Project 3: Bright Orange Accent -->
-    <div class="project-block" id="project-03">
-      <div class="container">
-        <a href="./pluminair.html" class="project-link-wrapper">
-          <div class="project-layout">
-            
-            <div class="project-reveal-frame">
-              <div class="project-reveal-inner">
-                <img class="project-image-reveal" src="./asset/img/LuminAir_Hero.jpg" alt="LuminAir | Midea Group">
-              </div>
+        <!-- Visual 3: LuminAir | Midea Group -->
+        <div class="work-visual-item" data-index="2" id="project-03">
+          <a href="./pluminair.html" class="work-visual-link">
+            <div class="work-visual-frame">
+              <img class="work-visual-img" src="./asset/img/LuminAir_Hero.webp" alt="LuminAir | Midea Group">
             </div>
-            
-            <div class="project-info reveal-up">
-              <h2 class="project-title">LuminAir | Midea Group</h2>
+            <div class="work-mobile-info">
+              <h2 class="work-info-title">LuminAir | Midea Group</h2>
+              <p class="work-info-desc">An active hygiene module developed for next-generation dishwashers, harnessing catalytic reactions to eliminate odors and continuously sanitize appliance cavities between wash cycles.</p>
             </div>
-            
-          </div>
-        </a>
-      </div>
-    </div>
+          </a>
+        </div>
 
-    <!-- Project 4: ClimBEX -->
-    <div class="project-block" id="project-04">
-      <div class="container">
-        <a href="./pclimbex.html" class="project-link-wrapper">
-          <div class="project-layout">
-            
-            <div class="project-reveal-frame">
-              <div class="project-reveal-inner">
-                <img class="project-image-reveal" src="./asset/img/ClimBEXHero.jpg" alt="Climbex | Politecnico di Milano">
-              </div>
+        <!-- Visual 4: Climbex | Politecnico di Milano -->
+        <div class="work-visual-item" data-index="3" id="project-04">
+          <a href="./pclimbex.html" class="work-visual-link">
+            <div class="work-visual-frame">
+              <img class="work-visual-img" src="./asset/img/ClimBEXHero.webp" alt="Climbex | Politecnico di Milano">
             </div>
-            
-            <div class="project-info reveal-up">
-              <h2 class="project-title">Climbex | Politecnico di Milano</h2>
+            <div class="work-mobile-info">
+              <h2 class="work-info-title">Climbex | Politecnico di Milano</h2>
+              <p class="work-info-desc">Biomimetic alpine footwear designed through nature-inspired biomechanics, engineered to redefine grip, adaptability, and performance across extreme rock and mountain terrains.</p>
             </div>
-            
-          </div>
-        </a>
+          </a>
+        </div>
+
       </div>
+
+      <!-- Right Column: Sticky Text Info (Large Title + Indented Description in Evanescence) -->
+      <div class="work-info-col">
+        <div class="work-info-sticky">
+          <div class="work-info-content-stage">
+            
+            <!-- Info 1: Leo -->
+            <article class="work-info-slide is-active" data-index="0">
+              <a href="./pLeo.html" class="work-info-link">
+                <h2 class="work-info-title">Leo | Casa Bugatti</h2>
+                <p class="work-info-desc">A toaster that transcends the role of a simple appliance into a collectible piece of art, transforming the bread-toasting ritual into an iconic experience tailored for modern luxury micro-living.</p>
+              </a>
+            </article>
+
+            <!-- Info 2: 10EXT -->
+            <article class="work-info-slide" data-index="1">
+              <a href="./p10ext.html" class="work-info-link">
+                <h2 class="work-info-title">10EXT | Politecnico di Milano</h2>
+                <p class="work-info-desc">An automated industrial machine engineered to close the loop on polymer recycling for small businesses, producing high-precision, production-ready spools for 3D printing.</p>
+              </a>
+            </article>
+
+            <!-- Info 3: LuminAir -->
+            <article class="work-info-slide" data-index="2">
+              <a href="./pluminair.html" class="work-info-link">
+                <h2 class="work-info-title">LuminAir | Midea Group</h2>
+                <p class="work-info-desc">An active hygiene module developed for next-generation dishwashers, harnessing catalytic reactions to eliminate odors and continuously sanitize appliance cavities between wash cycles.</p>
+              </a>
+            </article>
+
+            <!-- Info 4: Climbex -->
+            <article class="work-info-slide" data-index="3">
+              <a href="./pclimbex.html" class="work-info-link">
+                <h2 class="work-info-title">Climbex | Politecnico di Milano</h2>
+                <p class="work-info-desc">Biomimetic alpine footwear designed through nature-inspired biomechanics, engineered to redefine grip, adaptability, and performance across extreme rock and mountain terrains.</p>
+              </a>
+            </article>
+
+          </div>
+        </div>
+      </div>
+
     </div>
+  </section>
 
   </main>
 
@@ -178,13 +195,24 @@
       <!-- Middle Links -->
       <div class="contact-links-grid reveal-zoom-in">
         <div class="contact-link-item">
-          <a href="https://www.linkedin.com/in/edoardomolinu/" target="_blank" rel="noopener">Linkedin</a>
+          <a href="https://www.linkedin.com/in/edoardomolinu/" target="_blank" rel="noopener">
+            <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="4"></rect>
+              <path d="M8 11v6"></path>
+              <path d="M8 8v.01"></path>
+              <path d="M12 17v-3.5a2.5 2.5 0 0 1 5 0V17"></path>
+            </svg>
+            <span>LinkedIn</span>
+          </a>
         </div>
         <div class="contact-link-item">
-          <a href="mailto:edoardo.molinu@outlook.com">Email</a>
-        </div>
-        <div class="contact-link-item">
-          <a href="tel:+393343000234">+39 334.3000.234</a>
+          <a href="mailto:edoardo.molinu@outlook.com">
+            <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+              <polyline points="3 7 12 13 21 7"></polyline>
+            </svg>
+            <span>Email</span>
+          </a>
         </div>
       </div>
       
@@ -203,7 +231,9 @@
     </div>
   </section>
 
+  <!-- Lenis Smooth Scroll Engine -->
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <!-- Local Scripts -->
-  <script src="./js/main.js?v=8.7"></script>
+  <script src="./js/main.js?v=13.0"></script>
 </body>
 </html>

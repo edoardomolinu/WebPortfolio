@@ -1,16 +1,44 @@
 
 document.addEventListener('DOMContentLoaded', () => {
+  initLenis();
   initScrollReveal();
   setupDynamicHeader();
   initHeroFadeScroll();
   initAboutFadeScroll();
   initHeroWordChanger();
-  initProjectRevealScroll();
+  initWorksSplitScroll();
   initInteractiveGrid();
   initContactSpotlight();
   initFooterReveal();
   initSmoothScroll();
 });
+
+/**
+ * Lenis Smooth Scroll Initialization
+ * Delivers editorial momentum and buttery smooth inertia across modern browsers.
+ */
+function initLenis() {
+  if (typeof Lenis === 'undefined') return;
+
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    touchMultiplier: 1.5,
+    infinite: false,
+  });
+
+  window.lenis = lenis;
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
+}
 
 /**
  * Cinematic Scroll-driven Reveal Animations
@@ -117,16 +145,26 @@ function initThreeViewers() {
 }
 
 /**
- * Minimal Header transition logic on scroll
+ * Minimal Header transition logic on scroll.
+ * Hides header on scroll down, reveals on scroll up.
+ * Reappears automatically at the bottom of the page strictly on the Homepage.
  */
 function setupDynamicHeader() {
   const header = document.querySelector('.header');
   if (!header) return;
   
+  const isHomePage = !document.body.classList.contains('project-page');
   let lastScrollY = window.scrollY;
-  
-  window.addEventListener('scroll', () => {
+  let ticking = false;
+
+  const updateHeader = () => {
     const currentScrollY = window.scrollY;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const viewportHeight = window.innerHeight;
+    const maxScroll = Math.max(0, scrollHeight - viewportHeight);
+    
+    // Detect if user has reached the bottom of the page (within 10px tolerance for inertia)
+    const isAtBottom = maxScroll > 0 && currentScrollY >= maxScroll - 10;
     
     // Add/remove shrink class
     if (currentScrollY > 50) {
@@ -135,15 +173,35 @@ function setupDynamicHeader() {
       header.classList.remove('header--shrunk');
     }
     
-    // Hide header on scroll down, show on scroll up
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+    // Header visibility rules:
+    // 1. On homepage ONLY: if at the absolute bottom of the page, header MUST reappear.
+    // 2. Otherwise (on project pages or during normal downward scroll): hide header on scroll down past 100px.
+    // 3. If scrolling up, reveal header.
+    if (isHomePage && isAtBottom) {
+      header.classList.remove('header--hidden');
+    } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
       header.classList.add('header--hidden');
     } else {
       header.classList.remove('header--hidden');
     }
     
     lastScrollY = currentScrollY;
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    updateHeader();
   });
+
+  // Initial call
+  updateHeader();
 }
 
 /**
@@ -253,51 +311,191 @@ function initHeroWordChanger() {
 }
 
 /**
- * Scroll-driven unmasking clip-reveal for all project frames (inspired by Tendril Studio).
- * Dynamically expands the visible container height from top to bottom (via clip-path)
- * and scales/translates the inner image proportionally to the scroll progress.
+ * Split Scroll-driven Interaction for Work Section:
+ * Left column images scroll naturally with page scroll.
+ * Right column sticky text smoothly cross-fades (evanescence) based on real geometric collision points:
+ * - Transition begins when the bottom edge of image i meets the bottom edge of description i.
+ * - Transition completes when the top edge of image i+1 meets the top edge of title i+1.
  */
-function initProjectRevealScroll() {
-  const frames = document.querySelectorAll('.project-reveal-frame');
-  if (!frames.length) return;
-  
-  const handleScroll = () => {
-    frames.forEach(frame => {
-      const rect = frame.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      
-      // Calculate progress if the frame is in or approaching viewport
-      if (rect.top < viewportHeight && rect.bottom > 0) {
-        // Start revealing when the top of the frame enters viewport (rect.top = viewportHeight)
-        // Reach 100% reveal when the top of the frame reaches 30% of viewport height
-        const startScroll = viewportHeight;
-        const endScroll = viewportHeight * 0.3;
-        
-        let progress = (startScroll - rect.top) / (startScroll - endScroll);
-        progress = Math.max(0, Math.min(1, progress));
-        
-        // Calculate clip percentage from 100% (hidden) to 0% (fully visible)
-        const clipPercent = 100 - (progress * 100);
-        
-        const inner = frame.querySelector('.project-reveal-inner');
-        if (inner) {
-          inner.style.clipPath = `inset(0% 0% ${clipPercent}% 0% round 8px)`;
-          
-          const image = inner.querySelector('.project-image-reveal');
-          if (image) {
-            // Smooth zoom out from 1.35 to 1.00 and subtle slide down parallax translation
-            const scale = 1.35 - (progress * 0.35);
-            const translateY = (1 - progress) * 30;
-            image.style.transform = `translateY(${translateY}px) scale(${scale})`;
-          }
-        }
+function initWorksSplitScroll() {
+  const visualFrames = document.querySelectorAll('.work-visual-frame');
+  const infoSlides = document.querySelectorAll('.work-info-slide');
+  const stage = document.querySelector('.work-info-content-stage');
+  const workSection = document.querySelector('.work-section');
+  if (!visualFrames.length || !infoSlides.length || !stage) return;
+
+  const N = visualFrames.length;
+  let ticking = false;
+
+  const updateFrameAlignment = () => {
+    const firstFrame = visualFrames[0];
+    const lastFrame = visualFrames[N - 1];
+    const lastSlide = infoSlides[N - 1];
+    if (!firstFrame || !workSection) return;
+
+    const frameHeight = firstFrame.offsetHeight;
+    const topOffset = Math.max(0, (window.innerHeight - frameHeight) / 2);
+    workSection.style.setProperty('--work-frame-top', `${topOffset}px`);
+
+    if (lastFrame && lastSlide) {
+      const lastVisualItem = lastFrame.closest('.work-visual-item');
+      if (lastVisualItem) {
+        // Exact space needed so the last project (Climbex) can glide all the way to centerTop
+        const scrollNeeded = Math.max(0, topOffset);
+        lastVisualItem.style.paddingBottom = `${scrollNeeded}px`;
       }
-    });
+    }
+
+    if (window.lenis) {
+      window.lenis.resize();
+    }
   };
-  
-  window.addEventListener('scroll', handleScroll);
-  // Run once on load
-  handleScroll();
+
+  const applySlideStyles = (idx, opacity, translateY, scale, blur) => {
+    const slide = infoSlides[idx];
+    if (!slide) return;
+    slide.style.opacity = opacity.toFixed(3);
+    slide.style.filter = blur > 0.05 ? `blur(${blur.toFixed(1)}px)` : 'none';
+    slide.style.transform = `translateY(${translateY.toFixed(1)}px) scale(${scale.toFixed(3)})`;
+    if (opacity > 0.02) {
+      slide.style.visibility = 'visible';
+      slide.style.pointerEvents = opacity > 0.45 ? 'auto' : 'none';
+      if (opacity > 0.45) {
+        slide.classList.add('is-active');
+      } else {
+        slide.classList.remove('is-active');
+      }
+    } else {
+      slide.style.visibility = 'hidden';
+      slide.style.pointerEvents = 'none';
+      slide.classList.remove('is-active');
+    }
+  };
+
+  const applyFrameStyles = (idx, opacity) => {
+    const frame = visualFrames[idx];
+    if (!frame) return;
+    frame.style.opacity = opacity.toFixed(3);
+    frame.style.pointerEvents = opacity < 0.05 ? 'none' : 'auto';
+  };
+
+  const updateCrossfade = () => {
+    const stageRect = stage.getBoundingClientRect();
+    const titleTop = stageRect.top;
+
+    let transitionFound = false;
+
+    for (let i = 0; i < N - 1; i++) {
+      const frameA = visualFrames[i];
+      const frameB = visualFrames[i + 1];
+      if (!frameA || !frameB) continue;
+
+      const rectA = frameA.getBoundingClientRect();
+      const rectB = frameB.getBoundingClientRect();
+
+      const descA = infoSlides[i].querySelector('.work-info-desc');
+      const descBottomA = stageRect.top + (descA ? (descA.offsetTop + descA.offsetHeight) : infoSlides[i].offsetHeight);
+
+      const gapAB = rectB.top - rectA.bottom;
+      const yStart = descBottomA + gapAB;
+      const yEnd = titleTop;
+
+      if (rectB.top > yStart) {
+        // Transition i -> i+1 has not started yet; Project i is fully active
+        for (let k = 0; k < i; k++) {
+          applySlideStyles(k, 0, -12, 0.98, 12);
+          applyFrameStyles(k, 0);
+        }
+        applySlideStyles(i, 1, 0, 1, 0);
+        applyFrameStyles(i, 1);
+        for (let k = i + 1; k < N; k++) {
+          applySlideStyles(k, 0, 12, 0.98, 12);
+          applyFrameStyles(k, 1);
+        }
+        transitionFound = true;
+        break;
+      } else if (rectB.top <= yStart && rectB.top >= yEnd) {
+        // We are within transition i -> i+1: lockstep cross-fade for both text and image
+        const rawT = (yStart - rectB.top) / (yStart - yEnd);
+        const t = Math.max(0, Math.min(1, rawT));
+        const fade = t * t * (3 - 2 * t); // smoothstep curve
+
+        for (let k = 0; k < i; k++) {
+          applySlideStyles(k, 0, -12, 0.98, 12);
+          applyFrameStyles(k, 0);
+        }
+        // Project i (outgoing): fades smoothly from 1.0 -> 0.0
+        applySlideStyles(i, 1 - fade, -12 * fade, 1 - 0.02 * fade, 12 * fade);
+        applyFrameStyles(i, 1 - fade);
+
+        // Project i+1 (incoming): text fades 0.0 -> 1.0, image stays fully visible
+        applySlideStyles(i + 1, fade, 12 * (1 - fade), 0.98 + 0.02 * fade, 12 * (1 - fade));
+        applyFrameStyles(i + 1, 1);
+
+        for (let k = i + 2; k < N; k++) {
+          applySlideStyles(k, 0, 12, 0.98, 12);
+          applyFrameStyles(k, 1);
+        }
+
+        transitionFound = true;
+        break;
+      }
+    }
+
+    if (!transitionFound) {
+      // Past all transitions: last project is fully active
+      for (let k = 0; k < N - 1; k++) {
+        applySlideStyles(k, 0, -12, 0.98, 12);
+        applyFrameStyles(k, 0);
+      }
+      applySlideStyles(N - 1, 1, 0, 1, 0);
+
+      // Last frame (Climbex): stays 1.0 until contact section reveal starts
+      const footer = document.querySelector('.contact-section');
+      if (footer) {
+        const footerHeight = footer.offsetHeight;
+        const scrollHeight = document.documentElement.scrollHeight;
+        const viewportHeight = window.innerHeight;
+        const maxScroll = scrollHeight - viewportHeight;
+        const currentScroll = window.scrollY;
+        const startScroll = maxScroll - footerHeight;
+
+        if (currentScroll > startScroll && footerHeight > 0) {
+          const rawProgress = (currentScroll - startScroll) / footerHeight;
+          const progress = Math.max(0, Math.min(1, rawProgress));
+          const fade = progress * progress * (3 - 2 * progress);
+          applyFrameStyles(N - 1, 1 - fade);
+        } else {
+          applyFrameStyles(N - 1, 1);
+        }
+      } else {
+        applyFrameStyles(N - 1, 1);
+      }
+    }
+  };
+
+  const onScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateCrossfade();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => {
+    updateFrameAlignment();
+    onScroll();
+  });
+  window.addEventListener('load', () => {
+    updateFrameAlignment();
+    onScroll();
+  });
+  // Initial compute
+  updateFrameAlignment();
+  updateCrossfade();
 }
 
 /**
@@ -378,10 +576,13 @@ function initFooterReveal() {
   const footer = document.querySelector('.contact-section');
   const mainContent = document.querySelector('.main-content');
   const contactContainer = document.querySelector('.contact-container');
-  if (!footer || !mainContent) return;
+  if (!footer || !mainContent || !contactContainer) return;
   
-  const handleScroll = () => {
-    const footerHeight = footer.offsetHeight;
+  let ticking = false;
+  let cachedFooterHeight = 0;
+
+  const updateFooterEffect = () => {
+    const footerHeight = cachedFooterHeight || footer.offsetHeight;
     const scrollHeight = document.documentElement.scrollHeight;
     const viewportHeight = window.innerHeight;
     const maxScroll = scrollHeight - viewportHeight;
@@ -390,10 +591,13 @@ function initFooterReveal() {
     // The reveal starts when the scroll position passes the start boundary
     const startScroll = maxScroll - footerHeight;
     
-    if (footerHeight <= 0 || maxScroll <= 0) return;
+    if (footerHeight <= 0 || maxScroll <= 0) {
+      ticking = false;
+      return;
+    }
     
     let progress = 0;
-    if (currentScroll >= maxScroll) {
+    if (currentScroll >= maxScroll - 2) {
       progress = 1;
     } else if (currentScroll <= startScroll) {
       progress = 0;
@@ -401,29 +605,62 @@ function initFooterReveal() {
       progress = (currentScroll - startScroll) / footerHeight;
     }
     
-    // Smooth settling animation: starts at scale(1.06) and translateY(-35px) when covered,
-    // and settles smoothly to scale(1.00) and translateY(0px) when fully revealed.
-    const scale = 1.06 - (0.06 * progress);
-    const translateY = -35 * (1 - progress);
+    // Smooth cinematic fade/blur curve matching Works section
+    const t = Math.max(0, Math.min(1, progress));
+    const fade = t * t * (3 - 2 * t); // smoothstep
     
-    if (contactContainer) {
-      contactContainer.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+    const opacity = fade;
+    const blur = 8 * (1 - fade);
+    const translateY = 16 * (1 - fade);
+    const scale = 0.98 + (0.02 * fade);
+
+    contactContainer.style.opacity = opacity.toFixed(3);
+    contactContainer.style.filter = blur > 0.1 ? `blur(${blur.toFixed(1)}px)` : 'none';
+    contactContainer.style.transform = `translateY(${translateY.toFixed(1)}px) scale(${scale.toFixed(3)})`;
+
+    ticking = false;
+  };
+
+  const handleScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(updateFooterEffect);
+      ticking = true;
     }
   };
   
   const updateMargin = () => {
     const footerHeight = footer.offsetHeight;
-    mainContent.style.marginBottom = `${footerHeight}px`;
-    handleScroll();
+    if (Math.abs(cachedFooterHeight - footerHeight) > 1 || !mainContent.style.marginBottom) {
+      cachedFooterHeight = footerHeight;
+      mainContent.style.marginBottom = `${footerHeight}px`;
+      if (window.lenis) {
+        window.lenis.resize();
+      }
+    }
+    updateFooterEffect();
   };
   
   window.addEventListener('resize', updateMargin);
   window.addEventListener('load', updateMargin);
-  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('scroll', handleScroll, { passive: true });
   
-  // Use MutationObserver to track elements rendering asynchronously
-  const observer = new MutationObserver(updateMargin);
-  observer.observe(footer, { attributes: true, childList: true, subtree: true });
+  // High-performance ResizeObserver only triggers when actual box dimensions change,
+  // preventing layout thrashing and avoiding calling lenis.resize() during scroll or mousemove.
+  if (typeof ResizeObserver !== 'undefined') {
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const height = Math.round(entry.borderBoxSize?.[0]?.blockSize || entry.contentRect.height);
+        if (Math.abs(cachedFooterHeight - height) > 1) {
+          cachedFooterHeight = height;
+          mainContent.style.marginBottom = `${height}px`;
+          if (window.lenis) {
+            window.lenis.resize();
+          }
+        }
+      }
+    });
+    resizeObserver.observe(footer);
+  }
   
   // Initial compute
   updateMargin();
@@ -431,7 +668,7 @@ function initFooterReveal() {
 
 /**
  * Smooth navigation scroll interceptor and hash handler.
- * Automatically scrolls to the bottom of the page when #contact is clicked or loaded.
+ * Seamlessly integrates with Lenis smooth scroll and native fallback.
  */
 function initSmoothScroll() {
   document.querySelectorAll('.header__link').forEach(link => {
@@ -447,19 +684,26 @@ function initSmoothScroll() {
                            !window.location.pathname.includes('.html');
         
         if (isHomePage) {
+          e.preventDefault();
           if (hash === '#contact') {
-            e.preventDefault();
-            window.scrollTo({
-              top: document.body.scrollHeight,
-              behavior: 'smooth'
-            });
+            if (window.lenis) {
+              window.lenis.scrollTo(document.body.scrollHeight, { duration: 1.4 });
+            } else {
+              window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+              });
+            }
           } else {
             const targetElem = document.querySelector(hash);
             if (targetElem) {
-              e.preventDefault();
-              targetElem.scrollIntoView({
-                behavior: 'smooth'
-              });
+              if (window.lenis) {
+                window.lenis.scrollTo(targetElem, { duration: 1.2, offset: 0 });
+              } else {
+                targetElem.scrollIntoView({
+                  behavior: 'smooth'
+                });
+              }
             }
           }
         }
@@ -471,13 +715,16 @@ function initSmoothScroll() {
   if (window.location.hash === '#contact') {
     window.addEventListener('load', () => {
       setTimeout(() => {
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: 'smooth'
-        });
+        if (window.lenis) {
+          window.lenis.scrollTo(document.body.scrollHeight, { duration: 1.4 });
+        } else {
+          window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+          });
+        }
       }, 150);
     });
   }
-
 }
 

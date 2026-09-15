@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@700&family=Trispace:wght@100..800&display=swap" rel="stylesheet">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="./css/style.css?v=8.7">
+  <link rel="stylesheet" href="./css/style.css?v=13.0">
 </head>
 <body class="project-page p-climbex">
 
@@ -25,7 +25,7 @@
   <!-- Navbar Component (identical to index.html with relative link destinations) -->
   <header class="header">
     <a href="./index.html" class="header__logo">
-      <span class="header__logo-text">E.Molinu 2026</span>
+      <span class="header__logo-text">Edo.Molinu 26</span>
     </a>
     <nav class="header__nav">
       <a href="./index.html#work" class="header__link">Work</a>
@@ -161,16 +161,23 @@
           <img src="./asset/img/CLShoes.webp" alt="Climbex Shoes Details" class="project-detail-img">
         </div>
 
-        <!-- N. Sezione Next Project Link -->
-        <section class="pd-next-project-section">
-          <canvas id="work-grid-canvas" class="work-section__canvas-bg"></canvas>
-          <div class="pd-next-project-text text-fade-reveal">
-            <span class="pd-next-project-label">Next Project</span>
-            <h2 class="pd-next-project-title">Leo</h2>
+        <!-- N. Sezione Dual Project Navigation (Previous & Next) -->
+        <section class="pd-projects-nav-section">
+          <div class="pd-projects-nav-grid">
+            
+            <!-- Previous Design: LuminAir -->
+            <a href="./pluminair.html" class="pd-nav-card pd-nav-prev text-fade-reveal">
+              <span class="pd-nav-label">← Previous Design</span>
+              <h3 class="pd-nav-title">LuminAir | Midea Group</h3>
+            </a>
+
+            <!-- Next Design: Leo -->
+            <a href="./pLeo.html" class="pd-nav-card pd-nav-next text-fade-reveal">
+              <span class="pd-nav-label">Next Design →</span>
+              <h3 class="pd-nav-title">Leo | Casa Bugatti</h3>
+            </a>
+
           </div>
-          <a href="./pLeo.html" class="pd-next-project-preview">
-            <img src="./asset/img/Leo_Hero.jpg" alt="Next Project Preview: Leo" style="margin-bottom: 170px;">
-          </a>
         </section>
         
       </div>
@@ -189,13 +196,24 @@
       <!-- Middle Links -->
       <div class="contact-links-grid reveal-zoom-in">
         <div class="contact-link-item">
-          <a href="https://www.linkedin.com/in/edoardomolinu/" target="_blank" rel="noopener">Linkedin</a>
+          <a href="https://www.linkedin.com/in/edoardomolinu/" target="_blank" rel="noopener">
+            <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="4"></rect>
+              <path d="M8 11v6"></path>
+              <path d="M8 8v.01"></path>
+              <path d="M12 17v-3.5a2.5 2.5 0 0 1 5 0V17"></path>
+            </svg>
+            <span>LinkedIn</span>
+          </a>
         </div>
         <div class="contact-link-item">
-          <a href="mailto:edoardo.molinu@outlook.com">Email</a>
-        </div>
-        <div class="contact-link-item">
-          <a href="tel:+393343000234">+39 334.3000.234</a>
+          <a href="mailto:edoardo.molinu@outlook.com">
+            <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+              <polyline points="3 7 12 13 21 7"></polyline>
+            </svg>
+            <span>Email</span>
+          </a>
         </div>
       </div>
       
@@ -214,7 +232,9 @@
     </div>
   </section>
 
+  <!-- Lenis Smooth Scroll Engine -->
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <!-- Local Scripts -->
-  <script src="./js/main.js?v=8.7"></script>
+  <script src="./js/main.js?v=13.0"></script>
 </body>
 </html>
