@@ -1477,11 +1477,12 @@ p {
 
 .pd-nav-label {
   font-family: var(--font-primary);
-  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-light);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
+  line-height: 1.28;
   letter-spacing: -0.01em;
   text-transform: none; /* No uppercase caps */
-  color: #000000; /* Nero #000000 richiesto */
+  color: var(--color-text-primary);
   margin-bottom: 8px;
   display: inline-flex;
   align-items: center;
