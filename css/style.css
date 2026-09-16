@@ -1441,7 +1441,7 @@ p {
   margin-top: calc(3.5 * var(--space-md));
   margin-bottom: 0;
   position: relative;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: none;
   padding-top: var(--space-lg);
   padding-bottom: 0;
 }
