@@ -340,8 +340,12 @@ function initWorksSplitScroll() {
     if (lastFrame && lastSlide) {
       const lastVisualItem = lastFrame.closest('.work-visual-item');
       if (lastVisualItem) {
-        // Exact space needed so the last project (Climbex) can glide all the way to centerTop
-        const scrollNeeded = Math.max(0, topOffset);
+        // Distance from title top to description bottom on the last slide
+        const descElem = lastSlide.querySelector('.work-info-desc');
+        const slideContentHeight = descElem ? (descElem.offsetTop + descElem.offsetHeight) : lastSlide.offsetHeight;
+        // Allows the last image (Climbex) to glide all the way until its bottom edge meets the bottom of the description
+        const bottomTravel = Math.max(0, frameHeight - slideContentHeight);
+        const scrollNeeded = Math.max(0, topOffset + bottomTravel);
         lastVisualItem.style.paddingBottom = `${scrollNeeded}px`;
       }
     }
