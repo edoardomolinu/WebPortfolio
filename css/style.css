@@ -920,6 +920,7 @@ p {
 }
 
 .project-detail-image-container.cover-frame img,
+.project-detail-image-container.cover-frame video,
 .project-detail-image-container.cover-frame .project-detail-img {
   width: 100%;
   height: 100% !important;
