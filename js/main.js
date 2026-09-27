@@ -326,8 +326,8 @@ function initHeroWordChanger() {
     }, 600); // matches the CSS fade-out transition duration
   };
   
-  // Repeat cycle every 3.6s (3s display + 0.6s transition)
-  setInterval(changeWord, 3600);
+  // Repeat cycle every 5.0s (5 seconds interval)
+  setInterval(changeWord, 5000);
 }
 
 /**
