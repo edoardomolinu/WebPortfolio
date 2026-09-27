@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@700&family=Trispace:wght@100..800&display=swap" rel="stylesheet">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="./css/style.css?v=13.8">
+  <link rel="stylesheet" href="./css/style.css?v=14.0">
 </head>
 <body>
 
@@ -79,105 +79,85 @@
   <!-- Work Section -->
   <section class="work-section" id="work">
     <div class="container work-container">
-      
-      <!-- Left Column: Scrolling Visuals (Images glide vertically with page scroll) -->
-      <div class="work-visuals-col">
+      <div class="work-projects-list">
         
-        <!-- Visual 1: Leo | Casa Bugatti -->
-        <div class="work-visual-item" data-index="0" id="project-01">
-          <a href="./pLeo.html" class="work-visual-link">
-            <div class="work-visual-frame">
-              <img class="work-visual-img" src="./asset/img/Leo_Hero.webp" alt="Leo | Casa Bugatti">
-            </div>
-            <div class="work-mobile-info">
-              <h2 class="work-info-title">Leo | Casa Bugatti</h2>
-              <p class="work-info-desc">A toaster that transcends the role of a simple appliance into a collectible piece of art, transforming the bread-toasting ritual into an iconic experience tailored for modern luxury micro-living.</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Visual 2: 10EXT | Politecnico di Milano -->
-        <div class="work-visual-item" data-index="1" id="project-02">
-          <a href="./p10ext.html" class="work-visual-link">
-            <div class="work-visual-frame">
-              <img class="work-visual-img" src="./asset/img/10EXT_Hero.webp" alt="10EXT | Politecnico di Milano">
-            </div>
-            <div class="work-mobile-info">
-              <h2 class="work-info-title">10EXT | Politecnico di Milano</h2>
-              <p class="work-info-desc">An automated industrial machine engineered to close the loop on polymer recycling for small businesses, producing high-precision, production-ready spools for 3D printing.</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Visual 3: LuminAir | Midea Group -->
-        <div class="work-visual-item" data-index="2" id="project-03">
-          <a href="./pluminair.html" class="work-visual-link">
-            <div class="work-visual-frame">
-              <img class="work-visual-img" src="./asset/img/LuminAir_Hero.webp" alt="LuminAir | Midea Group">
-            </div>
-            <div class="work-mobile-info">
-              <h2 class="work-info-title">LuminAir | Midea Group</h2>
-              <p class="work-info-desc">An active hygiene module developed for next-generation dishwashers, harnessing catalytic reactions to eliminate odors and continuously sanitize appliance cavities between wash cycles.</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Visual 4: Climbex | Politecnico di Milano -->
-        <div class="work-visual-item" data-index="3" id="project-04">
-          <a href="./pclimbex.html" class="work-visual-link">
-            <div class="work-visual-frame">
-              <img class="work-visual-img" src="./asset/img/ClimBEXHero.webp" alt="Climbex | Politecnico di Milano">
-            </div>
-            <div class="work-mobile-info">
-              <h2 class="work-info-title">Climbex | Politecnico di Milano</h2>
-              <p class="work-info-desc">Biomimetic alpine footwear designed through nature-inspired biomechanics, engineered to redefine grip, adaptability, and performance across extreme rock and mountain terrains.</p>
-            </div>
-          </a>
-        </div>
-
-      </div>
-
-      <!-- Right Column: Sticky Text Info (Large Title + Indented Description in Evanescence) -->
-      <div class="work-info-col">
-        <div class="work-info-sticky">
-          <div class="work-info-content-stage">
-            
-            <!-- Info 1: Leo -->
-            <article class="work-info-slide is-active" data-index="0">
+        <!-- Project 1: Leo | Casa Bugatti -->
+        <article class="work-project-row" data-index="0" id="project-01">
+          <div class="work-visual-col">
+            <a href="./pLeo.html" class="work-visual-link">
+              <div class="work-visual-frame">
+                <img class="work-visual-img" src="./asset/img/Leo_Hero.webp" alt="Leo | Casa Bugatti">
+              </div>
+            </a>
+          </div>
+          <div class="work-info-col">
+            <div class="work-info-sticky-wrap">
               <a href="./pLeo.html" class="work-info-link">
                 <h2 class="work-info-title">Leo | Casa Bugatti</h2>
                 <p class="work-info-desc">A toaster that transcends the role of a simple appliance into a collectible piece of art, transforming the bread-toasting ritual into an iconic experience tailored for modern luxury micro-living.</p>
               </a>
-            </article>
+            </div>
+          </div>
+        </article>
 
-            <!-- Info 2: 10EXT -->
-            <article class="work-info-slide" data-index="1">
+        <!-- Project 2: 10EXT | Politecnico di Milano -->
+        <article class="work-project-row" data-index="1" id="project-02">
+          <div class="work-visual-col">
+            <a href="./p10ext.html" class="work-visual-link">
+              <div class="work-visual-frame">
+                <img class="work-visual-img" src="./asset/img/10EXT_Hero.webp" alt="10EXT | Politecnico di Milano">
+              </div>
+            </a>
+          </div>
+          <div class="work-info-col">
+            <div class="work-info-sticky-wrap">
               <a href="./p10ext.html" class="work-info-link">
                 <h2 class="work-info-title">10EXT | Politecnico di Milano</h2>
                 <p class="work-info-desc">An automated industrial machine engineered to close the loop on polymer recycling for small businesses, producing high-precision, production-ready spools for 3D printing.</p>
               </a>
-            </article>
+            </div>
+          </div>
+        </article>
 
-            <!-- Info 3: LuminAir -->
-            <article class="work-info-slide" data-index="2">
+        <!-- Project 3: LuminAir | Midea Group -->
+        <article class="work-project-row" data-index="2" id="project-03">
+          <div class="work-visual-col">
+            <a href="./pluminair.html" class="work-visual-link">
+              <div class="work-visual-frame">
+                <img class="work-visual-img" src="./asset/img/LuminAir_Hero.webp" alt="LuminAir | Midea Group">
+              </div>
+            </a>
+          </div>
+          <div class="work-info-col">
+            <div class="work-info-sticky-wrap">
               <a href="./pluminair.html" class="work-info-link">
                 <h2 class="work-info-title">LuminAir | Midea Group</h2>
                 <p class="work-info-desc">An active hygiene module developed for next-generation dishwashers, harnessing catalytic reactions to eliminate odors and continuously sanitize appliance cavities between wash cycles.</p>
               </a>
-            </article>
+            </div>
+          </div>
+        </article>
 
-            <!-- Info 4: Climbex -->
-            <article class="work-info-slide" data-index="3">
+        <!-- Project 4: Climbex | Politecnico di Milano -->
+        <article class="work-project-row" data-index="3" id="project-04">
+          <div class="work-visual-col">
+            <a href="./pclimbex.html" class="work-visual-link">
+              <div class="work-visual-frame">
+                <img class="work-visual-img" src="./asset/img/ClimBEXHero.webp" alt="Climbex | Politecnico di Milano">
+              </div>
+            </a>
+          </div>
+          <div class="work-info-col">
+            <div class="work-info-sticky-wrap">
               <a href="./pclimbex.html" class="work-info-link">
                 <h2 class="work-info-title">Climbex | Politecnico di Milano</h2>
                 <p class="work-info-desc">Biomimetic alpine footwear designed through nature-inspired biomechanics, engineered to redefine grip, adaptability, and performance across extreme rock and mountain terrains.</p>
               </a>
-            </article>
-
+            </div>
           </div>
-        </div>
-      </div>
+        </article>
 
+      </div>
     </div>
   </section>
 
@@ -234,6 +214,6 @@
   <!-- Lenis Smooth Scroll Engine -->
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <!-- Local Scripts -->
-  <script src="./js/main.js?v=13.8"></script>
+  <script src="./js/main.js?v=14.0"></script>
 </body>
 </html>

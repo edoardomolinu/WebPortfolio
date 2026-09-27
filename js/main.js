@@ -311,177 +311,98 @@ function initHeroWordChanger() {
 }
 
 /**
- * Split Scroll-driven Interaction for Work Section:
- * Left column images scroll naturally with page scroll.
- * Right column sticky text smoothly cross-fades (evanescence) based on real geometric collision points:
- * - Transition begins when the bottom edge of image i meets the bottom edge of description i.
- * - Transition completes when the top edge of image i+1 meets the top edge of title i+1.
+ * Scroll-driven Interaction for Work Section:
+ * - Project titles and descriptions glide downwards alongside each project's trailer image (sticky).
+ * - As the bottom margin of the image is reached, the description smoothly dissolves / fades out,
+ *   while the new description fades in under the next project's title at the top of the next image.
  */
 function initWorksSplitScroll() {
-  const visualFrames = document.querySelectorAll('.work-visual-frame');
-  const infoSlides = document.querySelectorAll('.work-info-slide');
-  const stage = document.querySelector('.work-info-content-stage');
+  const projectRows = document.querySelectorAll('.work-project-row');
   const workSection = document.querySelector('.work-section');
-  if (!visualFrames.length || !infoSlides.length || !stage) return;
+  if (!projectRows.length || !workSection) return;
 
-  const N = visualFrames.length;
   let ticking = false;
 
-  const updateFrameAlignment = () => {
-    const firstFrame = visualFrames[0];
-    const lastFrame = visualFrames[N - 1];
-    const lastSlide = infoSlides[N - 1];
-    if (!firstFrame || !workSection) return;
+  const updateAlignment = () => {
+    const firstFrame = document.querySelector('.work-visual-frame');
+    if (firstFrame) {
+      const frameHeight = firstFrame.offsetHeight;
+      const topOffset = Math.max(0, (window.innerHeight - frameHeight) / 2);
+      workSection.style.setProperty('--work-frame-top', `${topOffset}px`);
+    }
+  };
 
-    const frameHeight = firstFrame.offsetHeight;
+  const updateDescriptions = () => {
+    if (window.innerWidth <= 900) {
+      projectRows.forEach((row) => {
+        const desc = row.querySelector('.work-info-desc');
+        if (desc) {
+          desc.style.opacity = '';
+          desc.style.filter = '';
+          desc.style.transform = '';
+          desc.style.visibility = '';
+        }
+      });
+      return;
+    }
+
+    const firstFrame = document.querySelector('.work-visual-frame');
+    const frameHeight = firstFrame ? firstFrame.offsetHeight : 500;
     const topOffset = Math.max(0, (window.innerHeight - frameHeight) / 2);
-    workSection.style.setProperty('--work-frame-top', `${topOffset}px`);
 
-    if (lastFrame && lastSlide) {
-      const lastVisualItem = lastFrame.closest('.work-visual-item');
-      if (lastVisualItem) {
-        // Distance from title top to description bottom on the last slide
-        const descElem = lastSlide.querySelector('.work-info-desc');
-        const slideContentHeight = descElem ? (descElem.offsetTop + descElem.offsetHeight) : lastSlide.offsetHeight;
-        // Allows the last image (Climbex) to glide all the way until its bottom edge meets the bottom of the description
-        const bottomTravel = Math.max(0, frameHeight - slideContentHeight);
-        const scrollNeeded = Math.max(0, bottomTravel);
-        lastVisualItem.style.paddingBottom = `${scrollNeeded}px`;
+    projectRows.forEach((row) => {
+      const desc = row.querySelector('.work-info-desc');
+      const frame = row.querySelector('.work-visual-frame');
+      const stickyWrap = row.querySelector('.work-info-sticky-wrap');
+      if (!desc || !frame) return;
+
+      const frameRect = frame.getBoundingClientRect();
+      const wrapHeight = stickyWrap ? stickyWrap.offsetHeight : 220;
+
+      // Entrance fade-in: starts as frame enters near topOffset, fully visible once at topOffset
+      const enterStart = topOffset + 140;
+      const enterEnd = topOffset;
+      let progressIn = 0;
+      if (frameRect.top <= enterEnd) {
+        progressIn = 1;
+      } else if (frameRect.top < enterStart) {
+        progressIn = (enterStart - frameRect.top) / (enterStart - enterEnd);
       }
-    }
 
-    if (window.lenis) {
-      window.lenis.resize();
-    }
-  };
+      // Exit fade-out (dissolve at bottom margin):
+      // The text meets the bottom of the image frame when frameRect.bottom arrives at (topOffset + wrapHeight)
+      const textBottomY = topOffset + wrapHeight;
+      const exitStart = textBottomY + 120;
+      const exitEnd = textBottomY - 10;
+      let progressOut = 0;
+      if (frameRect.bottom <= exitEnd) {
+        progressOut = 1;
+      } else if (frameRect.bottom < exitStart) {
+        progressOut = (exitStart - frameRect.bottom) / (exitStart - exitEnd);
+      }
 
-  const applySlideStyles = (idx, opacity, translateY, scale, blur) => {
-    const slide = infoSlides[idx];
-    if (!slide) return;
-    slide.style.opacity = opacity.toFixed(3);
-    slide.style.filter = blur > 0.05 ? `blur(${blur.toFixed(1)}px)` : 'none';
-    slide.style.transform = `translateY(${translateY.toFixed(1)}px) scale(${scale.toFixed(3)})`;
-    if (opacity > 0.02) {
-      slide.style.visibility = 'visible';
-      slide.style.pointerEvents = opacity > 0.45 ? 'auto' : 'none';
-      if (opacity > 0.45) {
-        slide.classList.add('is-active');
+      const active = Math.max(0, Math.min(1, progressIn)) * Math.max(0, Math.min(1, 1 - progressOut));
+      const fade = active * active * (3 - 2 * active); // Smoothstep curve
+
+      if (fade > 0.01) {
+        desc.style.visibility = 'visible';
+        desc.style.opacity = fade.toFixed(3);
+        desc.style.filter = fade < 0.99 ? `blur(${(10 * (1 - fade)).toFixed(1)}px)` : 'none';
+        const yOffset = progressOut > 0 ? -10 * (1 - fade) : 10 * (1 - fade);
+        desc.style.transform = `translateY(${yOffset.toFixed(1)}px)`;
       } else {
-        slide.classList.remove('is-active');
+        desc.style.visibility = 'hidden';
+        desc.style.opacity = '0';
+        desc.style.filter = 'blur(10px)';
+        desc.style.transform = 'translateY(10px)';
       }
-    } else {
-      slide.style.visibility = 'hidden';
-      slide.style.pointerEvents = 'none';
-      slide.classList.remove('is-active');
-    }
-  };
-
-  const applyFrameStyles = (idx, opacity) => {
-    const frame = visualFrames[idx];
-    if (!frame) return;
-    frame.style.opacity = opacity.toFixed(3);
-    frame.style.pointerEvents = opacity < 0.05 ? 'none' : 'auto';
-  };
-
-  const updateCrossfade = () => {
-    const stageRect = stage.getBoundingClientRect();
-    const titleTop = stageRect.top;
-
-    let transitionFound = false;
-
-    for (let i = 0; i < N - 1; i++) {
-      const frameA = visualFrames[i];
-      const frameB = visualFrames[i + 1];
-      if (!frameA || !frameB) continue;
-
-      const rectA = frameA.getBoundingClientRect();
-      const rectB = frameB.getBoundingClientRect();
-
-      const descA = infoSlides[i].querySelector('.work-info-desc');
-      const descBottomA = stageRect.top + (descA ? (descA.offsetTop + descA.offsetHeight) : infoSlides[i].offsetHeight);
-
-      const gapAB = rectB.top - rectA.bottom;
-      const yStart = descBottomA + gapAB;
-      const yEnd = titleTop;
-
-      if (rectB.top > yStart) {
-        // Transition i -> i+1 has not started yet; Project i is fully active
-        for (let k = 0; k < i; k++) {
-          applySlideStyles(k, 0, -12, 0.98, 12);
-          applyFrameStyles(k, 0);
-        }
-        applySlideStyles(i, 1, 0, 1, 0);
-        applyFrameStyles(i, 1);
-        for (let k = i + 1; k < N; k++) {
-          applySlideStyles(k, 0, 12, 0.98, 12);
-          applyFrameStyles(k, 1);
-        }
-        transitionFound = true;
-        break;
-      } else if (rectB.top <= yStart && rectB.top >= yEnd) {
-        // We are within transition i -> i+1: lockstep cross-fade for both text and image
-        const rawT = (yStart - rectB.top) / (yStart - yEnd);
-        const t = Math.max(0, Math.min(1, rawT));
-        const fade = t * t * (3 - 2 * t); // smoothstep curve
-
-        for (let k = 0; k < i; k++) {
-          applySlideStyles(k, 0, -12, 0.98, 12);
-          applyFrameStyles(k, 0);
-        }
-        // Project i (outgoing): fades smoothly from 1.0 -> 0.0
-        applySlideStyles(i, 1 - fade, -12 * fade, 1 - 0.02 * fade, 12 * fade);
-        applyFrameStyles(i, 1 - fade);
-
-        // Project i+1 (incoming): text fades 0.0 -> 1.0, image stays fully visible
-        applySlideStyles(i + 1, fade, 12 * (1 - fade), 0.98 + 0.02 * fade, 12 * (1 - fade));
-        applyFrameStyles(i + 1, 1);
-
-        for (let k = i + 2; k < N; k++) {
-          applySlideStyles(k, 0, 12, 0.98, 12);
-          applyFrameStyles(k, 1);
-        }
-
-        transitionFound = true;
-        break;
-      }
-    }
-
-    if (!transitionFound) {
-      // Past all transitions: last project is fully active
-      for (let k = 0; k < N - 1; k++) {
-        applySlideStyles(k, 0, -12, 0.98, 12);
-        applyFrameStyles(k, 0);
-      }
-      applySlideStyles(N - 1, 1, 0, 1, 0);
-
-      // Last frame (Climbex): stays 1.0 until contact section reveal starts
-      const footer = document.querySelector('.contact-section');
-      if (footer) {
-        const footerHeight = footer.offsetHeight;
-        const scrollHeight = document.documentElement.scrollHeight;
-        const viewportHeight = window.innerHeight;
-        const maxScroll = scrollHeight - viewportHeight;
-        const currentScroll = window.scrollY;
-        const startScroll = maxScroll - footerHeight;
-
-        if (currentScroll > startScroll && footerHeight > 0) {
-          const rawProgress = (currentScroll - startScroll) / footerHeight;
-          const progress = Math.max(0, Math.min(1, rawProgress));
-          const fade = progress * progress * (3 - 2 * progress);
-          applyFrameStyles(N - 1, 1 - fade);
-        } else {
-          applyFrameStyles(N - 1, 1);
-        }
-      } else {
-        applyFrameStyles(N - 1, 1);
-      }
-    }
+    });
   };
 
   const onScroll = () => {
     if (!ticking) {
       requestAnimationFrame(() => {
-        updateCrossfade();
+        updateDescriptions();
         ticking = false;
       });
       ticking = true;
@@ -490,16 +411,17 @@ function initWorksSplitScroll() {
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => {
-    updateFrameAlignment();
-    onScroll();
+    updateAlignment();
+    updateDescriptions();
   });
   window.addEventListener('load', () => {
-    updateFrameAlignment();
-    onScroll();
+    updateAlignment();
+    updateDescriptions();
   });
+
   // Initial compute
-  updateFrameAlignment();
-  updateCrossfade();
+  updateAlignment();
+  updateDescriptions();
 }
 
 /**
