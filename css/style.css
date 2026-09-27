@@ -143,9 +143,10 @@ p {
 }
 
 .header__logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .header__logo-text {
@@ -154,7 +155,56 @@ p {
   font-weight: var(--fw-medium);
   color: #ffffff;
   mix-blend-mode: difference;
-  transition: opacity 0.3s ease;
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.logo-char {
+  display: inline-block;
+}
+
+.logo-expand {
+  display: inline-block;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  vertical-align: baseline;
+  transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  will-change: max-width, opacity;
+}
+
+.logo-symbol-default {
+  display: inline-block;
+  max-width: 1.5ch;
+  opacity: 1;
+  overflow: hidden;
+  vertical-align: baseline;
+  transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+.logo-symbol-hover {
+  display: inline-block;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  vertical-align: baseline;
+  transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+.header__logo:hover .logo-expand {
+  max-width: 15ch;
+  opacity: 1;
+}
+
+.header__logo:hover .logo-symbol-default {
+  max-width: 0;
+  opacity: 0;
+}
+
+.header__logo:hover .logo-symbol-hover {
+  max-width: 1ch;
+  opacity: 1;
 }
 
 .header__nav {
