@@ -295,13 +295,13 @@ function initAboutFadeScroll() {
 
 /**
  * Infinite looping word rotation for the Hero section text "Bold".
- * Alternates between "Bold", "Autonomous", "Invisible", "Biomimetric" every 3 seconds.
+ * Alternates between "Bold", "Autonomous", "Invisible", "Biomimetic" with 5 seconds display timing.
  */
 function initHeroWordChanger() {
   const wordSpan = document.querySelector('.hero__headline--bold');
   if (!wordSpan) return;
   
-  const words = ['Bold', 'Autonomous', 'Invisible', 'Biomimetric'];
+  const words = ['Bold', 'Autonomous', 'Invisible', 'Biomimetic'];
   let currentIndex = 0;
   
   // Initial slide-in animation
@@ -309,25 +309,31 @@ function initHeroWordChanger() {
     wordSpan.classList.add('is-visible');
   }, 400);
   
-  const changeWord = () => {
-    // 1. Trigger fast fade-out animation
-    wordSpan.classList.remove('is-visible');
-    
-    // 2. Wait for fade-out to finish, change text, and fade-in the new word
+  const cycleNextWord = () => {
+    // 1. Keep word statically visible for 5 full seconds
     setTimeout(() => {
-      currentIndex = (currentIndex + 1) % words.length;
-      wordSpan.textContent = words[currentIndex];
+      // 2. Trigger smooth fade-out animation
+      wordSpan.classList.remove('is-visible');
       
-      // Force reflow to re-trigger transition
-      void wordSpan.offsetWidth;
-      
-      // 3. Trigger slow premium fade-in animation
-      wordSpan.classList.add('is-visible');
-    }, 600); // matches the CSS fade-out transition duration
+      // 3. Wait for fade-out (600ms), change word, and fade in
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % words.length;
+        wordSpan.textContent = words[currentIndex];
+        
+        // Force reflow
+        void wordSpan.offsetWidth;
+        
+        // 4. Trigger smooth fade-in animation
+        wordSpan.classList.add('is-visible');
+        
+        // 5. Schedule next word cycle
+        cycleNextWord();
+      }, 600);
+    }, 5000);
   };
   
-  // Repeat cycle every 5.0s (5 seconds interval)
-  setInterval(changeWord, 5000);
+  // Start the 5-second cycle
+  cycleNextWord();
 }
 
 /**
