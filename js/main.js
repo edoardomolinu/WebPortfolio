@@ -213,7 +213,6 @@ function setupDynamicHeader() {
 function initHeroFadeScroll() {
   const pinWrapper = document.querySelector('.hero-pin-wrapper');
   const fadeOverlay = document.querySelector('.hero__fade-overlay');
-  const scrollIndicator = document.querySelector('.hero__scroll-indicator');
   const heroContent = document.querySelector('.hero__content-container');
   if (!fadeOverlay) return;
   
@@ -237,10 +236,7 @@ function initHeroFadeScroll() {
     const overlayOpacity = Math.min(1, progress / 0.92);
     fadeOverlay.style.opacity = overlayOpacity;
     
-    // Fade out scroll indicator and hero text
-    if (scrollIndicator) {
-      scrollIndicator.style.opacity = Math.max(0, 1 - progress * 2.2);
-    }
+    // Fade out hero text
     if (heroContent) {
       heroContent.style.opacity = Math.max(0, 1 - progress * 1.5);
     }

@@ -346,60 +346,6 @@ p {
               transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hero__scroll-indicator {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  pointer-events: none;
-  mix-blend-mode: difference;
-}
-
-.scroll-diamonds-wave {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px; /* Spacing between diamonds */
-}
-
-.scroll-diamond-dot {
-  width: 6px;
-  height: 6px;
-  background-color: #ffffff;
-  transform: rotate(45deg);
-  will-change: transform;
-  animation: diamondWave 1.8s infinite ease-in-out;
-}
-
-.scroll-diamond-dot:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.scroll-diamond-dot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.scroll-diamond-dot:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes diamondWave {
-  0%, 100% {
-    transform: rotate(45deg) scale(1.0);
-  }
-  30% {
-    transform: rotate(45deg) scale(1.5); /* Soft peak scale animation */
-  }
-  60% {
-    transform: rotate(45deg) scale(1.0);
-  }
-}
-
 /* ==========================================
    4.5 PROFILE / ABOUT SECTION
    ========================================== */
