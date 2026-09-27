@@ -2458,20 +2458,21 @@ p {
   }
 }
 
-/* Climbex Strap Section (Left image, Right left-aligned text) */
+/* Climbex Strap Section (Left image, Right left-aligned text spanning to page margin) */
 .pd-climbex-strap-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   margin-top: calc(3 * var(--space-md));
   margin-bottom: calc(3 * var(--space-md));
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
 .pd-climbex-strap-img-col {
   width: 65%;
   max-width: 845px;
+  flex-shrink: 0;
   overflow: hidden;
   border-radius: 0 !important;
   background-color: var(--color-bg-secondary);
@@ -2486,10 +2487,12 @@ p {
 }
 
 .pd-climbex-strap-text-col {
-  width: 28%;
-  max-width: 380px;
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  max-width: none;
   text-align: left;
-  margin-left: auto;
+  margin-left: 0;
 }
 
 .pd-climbex-strap-text-col p {
