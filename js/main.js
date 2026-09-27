@@ -688,17 +688,34 @@ function initFooterReveal() {
  * Seamlessly integrates with Lenis smooth scroll and native fallback.
  */
 function initSmoothScroll() {
+  const isHomePage = !document.body.classList.contains('project-page');
+
+  // Logo click behavior
+  const logo = document.querySelector('.header__logo');
+  if (logo) {
+    logo.addEventListener('click', function(e) {
+      if (isHomePage) {
+        e.preventDefault();
+        if (window.lenis) {
+          window.lenis.scrollTo(0, { duration: 1.2 });
+        } else {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        }
+      }
+      // On project pages, default browser navigation opens ./index.html
+    });
+  }
+
+  // Header navigation links
   document.querySelectorAll('.header__link').forEach(link => {
     link.addEventListener('click', function(e) {
       const href = this.getAttribute('href');
       const hashIndex = href.indexOf('#');
       if (hashIndex !== -1) {
         const hash = href.substring(hashIndex);
-        
-        // Check if we are currently on the homepage
-        const isHomePage = window.location.pathname.endsWith('index.html') || 
-                           window.location.pathname === '/' || 
-                           !window.location.pathname.includes('.html');
         
         if (isHomePage) {
           e.preventDefault();
