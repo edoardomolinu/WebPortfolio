@@ -1392,6 +1392,25 @@ p {
   margin: 0;
 }
 
+/* Crumb-Tray Section Layout */
+.pd-crumb-tray-text-block {
+  max-width: 66.6%;
+  margin-left: auto;
+  margin-right: 0;
+  margin-bottom: calc(1.25 * var(--space-md));
+  text-align: left;
+}
+
+.pd-crumb-tray-text-block .pd-section-title-left {
+  text-align: left;
+}
+
+.pd-crumb-tray-text-block .project-detail-paragraph {
+  max-width: 100%;
+  text-align: left;
+  margin: 0;
+}
+
 /* Next Project Section Styles */
 /* ==========================================
    PROJECT DETAILS: DUAL PROJECT NAVIGATION (PREV & NEXT)
@@ -1597,6 +1616,11 @@ p {
     top: auto;
     left: auto;
     margin-bottom: var(--space-md);
+  }
+
+  .pd-crumb-tray-text-block {
+    max-width: 100%;
+    margin-left: 0;
   }
 }
 
