@@ -350,7 +350,7 @@ function initWorksSplitScroll() {
     const frameHeight = firstFrame ? firstFrame.offsetHeight : 500;
     const topOffset = Math.max(0, (window.innerHeight - frameHeight) / 2);
 
-    projectRows.forEach((row) => {
+    projectRows.forEach((row, index) => {
       const desc = row.querySelector('.work-info-desc');
       const frame = row.querySelector('.work-visual-frame');
       const stickyWrap = row.querySelector('.work-info-sticky-wrap');
@@ -369,16 +369,18 @@ function initWorksSplitScroll() {
         progressIn = (enterStart - frameRect.top) / (enterStart - enterEnd);
       }
 
-      // Exit fade-out (dissolve at bottom margin):
-      // The text meets the bottom of the image frame when frameRect.bottom arrives at (topOffset + wrapHeight)
-      const textBottomY = topOffset + wrapHeight;
-      const exitStart = textBottomY + 120;
-      const exitEnd = textBottomY - 10;
+      // Exit fade-out (dissolve at bottom margin) for all projects except the last one
+      const isLastProject = (index === projectRows.length - 1);
       let progressOut = 0;
-      if (frameRect.bottom <= exitEnd) {
-        progressOut = 1;
-      } else if (frameRect.bottom < exitStart) {
-        progressOut = (exitStart - frameRect.bottom) / (exitStart - exitEnd);
+      if (!isLastProject) {
+        const textBottomY = topOffset + wrapHeight;
+        const exitStart = textBottomY + 120;
+        const exitEnd = textBottomY - 10;
+        if (frameRect.bottom <= exitEnd) {
+          progressOut = 1;
+        } else if (frameRect.bottom < exitStart) {
+          progressOut = (exitStart - frameRect.bottom) / (exitStart - exitEnd);
+        }
       }
 
       const active = Math.max(0, Math.min(1, progressIn)) * Math.max(0, Math.min(1, 1 - progressOut));
