@@ -364,9 +364,9 @@ p {
 
 .profile-body {
   font-family: var(--font-primary);
-  font-size: clamp(2.2rem, 2.8vw, 2.7rem); /* Increased font size by 100% */
+  font-size: clamp(1.75rem, 4.55vw, 3.85rem); /* Same size as project detail titles */
   font-weight: var(--fw-regular);
-  line-height: 1.5; /* Uniform line-height for all text in block */
+  line-height: 1.35;
   color: #000000;
   text-transform: none;
 }
