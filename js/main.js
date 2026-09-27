@@ -345,7 +345,7 @@ function initWorksSplitScroll() {
         const slideContentHeight = descElem ? (descElem.offsetTop + descElem.offsetHeight) : lastSlide.offsetHeight;
         // Allows the last image (Climbex) to glide all the way until its bottom edge meets the bottom of the description
         const bottomTravel = Math.max(0, frameHeight - slideContentHeight);
-        const scrollNeeded = Math.max(0, topOffset + bottomTravel);
+        const scrollNeeded = Math.max(0, bottomTravel);
         lastVisualItem.style.paddingBottom = `${scrollNeeded}px`;
       }
     }

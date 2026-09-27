@@ -391,7 +391,7 @@ p {
   position: relative;
   background-color: var(--color-bg-primary);
   padding-top: 0;
-  padding-bottom: clamp(4.75rem, 10.5vh, 9rem); /* Spazio negativo bianco sotto l'ultimo lavoro (ridotto del 50%) */
+  padding-bottom: 0; /* No excess dead space under last visual item */
   margin: 0;
 }
 
