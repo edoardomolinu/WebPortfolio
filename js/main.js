@@ -205,30 +205,50 @@ function setupDynamicHeader() {
 }
 
 /**
- * Immersive cross-fade to white scroll effect.
- * Gradually transitions the hero overlay opacity to 1.0 (pure FFFFFF)
- * as the user scrolls, creating a smooth entrance for the white profile page.
+ * Immersive sticky hero scroll effect.
+ * Keeps the video pinned full-screen while gradually transitioning
+ * the hero overlay opacity to 1.0 (pure FFFFFF) proportionally to scroll.
+ * Only once the fade is 100% complete does the page scroll into the profile/about section.
  */
 function initHeroFadeScroll() {
+  const pinWrapper = document.querySelector('.hero-pin-wrapper');
   const fadeOverlay = document.querySelector('.hero__fade-overlay');
   const scrollIndicator = document.querySelector('.hero__scroll-indicator');
+  const heroContent = document.querySelector('.hero__content-container');
   if (!fadeOverlay) return;
   
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    const heroHeight = window.innerHeight;
-    
-    // Transition starts immediately and reaches 100% white when scrolled to 80% viewport height
-    let opacity = scrollY / (heroHeight * 0.8);
-    opacity = Math.max(0, Math.min(1, opacity));
-    
-    fadeOverlay.style.opacity = opacity;
-    
-    // Fade out scroll indicator to white/transparent
-    if (scrollIndicator) {
-      scrollIndicator.style.opacity = 1 - opacity;
+  const updateHeroFade = () => {
+    let progress = 0;
+    if (pinWrapper) {
+      const rect = pinWrapper.getBoundingClientRect();
+      const totalScrollableDistance = pinWrapper.offsetHeight - window.innerHeight;
+      if (totalScrollableDistance > 0) {
+        // Scrolled distance within the pinning container
+        const scrolled = -rect.top;
+        progress = Math.max(0, Math.min(1, scrolled / totalScrollableDistance));
+      }
+    } else {
+      const scrollY = window.scrollY;
+      const heroHeight = window.innerHeight;
+      progress = Math.max(0, Math.min(1, scrollY / (heroHeight * 0.8)));
     }
-  });
+    
+    // Smoothly reach 100% pure white before unpinning to guarantee seamless handoff
+    const overlayOpacity = Math.min(1, progress / 0.92);
+    fadeOverlay.style.opacity = overlayOpacity;
+    
+    // Fade out scroll indicator and hero text
+    if (scrollIndicator) {
+      scrollIndicator.style.opacity = Math.max(0, 1 - progress * 2.2);
+    }
+    if (heroContent) {
+      heroContent.style.opacity = Math.max(0, 1 - progress * 1.5);
+    }
+  };
+
+  window.addEventListener('scroll', updateHeroFade, { passive: true });
+  window.addEventListener('resize', updateHeroFade, { passive: true });
+  updateHeroFade();
 }
 
 /**
