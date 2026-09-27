@@ -458,33 +458,13 @@ function initWorksSplitScroll() {
           }
         }
       } else {
-        // Last project (Climbex): stays 100% visible until Contact section reveal unmasks
-        const footer = document.querySelector('.contact-section');
-        if (footer) {
-          const footerHeight = footer.offsetHeight;
-          const scrollHeight = document.documentElement.scrollHeight;
-          const viewportHeight = window.innerHeight;
-          const maxScroll = scrollHeight - viewportHeight;
-          const currentScroll = window.scrollY;
-          const startScroll = maxScroll - footerHeight;
-
-          if (currentScroll > startScroll && footerHeight > 0) {
-            const rawProgress = (currentScroll - startScroll) / footerHeight;
-            const progress = Math.max(0, Math.min(1, rawProgress));
-            const contactFade = progress * progress * (3 - 2 * progress);
-            const imgOpacity = 1 - contactFade;
-            frame.style.opacity = imgOpacity.toFixed(3);
-            frame.style.filter = contactFade > 0.05 ? `blur(${(6 * contactFade).toFixed(1)}px)` : 'none';
-            frame.style.pointerEvents = imgOpacity < 0.05 ? 'none' : 'auto';
-          } else {
-            frame.style.opacity = '1';
-            frame.style.filter = 'none';
-            frame.style.pointerEvents = 'auto';
-          }
-        } else {
-          frame.style.opacity = '1';
-          frame.style.filter = 'none';
-          frame.style.pointerEvents = 'auto';
+        // Last project (Climbex): stays 100% permanently visible (no fade out)
+        frame.style.opacity = '1';
+        frame.style.filter = 'none';
+        frame.style.pointerEvents = 'auto';
+        if (stickyWrap) {
+          stickyWrap.style.opacity = '1';
+          stickyWrap.style.filter = 'none';
         }
       }
     });
