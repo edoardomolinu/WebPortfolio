@@ -337,6 +337,7 @@ function initWorksSplitScroll() {
       projectRows.forEach((row) => {
         const desc = row.querySelector('.work-info-desc');
         const frame = row.querySelector('.work-visual-frame');
+        const stickyWrap = row.querySelector('.work-info-sticky-wrap');
         if (desc) {
           desc.style.opacity = '';
           desc.style.filter = '';
@@ -348,6 +349,10 @@ function initWorksSplitScroll() {
           frame.style.filter = '';
           frame.style.pointerEvents = '';
         }
+        if (stickyWrap) {
+          stickyWrap.style.opacity = '';
+          stickyWrap.style.filter = '';
+        }
       });
       return;
     }
@@ -355,6 +360,7 @@ function initWorksSplitScroll() {
     const firstFrame = document.querySelector('.work-visual-frame');
     const frameHeight = firstFrame ? firstFrame.offsetHeight : 500;
     const topOffset = Math.max(0, (window.innerHeight - frameHeight) / 2);
+    const windowHeight = window.innerHeight;
 
     projectRows.forEach((row, index) => {
       const desc = row.querySelector('.work-info-desc');
@@ -406,28 +412,49 @@ function initWorksSplitScroll() {
         desc.style.transform = 'translateY(10px)';
       }
 
-      // --- 2. Trailer Image Fade-Out Animation ---
-      // Fade out starts ONLY when the next trailer image arrives in position (nextFrameRect.top <= topOffset)
+      // --- 2. Trailer Image & Project Fade-Out Animation ---
+      // Fade out starts when the next trailer image arrives at the center of the screen
       if (!isLastProject) {
         const nextRow = projectRows[index + 1];
         const nextFrame = nextRow ? nextRow.querySelector('.work-visual-frame') : null;
         if (nextFrame) {
           const nextFrameRect = nextFrame.getBoundingClientRect();
-          if (nextFrameRect.top <= topOffset) {
-            // Next image is in position: smoothly fade out the current image as user continues scrolling
-            const fadeDist = frameHeight * 0.55;
-            const rawProgress = (topOffset - nextFrameRect.top) / fadeDist;
-            const t = Math.max(0, Math.min(1, rawProgress));
-            const imgFade = t * t * (3 - 2 * t);
-            const imgOpacity = 1 - imgFade;
-            frame.style.opacity = imgOpacity.toFixed(3);
-            frame.style.filter = imgFade > 0.05 ? `blur(${(6 * imgFade).toFixed(1)}px)` : 'none';
-            frame.style.pointerEvents = imgOpacity < 0.05 ? 'none' : 'auto';
-          } else {
-            // Next image has not reached position yet: current image stays 100% visible
+          const triggerStart = windowHeight * 0.55; // Next image reaches center of screen
+          const triggerEnd = topOffset;            // Next image reaches active position
+
+          if (nextFrameRect.top >= triggerStart) {
+            // Next image is still below center screen: current image stays 100% visible
             frame.style.opacity = '1';
             frame.style.filter = 'none';
             frame.style.pointerEvents = 'auto';
+            if (stickyWrap) {
+              stickyWrap.style.opacity = '1';
+              stickyWrap.style.filter = 'none';
+            }
+          } else if (nextFrameRect.top <= triggerEnd) {
+            // Next image is in active position: current image is fully dissolved
+            frame.style.opacity = '0';
+            frame.style.filter = 'blur(8px)';
+            frame.style.pointerEvents = 'none';
+            if (stickyWrap) {
+              stickyWrap.style.opacity = '0';
+              stickyWrap.style.filter = 'blur(8px)';
+            }
+          } else {
+            // Next image is moving from center screen to active position: smooth gradual fade-out
+            const rawT = (triggerStart - nextFrameRect.top) / (triggerStart - triggerEnd);
+            const t = Math.max(0, Math.min(1, rawT));
+            const imgFade = t * t * (3 - 2 * t);
+            const imgOpacity = 1 - imgFade;
+
+            frame.style.opacity = imgOpacity.toFixed(3);
+            frame.style.filter = imgFade > 0.02 ? `blur(${(8 * imgFade).toFixed(1)}px)` : 'none';
+            frame.style.pointerEvents = imgOpacity < 0.05 ? 'none' : 'auto';
+
+            if (stickyWrap) {
+              stickyWrap.style.opacity = imgOpacity.toFixed(3);
+              stickyWrap.style.filter = imgFade > 0.02 ? `blur(${(8 * imgFade).toFixed(1)}px)` : 'none';
+            }
           }
         }
       } else {
