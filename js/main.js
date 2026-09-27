@@ -336,11 +336,17 @@ function initWorksSplitScroll() {
     if (window.innerWidth <= 900) {
       projectRows.forEach((row) => {
         const desc = row.querySelector('.work-info-desc');
+        const frame = row.querySelector('.work-visual-frame');
         if (desc) {
           desc.style.opacity = '';
           desc.style.filter = '';
           desc.style.transform = '';
           desc.style.visibility = '';
+        }
+        if (frame) {
+          frame.style.opacity = '';
+          frame.style.filter = '';
+          frame.style.pointerEvents = '';
         }
       });
       return;
@@ -359,6 +365,7 @@ function initWorksSplitScroll() {
       const frameRect = frame.getBoundingClientRect();
       const wrapHeight = stickyWrap ? stickyWrap.offsetHeight : 220;
 
+      // --- 1. Description Text Animation ---
       // Entrance fade-in: starts as frame enters near topOffset, fully visible once at topOffset
       const enterStart = topOffset + 140;
       const enterEnd = topOffset;
@@ -397,6 +404,61 @@ function initWorksSplitScroll() {
         desc.style.opacity = '0';
         desc.style.filter = 'blur(10px)';
         desc.style.transform = 'translateY(10px)';
+      }
+
+      // --- 2. Trailer Image Fade-Out Animation ---
+      // Fade out starts ONLY when the next trailer image arrives in position (nextFrameRect.top <= topOffset)
+      if (!isLastProject) {
+        const nextRow = projectRows[index + 1];
+        const nextFrame = nextRow ? nextRow.querySelector('.work-visual-frame') : null;
+        if (nextFrame) {
+          const nextFrameRect = nextFrame.getBoundingClientRect();
+          if (nextFrameRect.top <= topOffset) {
+            // Next image is in position: smoothly fade out the current image as user continues scrolling
+            const fadeDist = frameHeight * 0.55;
+            const rawProgress = (topOffset - nextFrameRect.top) / fadeDist;
+            const t = Math.max(0, Math.min(1, rawProgress));
+            const imgFade = t * t * (3 - 2 * t);
+            const imgOpacity = 1 - imgFade;
+            frame.style.opacity = imgOpacity.toFixed(3);
+            frame.style.filter = imgFade > 0.05 ? `blur(${(6 * imgFade).toFixed(1)}px)` : 'none';
+            frame.style.pointerEvents = imgOpacity < 0.05 ? 'none' : 'auto';
+          } else {
+            // Next image has not reached position yet: current image stays 100% visible
+            frame.style.opacity = '1';
+            frame.style.filter = 'none';
+            frame.style.pointerEvents = 'auto';
+          }
+        }
+      } else {
+        // Last project (Climbex): stays 100% visible until Contact section reveal unmasks
+        const footer = document.querySelector('.contact-section');
+        if (footer) {
+          const footerHeight = footer.offsetHeight;
+          const scrollHeight = document.documentElement.scrollHeight;
+          const viewportHeight = window.innerHeight;
+          const maxScroll = scrollHeight - viewportHeight;
+          const currentScroll = window.scrollY;
+          const startScroll = maxScroll - footerHeight;
+
+          if (currentScroll > startScroll && footerHeight > 0) {
+            const rawProgress = (currentScroll - startScroll) / footerHeight;
+            const progress = Math.max(0, Math.min(1, rawProgress));
+            const contactFade = progress * progress * (3 - 2 * progress);
+            const imgOpacity = 1 - contactFade;
+            frame.style.opacity = imgOpacity.toFixed(3);
+            frame.style.filter = contactFade > 0.05 ? `blur(${(6 * contactFade).toFixed(1)}px)` : 'none';
+            frame.style.pointerEvents = imgOpacity < 0.05 ? 'none' : 'auto';
+          } else {
+            frame.style.opacity = '1';
+            frame.style.filter = 'none';
+            frame.style.pointerEvents = 'auto';
+          }
+        } else {
+          frame.style.opacity = '1';
+          frame.style.filter = 'none';
+          frame.style.pointerEvents = 'auto';
+        }
       }
     });
   };
