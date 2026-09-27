@@ -170,7 +170,7 @@ p {
   opacity: 0;
   overflow: hidden;
   vertical-align: baseline;
-  transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  transition: max-width 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
   will-change: max-width, opacity;
 }
 
@@ -180,7 +180,7 @@ p {
   opacity: 1;
   overflow: hidden;
   vertical-align: baseline;
-  transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  transition: max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
 }
 
 .logo-symbol-hover {
@@ -189,7 +189,7 @@ p {
   opacity: 0;
   overflow: hidden;
   vertical-align: baseline;
-  transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  transition: max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
 }
 
 .header__logo:hover .logo-expand {
