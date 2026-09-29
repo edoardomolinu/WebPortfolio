@@ -377,11 +377,9 @@ function initAboutFadeScroll() {
       const rect = profileSection.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       
-      // Start fading when top of the section enters reading zone:
-      // For work-intro-wrap, reveal begins when centered at ~55% of viewport height (not before)
-      const isWorkIntro = profileSection.classList.contains('work-intro-wrap');
-      const startScroll = isWorkIntro ? (viewportHeight * 0.55) : (viewportHeight * 0.90);
-      const endScroll = isWorkIntro ? (viewportHeight * 0.25) : (viewportHeight * 0.40);
+      // Start fading when top of the section enters the reading zone at mid-page (50vh):
+      const startScroll = viewportHeight * 0.50;
+      const endScroll = viewportHeight * 0.22;
       
       let progress = (startScroll - rect.top) / (startScroll - endScroll);
       progress = Math.max(0, Math.min(1, progress));
