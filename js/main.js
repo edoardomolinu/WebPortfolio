@@ -563,46 +563,78 @@ function initAboutPageScroll() {
 }
 
 /**
- * Infinite looping word rotation for the Hero section text "Bold".
- * Alternates between "Bold", "Autonomous", "Invisible", "Biomimetic" with 5 seconds display timing.
+ * Synchronized word rotation for the Hero section headline.
+ * Locks the alternating words ("Bold", "Autonomous", "Invisible", "Biomimetic")
+ * directly to the GeneralTrailer.mp4 duration and playback timeline.
+ * Divides video duration equally by words count (4) so words transition on exact quarter-marks
+ * and seamlessly restart on video loop with zero temporal drift.
  */
 function initHeroWordChanger() {
   const wordSpan = document.querySelector('.hero__headline--bold');
+  const video = document.querySelector('.hero__video');
   if (!wordSpan) return;
-  
+
   const words = ['Bold', 'Autonomous', 'Invisible', 'Biomimetic'];
   let currentIndex = 0;
-  
-  // Initial slide-in animation
+  let isTransitioning = false;
+
+  // Initial display setup
+  wordSpan.textContent = words[0];
   setTimeout(() => {
     wordSpan.classList.add('is-visible');
-  }, 400);
-  
-  const cycleNextWord = () => {
-    // 1. Keep word statically visible for 5 full seconds
-    setTimeout(() => {
-      // 2. Trigger smooth fade-out animation
-      wordSpan.classList.remove('is-visible');
-      
-      // 3. Wait for fade-out (600ms), change word, and fade in
-      setTimeout(() => {
-        currentIndex = (currentIndex + 1) % words.length;
-        wordSpan.textContent = words[currentIndex];
-        
-        // Force reflow
-        void wordSpan.offsetWidth;
-        
-        // 4. Trigger smooth fade-in animation
-        wordSpan.classList.add('is-visible');
-        
-        // 5. Schedule next word cycle
-        cycleNextWord();
-      }, 600);
-    }, 5000);
+  }, 300);
+
+  if (!video) return;
+
+  const getTargetIndex = () => {
+    const duration = video.duration;
+    if (!duration || isNaN(duration) || duration <= 0) return 0;
+    const progress = Math.max(0, Math.min(0.999, video.currentTime / duration));
+    return Math.floor(progress * words.length);
   };
-  
-  // Start the 5-second cycle
-  cycleNextWord();
+
+  const switchWord = (newIndex) => {
+    if (isTransitioning || newIndex === currentIndex) return;
+    isTransitioning = true;
+    currentIndex = newIndex;
+
+    // Fade out previous word
+    wordSpan.classList.remove('is-visible');
+
+    setTimeout(() => {
+      wordSpan.textContent = words[newIndex];
+      void wordSpan.offsetWidth; // Force reflow
+      wordSpan.classList.add('is-visible');
+      isTransitioning = false;
+    }, 400);
+  };
+
+  const checkSync = () => {
+    if (!video.paused && !video.ended) {
+      const targetIndex = getTargetIndex();
+      if (targetIndex !== currentIndex && !isTransitioning) {
+        switchWord(targetIndex);
+      }
+    }
+    requestAnimationFrame(checkSync);
+  };
+
+  // Immediate event listeners for video seeking / timeupdate
+  video.addEventListener('seeked', () => {
+    const targetIndex = getTargetIndex();
+    if (targetIndex !== currentIndex) {
+      switchWord(targetIndex);
+    }
+  });
+
+  video.addEventListener('timeupdate', () => {
+    const targetIndex = getTargetIndex();
+    if (targetIndex !== currentIndex && !isTransitioning) {
+      switchWord(targetIndex);
+    }
+  });
+
+  requestAnimationFrame(checkSync);
 }
 
 
