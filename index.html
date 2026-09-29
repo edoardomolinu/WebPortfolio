@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@700&family=Trispace:wght@100..800&display=swap" rel="stylesheet">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="./css/style.css?v=17.2">
+  <link rel="stylesheet" href="./css/style.css?v=68.0">
 </head>
 <body>
 
@@ -29,10 +29,15 @@
     </a>
     <nav class="header__nav">
       <a href="#work" class="header__link">Work</a>
-      <a href="#about" class="header__link">About</a>
+      <a href="./about.html" class="header__link">About</a>
       <a href="#contact" class="header__link">Contact</a>
     </nav>
   </header>
+
+  <!-- Fixed "Work" Title (Top-left fixed position, mix-blend-mode: difference overlay over scrolling projects) -->
+  <div class="work-sticky-header">
+    <h2 class="work-sticky-title">Work</h2>
+  </div>
 
   <main class="main-content">
   <!-- Hero Section (Pinned Sticky Scroll-Driven Fade) -->
@@ -56,26 +61,23 @@
     </section>
   </div>
 
-  <!-- Profile / About Section -->
-  <section class="profile-section" id="about">
-    <div class="container">
-      <div class="profile-content">
-        <p class="profile-body">
-          <span class="profile-scroll-line">Hi, I am Edoardo Molinu. </span>
-          <span class="profile-scroll-line">For the past five years, I have been designing experiences </span>
-          <span class="profile-scroll-line">and turning ideas into physical products that integrate aesthetics and technical feasibility.</span>
-        </p>
-      </div>
-    </div>
-  </section>
-
   <!-- Work Section -->
   <section class="work-section" id="work">
     <div class="container work-container">
+      
+      <!-- Work Section Intro Statement (Right-aligned, line-by-line scroll reveal) -->
+      <div class="work-intro-wrap">
+        <p class="work-intro-text">
+          <span class="profile-scroll-line">This selection of projects encapsulates my approach to design. </span>
+          <span class="profile-scroll-line">Each work stems from the need to transform a user experience into a formal identity </span>
+          <span class="profile-scroll-line">and, ultimately, into a tangible object.</span>
+        </p>
+      </div>
+
       <div class="work-projects-list">
         
-        <!-- Project 1: Leo | Casa Bugatti -->
-        <article class="work-project-row" data-index="0" id="project-01">
+        <!-- Project 1: Leo | Casa Bugatti (Left Image, Right Text) -->
+        <article class="work-project-row work-project-row--normal" data-index="0" id="project-01">
           <div class="work-visual-col">
             <a href="./pLeo.html" class="work-visual-link">
               <div class="work-visual-frame">
@@ -84,7 +86,7 @@
             </a>
           </div>
           <div class="work-info-col">
-            <div class="work-info-sticky-wrap">
+            <div class="work-info-content">
               <a href="./pLeo.html" class="work-info-link">
                 <h2 class="work-info-title">Leo | Casa Bugatti</h2>
                 <p class="work-info-desc">A toaster that transcends the role of a simple appliance into a collectible piece of art, transforming the bread-toasting ritual into an iconic experience tailored for modern luxury micro-living.</p>
@@ -93,8 +95,16 @@
           </div>
         </article>
 
-        <!-- Project 2: 10EXT | Politecnico di Milano -->
-        <article class="work-project-row" data-index="1" id="project-02">
+        <!-- Project 2: 10EXT | Politecnico di Milano (Left Text, Right Image) -->
+        <article class="work-project-row work-project-row--reverse" data-index="1" id="project-02">
+          <div class="work-info-col">
+            <div class="work-info-content">
+              <a href="./p10ext.html" class="work-info-link">
+                <h2 class="work-info-title">10EXT | Politecnico di Milano</h2>
+                <p class="work-info-desc">An automated industrial machine engineered to close the loop on polymer recycling for small businesses, producing high-precision, production-ready spools for 3D printing.</p>
+              </a>
+            </div>
+          </div>
           <div class="work-visual-col">
             <a href="./p10ext.html" class="work-visual-link">
               <div class="work-visual-frame">
@@ -102,18 +112,10 @@
               </div>
             </a>
           </div>
-          <div class="work-info-col">
-            <div class="work-info-sticky-wrap">
-              <a href="./p10ext.html" class="work-info-link">
-                <h2 class="work-info-title">10EXT | Politecnico di Milano</h2>
-                <p class="work-info-desc">An automated industrial machine engineered to close the loop on polymer recycling for small businesses, producing high-precision, production-ready spools for 3D printing.</p>
-              </a>
-            </div>
-          </div>
         </article>
 
-        <!-- Project 3: LuminAir | Midea Group -->
-        <article class="work-project-row" data-index="2" id="project-03">
+        <!-- Project 3: LuminAir | Midea Group (Left Image, Right Text) -->
+        <article class="work-project-row work-project-row--normal" data-index="2" id="project-03">
           <div class="work-visual-col">
             <a href="./pluminair.html" class="work-visual-link">
               <div class="work-visual-frame">
@@ -122,7 +124,7 @@
             </a>
           </div>
           <div class="work-info-col">
-            <div class="work-info-sticky-wrap">
+            <div class="work-info-content">
               <a href="./pluminair.html" class="work-info-link">
                 <h2 class="work-info-title">LuminAir | Midea Group</h2>
                 <p class="work-info-desc">An active hygiene module developed for next-generation dishwashers, harnessing catalytic reactions to eliminate odors and continuously sanitize appliance cavities between wash cycles.</p>
@@ -131,22 +133,22 @@
           </div>
         </article>
 
-        <!-- Project 4: Climbex | Politecnico di Milano -->
-        <article class="work-project-row" data-index="3" id="project-04">
+        <!-- Project 4: Climbex | Politecnico di Milano (Left Text, Right Image) -->
+        <article class="work-project-row work-project-row--reverse" data-index="3" id="project-04">
+          <div class="work-info-col">
+            <div class="work-info-content">
+              <a href="./pclimbex.html" class="work-info-link">
+                <h2 class="work-info-title">Climbex | Politecnico di Milano</h2>
+                <p class="work-info-desc">Biomimetic alpine footwear designed through nature-inspired biomechanics, engineered to redefine grip, adaptability, and performance across extreme rock and mountain terrains.</p>
+              </a>
+            </div>
+          </div>
           <div class="work-visual-col">
             <a href="./pclimbex.html" class="work-visual-link">
               <div class="work-visual-frame">
                 <img class="work-visual-img" src="./asset/img/ClimBEXHero.webp" alt="Climbex | Politecnico di Milano">
               </div>
             </a>
-          </div>
-          <div class="work-info-col">
-            <div class="work-info-sticky-wrap">
-              <a href="./pclimbex.html" class="work-info-link">
-                <h2 class="work-info-title">Climbex | Politecnico di Milano</h2>
-                <p class="work-info-desc">Biomimetic alpine footwear designed through nature-inspired biomechanics, engineered to redefine grip, adaptability, and performance across extreme rock and mountain terrains.</p>
-              </a>
-            </div>
           </div>
         </article>
 
@@ -207,6 +209,6 @@
   <!-- Lenis Smooth Scroll Engine -->
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <!-- Local Scripts -->
-  <script src="./js/main.js?v=17.2"></script>
+  <script src="./js/main.js?v=67.0"></script>
 </body>
 </html>

@@ -4,9 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   setupDynamicHeader();
   initHeroFadeScroll();
+  initWorkStickyScroll();
   initAboutFadeScroll();
+  initAboutPageScroll();
   initHeroWordChanger();
-  initWorksSplitScroll();
   initInteractiveGrid();
   initContactSpotlight();
   initFooterReveal();
@@ -102,6 +103,8 @@ function initScrollReveal() {
       imageObserver.observe(el);
     }
   });
+
+
 }
 
 /**
@@ -145,16 +148,20 @@ function initThreeViewers() {
 }
 
 /**
- * Minimal Header transition logic on scroll.
- * Hides header on scroll down, reveals on scroll up.
- * Reappears automatically at the bottom of the page strictly on the Homepage.
+ * Dynamic Header transition logic on scroll.
+ * - Hides header on scroll down (past 60px).
+ * - Reveals header on scroll up only after an intentional upward scroll buffer (20px) to prevent hysterical pop-ins.
+ * - Reappears automatically at the bottom of the page (Homepage and About page).
  */
 function setupDynamicHeader() {
   const header = document.querySelector('.header');
   if (!header) return;
   
-  const isHomePage = !document.body.classList.contains('project-page');
+  const isHomePage = !document.body.classList.contains('project-page') && !document.body.classList.contains('about-page');
+  const isAboutPage = document.body.classList.contains('about-page');
   let lastScrollY = window.scrollY;
+  let accumulatedUpScroll = 0;
+  const SCROLL_UP_THRESHOLD = 20; // 20px buffer before un-hiding header on scroll up
   let ticking = false;
 
   const updateHeader = () => {
@@ -163,8 +170,8 @@ function setupDynamicHeader() {
     const viewportHeight = window.innerHeight;
     const maxScroll = Math.max(0, scrollHeight - viewportHeight);
     
-    // Detect if user has reached the bottom of the page (within 10px tolerance for inertia)
-    const isAtBottom = maxScroll > 0 && currentScrollY >= maxScroll - 10;
+    // Detect if user has reached the bottom of the page (within 20px tolerance for inertia)
+    const isAtBottom = maxScroll > 0 && currentScrollY >= maxScroll - 20;
     
     // Add/remove shrink class
     if (currentScrollY > 50) {
@@ -172,17 +179,27 @@ function setupDynamicHeader() {
     } else {
       header.classList.remove('header--shrunk');
     }
-    
+
     // Header visibility rules:
-    // 1. On homepage ONLY: if at the absolute bottom of the page, header MUST reappear.
-    // 2. Otherwise (on project pages or during normal downward scroll): hide header on scroll down past 100px.
-    // 3. If scrolling up, reveal header.
-    if (isHomePage && isAtBottom) {
+    // 1. Reappear automatically at the bottom of the page on Home and About.
+    // 2. Hide on scroll down past 60px.
+    // 3. Reveal on intentional scroll up (after exceeding the buffer threshold) or when near top.
+    if ((isHomePage || isAboutPage) && isAtBottom) {
       header.classList.remove('header--hidden');
-    } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      accumulatedUpScroll = 0;
+    } else if (currentScrollY > lastScrollY && currentScrollY > 60) {
+      // Scrolling down
       header.classList.add('header--hidden');
-    } else {
+      accumulatedUpScroll = 0;
+    } else if (currentScrollY < lastScrollY) {
+      // Scrolling up: accumulate upward delta
+      accumulatedUpScroll += (lastScrollY - currentScrollY);
+      if (currentScrollY <= 60 || accumulatedUpScroll >= SCROLL_UP_THRESHOLD) {
+        header.classList.remove('header--hidden');
+      }
+    } else if (currentScrollY <= 60) {
       header.classList.remove('header--hidden');
+      accumulatedUpScroll = 0;
     }
     
     lastScrollY = currentScrollY;
@@ -214,7 +231,19 @@ function initHeroFadeScroll() {
   const pinWrapper = document.querySelector('.hero-pin-wrapper');
   const fadeOverlay = document.querySelector('.hero__fade-overlay');
   const heroContent = document.querySelector('.hero__content-container');
+  const workHeader = document.querySelector('.work-sticky-header');
+  const workTitle = document.querySelector('.work-sticky-title');
+  const lastProject = document.querySelector('#project-04') || document.querySelector('.work-project-row:last-of-type');
   if (!fadeOverlay) return;
+
+  let workHeaderDefaultTop = 0;
+  const measureDefaultTop = () => {
+    if (!workHeader) return;
+    const currentInline = workHeader.style.top;
+    workHeader.style.top = '';
+    workHeaderDefaultTop = workHeader.getBoundingClientRect().top;
+    workHeader.style.top = currentInline;
+  };
   
   const updateHeroFade = () => {
     let progress = 0;
@@ -240,53 +269,299 @@ function initHeroFadeScroll() {
     if (heroContent) {
       heroContent.style.opacity = Math.max(0, 1 - progress * 1.5);
     }
+
+    // Trigger reveal of fixed "Work" title directly on the spot (at 70% of video trailer fade-out)
+    if (workTitle) {
+      if (overlayOpacity >= 0.70) {
+        workTitle.classList.add('is-visible');
+      } else {
+        workTitle.classList.remove('is-visible');
+      }
+    }
+
+    // When the top margin of Climbex reaches the top of "Work",
+    // Work pins to Climbex and travels upward out of the screen.
+    if (workHeader && lastProject) {
+      const lastRect = lastProject.getBoundingClientRect();
+      if (workHeaderDefaultTop === 0) {
+        measureDefaultTop();
+      }
+      if (lastRect.top <= workHeaderDefaultTop) {
+        workHeader.style.top = `${lastRect.top}px`;
+      } else {
+        workHeader.style.top = '';
+      }
+    }
   };
 
   window.addEventListener('scroll', updateHeroFade, { passive: true });
-  window.addEventListener('resize', updateHeroFade, { passive: true });
+  window.addEventListener('resize', () => {
+    measureDefaultTop();
+    updateHeroFade();
+  }, { passive: true });
+  window.addEventListener('load', () => {
+    measureDefaultTop();
+    updateHeroFade();
+  });
+  measureDefaultTop();
   updateHeroFade();
 }
 
 /**
- * Scroll-driven fade reveal for the centered About profile text.
- * Gradually transitions opacity of each line from 10% to 100% sequencially as the section enters the screen.
+ * Scroll-driven pinning for project text boxes in the Work section:
+ * - Entering: text top aligns with project image top.
+ * - Pins text when its bottom reaches the target reading baseline (the bottom edge of the image when image midline is at 50vh).
+ * - As the image continues scrolling up and its bottom reaches the bottom of the sticky text box, the row pushes the text up synchronously.
+ */
+function initWorkStickyScroll() {
+  const rows = document.querySelectorAll('.work-project-row');
+  if (!rows.length) return;
+
+  const updateStickyPositions = () => {
+    const vh = window.innerHeight;
+    rows.forEach(row => {
+      const visualCol = row.querySelector('.work-visual-col');
+      const infoContent = row.querySelector('.work-info-content');
+      if (!visualCol || !infoContent) return;
+
+      const imgHeight = visualCol.offsetHeight;
+      const textHeight = infoContent.offsetHeight;
+
+      if (imgHeight > 0 && textHeight > 0) {
+        // Target baseline: bottom edge of image when image midline is at 50vh (vh / 2 + imgHeight / 2)
+        const targetBaseline = (vh / 2) + (imgHeight / 2);
+        const stickyTop = Math.round(targetBaseline - textHeight);
+        infoContent.style.top = `${stickyTop}px`;
+
+        // Irreversible bottom lock: Only trigger when the project has actively entered
+        // and scrolled past its sticky point, and its bottom has reached or passed the target baseline.
+        if (!row.classList.contains('is-bottom-locked')) {
+          const visualRect = visualCol.getBoundingClientRect();
+          const hasPassedStickyPoint = visualRect.top <= stickyTop;
+          const hasReachedBottom = visualRect.bottom > 0 && visualRect.bottom <= targetBaseline;
+          
+          if (hasPassedStickyPoint && hasReachedBottom) {
+            row.classList.add('is-bottom-locked');
+          }
+        }
+      }
+    });
+  };
+
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(() => {
+      updateStickyPositions();
+    });
+    rows.forEach(row => ro.observe(row));
+  }
+
+  window.addEventListener('scroll', updateStickyPositions, { passive: true });
+  window.addEventListener('resize', updateStickyPositions, { passive: true });
+  window.addEventListener('load', updateStickyPositions);
+  updateStickyPositions();
+}
+
+/**
+ * Scroll-driven fade reveal for centered profile text blocks.
+ * Gradually transitions opacity of each line from 10% to 100% sequentially as the section enters the screen.
  */
 function initAboutFadeScroll() {
-  const lines = document.querySelectorAll('.profile-scroll-line');
-  const profileSection = document.querySelector('.profile-section');
-  if (!lines.length || !profileSection) return;
+  const profileSections = document.querySelectorAll('.profile-section, .about-reflection-section, .work-intro-wrap');
+  if (!profileSections.length) return;
   
   const handleScroll = () => {
-    const rect = profileSection.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    
-    // Start fading when top of the section reaches the middle of the screen (rect.top = viewportHeight * 0.5)
-    // Reach 100% opacity of the last line when section top reaches 15% of viewport height
-    const startScroll = viewportHeight * 0.5;
-    const endScroll = viewportHeight * 0.15;
-    
-    let progress = (startScroll - rect.top) / (startScroll - endScroll);
-    progress = Math.max(0, Math.min(1, progress));
-    
-    // Interpolate opacity for each line sequencially (riga per riga)
-    const N = lines.length;
-    lines.forEach((line, index) => {
-      // Define a staggered start and end range for each line span
-      const startFraction = index * (0.85 / N);
-      const endFraction = (index + 1) * (0.85 / N);
+    profileSections.forEach(profileSection => {
+      const lines = profileSection.querySelectorAll('.profile-scroll-line');
+      if (!lines.length) return;
       
-      let lineProgress = (progress - startFraction) / (endFraction - startFraction);
-      lineProgress = Math.max(0, Math.min(1, lineProgress));
+      const rect = profileSection.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
       
-      // Interpolate opacity from 10% (0.1) to 100% (1.0)
-      const opacity = 0.1 + (lineProgress * 0.9);
-      line.style.opacity = opacity;
+      // Start fading when top of the section enters reading zone:
+      // For work-intro-wrap, reveal begins when centered at ~55% of viewport height (not before)
+      const isWorkIntro = profileSection.classList.contains('work-intro-wrap');
+      const startScroll = isWorkIntro ? (viewportHeight * 0.55) : (viewportHeight * 0.90);
+      const endScroll = isWorkIntro ? (viewportHeight * 0.25) : (viewportHeight * 0.40);
+      
+      let progress = (startScroll - rect.top) / (startScroll - endScroll);
+      progress = Math.max(0, Math.min(1, progress));
+      
+      // Interpolate opacity for each line sequentially
+      const N = lines.length;
+      lines.forEach((line, index) => {
+        // Define a staggered start and end range for each line span
+        const startFraction = index * (0.85 / N);
+        const endFraction = (index + 1) * (0.85 / N);
+        
+        let lineProgress = (progress - startFraction) / (endFraction - startFraction);
+        lineProgress = Math.max(0, Math.min(1, lineProgress));
+        
+        // Interpolate opacity from 10% (0.1) to 100% (1.0)
+        const opacity = 0.1 + (lineProgress * 0.9);
+        line.style.opacity = opacity;
+      });
     });
   };
   
-  window.addEventListener('scroll', handleScroll);
-  // Trigger once on init
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('resize', handleScroll, { passive: true });
   handleScroll();
+}
+
+/**
+ * Dedicated About Page Scroll-driven Pin Animation:
+ * - Phase 1 (p: 0.0 -> 0.18): "Hello! I am \n Edoardo Molinu" moves from center to top-right; photo rises to center-left (50vh); Bio text rises to align with photo bottom.
+ * - Phase 2 (p: 0.18 -> 1.00): Photo remains firmly locked at 50vh center while the right text column
+ *   scrolls upwards until the bottom of the last item ("Softwares") touches the bottom of the photo.
+ * - Once progress reaches 1.00, the pinned container smoothly unpins, and the photo + softwares scroll UP in unison with normal page scroll.
+ */
+function initAboutPageScroll() {
+  const pinWrapper = document.querySelector('.about-pin-wrapper');
+  const photoWrapper = document.querySelector('.about-photo-wrapper');
+  const textContent = document.querySelector('.about-text-content');
+  const textIntro = document.querySelector('.about-text-intro');
+  const textName = document.querySelector('.about-text-name');
+  const streamContent = document.querySelector('.about-scroll-stream-content');
+  const bioBlock = document.querySelector('.about-stream-bio');
+  const softwareBlock = document.querySelector('.about-stream-software');
+  if (!pinWrapper || !photoWrapper || !textContent || !textName) return;
+
+  const updateDimensions = () => {
+    const stage = document.querySelector('.about-hero-stage');
+    const photoImg = document.querySelector('.about-photo-img');
+    if (stage) {
+      if (photoImg) {
+        const h = photoImg.offsetHeight || photoWrapper.offsetHeight;
+        if (h > 0) {
+          stage.style.setProperty('--about-photo-height', `${h}px`);
+        }
+      }
+      if (bioBlock) {
+        const bioH = bioBlock.offsetHeight;
+        if (bioH > 0) {
+          stage.style.setProperty('--about-bio-height', `${bioH}px`);
+        }
+      }
+    }
+  };
+
+  const getRelativeOffsetTop = (elem, ancestor) => {
+    let top = 0;
+    let curr = elem;
+    while (curr && curr !== ancestor) {
+      top += curr.offsetTop;
+      curr = curr.offsetParent;
+    }
+    return top;
+  };
+
+  const updateAboutAnimation = () => {
+    updateDimensions();
+    const rect = pinWrapper.getBoundingClientRect();
+    const totalDist = pinWrapper.offsetHeight - window.innerHeight;
+    let progress = 0;
+    if (totalDist > 0) {
+      const scrolled = -rect.top;
+      progress = Math.max(0, Math.min(1, scrolled / totalDist));
+    }
+
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    const isMobile = windowWidth < 768;
+
+    // Calculate exact scroll distance needed for bottom of software line to reach bottom of photo:
+    const bioHeight = bioBlock ? bioBlock.offsetHeight : 120;
+    const targetItem = softwareBlock || (streamContent ? streamContent.lastElementChild : null);
+    let streamDistToAlignLastItem = 0;
+    if (streamContent && bioBlock && targetItem) {
+      const bioBottom = getRelativeOffsetTop(bioBlock, streamContent) + bioBlock.offsetHeight;
+      const targetItemBottom = getRelativeOffsetTop(targetItem, streamContent) + targetItem.offsetHeight;
+      streamDistToAlignLastItem = Math.max(0, targetItemBottom - bioBottom);
+    } else if (streamContent && bioBlock) {
+      const bioBottom = getRelativeOffsetTop(bioBlock, streamContent) + bioBlock.offsetHeight;
+      streamDistToAlignLastItem = Math.max(0, streamContent.offsetHeight - bioBottom);
+    }
+
+    // Two-Phase Clean Timing:
+    // Phase 1 (0.00 to 0.18): Intro composition docks (photo rises to 50vh, bio text rises to dock)
+    // Phase 2 (0.18 to 1.00): Photo frozen at 50vh; stream scrolls up until Softwares bottom touches photo bottom at progress = 1.0
+    const p1End = 0.18;
+
+    const pIntro = Math.min(1, progress / p1End);
+    const pStream = Math.max(0, Math.min(1, (progress - p1End) / (1 - p1End)));
+
+    // Phase 2 stream translation:
+    const streamY = -pStream * streamDistToAlignLastItem;
+    const streamMoved = Math.abs(streamY);
+
+    // 1. Photo Animation:
+    // - In Phase 1: Rises from bottom until centered vertically at 50vh
+    // - In Phase 2: Remains locked at 50vh center
+    // - After Pin: Moves up together with page scroll
+    const startOffsetY = (windowHeight * 0.8) + (photoWrapper.offsetHeight || 450);
+    const photoIntroY = (1 - pIntro) * startOffsetY;
+    const photoOpacity = Math.min(1, pIntro * 2.8);
+
+    if (isMobile) {
+      photoWrapper.style.transform = `translate3d(-50%, calc(-50% + ${photoIntroY}px), 0)`;
+    } else {
+      photoWrapper.style.transform = `translate3d(0, calc(-50% + ${photoIntroY}px), 0)`;
+    }
+    photoWrapper.style.opacity = photoOpacity;
+
+    // 2. Headline Text Animation: moves from center to top-right in Phase 1, fades out as stream scrolls in Phase 2
+    if (isMobile) {
+      const mobileScale = 1 - (pIntro * 0.22);
+      const mobileY = -pIntro * (windowHeight * 0.24) + streamY;
+      const mobileTitleOpacity = Math.max(0, 1 - (streamMoved / (windowHeight * 0.18)));
+      textContent.style.transform = `translate3d(-50%, calc(-50% + ${mobileY}px), 0) scale(${mobileScale})`;
+      textContent.style.opacity = mobileTitleOpacity;
+      if (textIntro) textIntro.style.transform = 'none';
+    } else {
+      const targetScale = 0.76;
+      const currentScale = 1 - (pIntro * (1 - targetScale));
+
+      const nameWidth = textName.offsetWidth;
+      const introWidth = textIntro ? textIntro.offsetWidth : 0;
+      const blockWidth = textContent.offsetWidth;
+
+      const rightPadding = Math.min(Math.max(windowWidth * 0.025, 24), 40);
+      const initialCenterX = windowWidth / 2;
+      const initialCenterY = windowHeight / 2;
+      const finalCenterX = windowWidth - rightPadding - (blockWidth * targetScale) / 2;
+      const targetTopY = windowHeight * 0.34;
+      const finalCenterY = targetTopY + (textContent.offsetHeight * targetScale) / 2;
+
+      const deltaX = finalCenterX - initialCenterX;
+      const deltaY = finalCenterY - initialCenterY;
+
+      const currentX = pIntro * deltaX;
+      const currentY = (pIntro * deltaY) + streamY;
+      const titleOpacity = Math.max(0, 1 - (streamMoved / (windowHeight * 0.26)));
+
+      textContent.style.transform = `translate3d(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px), 0) scale(${currentScale})`;
+      textContent.style.opacity = titleOpacity;
+
+      if (textIntro && nameWidth > introWidth) {
+        const introShiftX = ((nameWidth - introWidth) / 2) * pIntro;
+        textIntro.style.transform = `translate3d(${introShiftX}px, 0, 0)`;
+      }
+    }
+
+    // 3. Right Column Continuous Stream Scroll:
+    if (streamContent) {
+      const streamStartOffsetY = (windowHeight * 0.8) + bioHeight;
+      const streamIntroOffsetY = (1 - pIntro) * streamStartOffsetY;
+      const totalStreamY = streamIntroOffsetY + streamY;
+
+      streamContent.style.transform = `translate3d(0, ${totalStreamY}px, 0)`;
+      streamContent.style.opacity = Math.min(1, pIntro * 2.5);
+    }
+  };
+
+  window.addEventListener('scroll', updateAboutAnimation, { passive: true });
+  window.addEventListener('resize', updateAboutAnimation, { passive: true });
+  updateAboutAnimation();
 }
 
 /**
@@ -332,190 +607,7 @@ function initHeroWordChanger() {
   cycleNextWord();
 }
 
-/**
- * Scroll-driven Interaction for Work Section:
- * - Project titles and descriptions glide downwards alongside each project's trailer image (sticky).
- * - As the bottom margin of the image is reached, the description smoothly dissolves / fades out,
- *   while the new description fades in under the next project's title at the top of the next image.
- */
-function initWorksSplitScroll() {
-  const projectRows = document.querySelectorAll('.work-project-row');
-  const workSection = document.querySelector('.work-section');
-  if (!projectRows.length || !workSection) return;
 
-  let ticking = false;
-
-  const updateAlignment = () => {
-    const firstFrame = document.querySelector('.work-visual-frame');
-    if (firstFrame) {
-      const frameHeight = firstFrame.offsetHeight;
-      const topOffset = Math.max(0, (window.innerHeight - frameHeight) / 2);
-      workSection.style.setProperty('--work-frame-top', `${topOffset}px`);
-    }
-  };
-
-  const updateDescriptions = () => {
-    if (window.innerWidth <= 900) {
-      projectRows.forEach((row) => {
-        const desc = row.querySelector('.work-info-desc');
-        const frame = row.querySelector('.work-visual-frame');
-        const stickyWrap = row.querySelector('.work-info-sticky-wrap');
-        if (desc) {
-          desc.style.opacity = '';
-          desc.style.filter = '';
-          desc.style.transform = '';
-          desc.style.visibility = '';
-        }
-        if (frame) {
-          frame.style.opacity = '';
-          frame.style.filter = '';
-          frame.style.pointerEvents = '';
-        }
-        if (stickyWrap) {
-          stickyWrap.style.opacity = '';
-          stickyWrap.style.filter = '';
-        }
-      });
-      return;
-    }
-
-    const firstFrame = document.querySelector('.work-visual-frame');
-    const frameHeight = firstFrame ? firstFrame.offsetHeight : 500;
-    const topOffset = Math.max(0, (window.innerHeight - frameHeight) / 2);
-    const windowHeight = window.innerHeight;
-
-    projectRows.forEach((row, index) => {
-      const desc = row.querySelector('.work-info-desc');
-      const frame = row.querySelector('.work-visual-frame');
-      const stickyWrap = row.querySelector('.work-info-sticky-wrap');
-      if (!desc || !frame) return;
-
-      const frameRect = frame.getBoundingClientRect();
-      const wrapHeight = stickyWrap ? stickyWrap.offsetHeight : 220;
-
-      // --- 1. Description Text Animation ---
-      // Entrance fade-in: starts as frame enters near topOffset, fully visible once at topOffset
-      const enterStart = topOffset + 140;
-      const enterEnd = topOffset;
-      let progressIn = 0;
-      if (frameRect.top <= enterEnd) {
-        progressIn = 1;
-      } else if (frameRect.top < enterStart) {
-        progressIn = (enterStart - frameRect.top) / (enterStart - enterEnd);
-      }
-
-      // Exit fade-out (dissolve at bottom margin) for all projects except the last one
-      const isLastProject = (index === projectRows.length - 1);
-      let progressOut = 0;
-      if (!isLastProject) {
-        const textBottomY = topOffset + wrapHeight;
-        const exitStart = textBottomY + 120;
-        const exitEnd = textBottomY - 10;
-        if (frameRect.bottom <= exitEnd) {
-          progressOut = 1;
-        } else if (frameRect.bottom < exitStart) {
-          progressOut = (exitStart - frameRect.bottom) / (exitStart - exitEnd);
-        }
-      }
-
-      const active = Math.max(0, Math.min(1, progressIn)) * Math.max(0, Math.min(1, 1 - progressOut));
-      const fade = active * active * (3 - 2 * active); // Smoothstep curve
-
-      if (fade > 0.01) {
-        desc.style.visibility = 'visible';
-        desc.style.opacity = fade.toFixed(3);
-        desc.style.filter = fade < 0.99 ? `blur(${(10 * (1 - fade)).toFixed(1)}px)` : 'none';
-        const yOffset = progressOut > 0 ? -10 * (1 - fade) : 10 * (1 - fade);
-        desc.style.transform = `translateY(${yOffset.toFixed(1)}px)`;
-      } else {
-        desc.style.visibility = 'hidden';
-        desc.style.opacity = '0';
-        desc.style.filter = 'blur(10px)';
-        desc.style.transform = 'translateY(10px)';
-      }
-
-      // --- 2. Trailer Image & Project Fade-Out Animation ---
-      // Fade out starts when the next trailer image arrives at the center of the screen
-      if (!isLastProject) {
-        const nextRow = projectRows[index + 1];
-        const nextFrame = nextRow ? nextRow.querySelector('.work-visual-frame') : null;
-        if (nextFrame) {
-          const nextFrameRect = nextFrame.getBoundingClientRect();
-          const triggerStart = windowHeight * 0.55; // Next image reaches center of screen
-          const triggerEnd = topOffset;            // Next image reaches active position
-
-          if (nextFrameRect.top >= triggerStart) {
-            // Next image is still below center screen: current image stays 100% visible
-            frame.style.opacity = '1';
-            frame.style.filter = 'none';
-            frame.style.pointerEvents = 'auto';
-            if (stickyWrap) {
-              stickyWrap.style.opacity = '1';
-              stickyWrap.style.filter = 'none';
-            }
-          } else if (nextFrameRect.top <= triggerEnd) {
-            // Next image is in active position: current image is fully dissolved
-            frame.style.opacity = '0';
-            frame.style.filter = 'blur(8px)';
-            frame.style.pointerEvents = 'none';
-            if (stickyWrap) {
-              stickyWrap.style.opacity = '0';
-              stickyWrap.style.filter = 'blur(8px)';
-            }
-          } else {
-            // Next image is moving from center screen to active position: smooth gradual fade-out
-            const rawT = (triggerStart - nextFrameRect.top) / (triggerStart - triggerEnd);
-            const t = Math.max(0, Math.min(1, rawT));
-            const imgFade = t * t * (3 - 2 * t);
-            const imgOpacity = 1 - imgFade;
-
-            frame.style.opacity = imgOpacity.toFixed(3);
-            frame.style.filter = imgFade > 0.02 ? `blur(${(8 * imgFade).toFixed(1)}px)` : 'none';
-            frame.style.pointerEvents = imgOpacity < 0.05 ? 'none' : 'auto';
-
-            if (stickyWrap) {
-              stickyWrap.style.opacity = imgOpacity.toFixed(3);
-              stickyWrap.style.filter = imgFade > 0.02 ? `blur(${(8 * imgFade).toFixed(1)}px)` : 'none';
-            }
-          }
-        }
-      } else {
-        // Last project (Climbex): stays 100% permanently visible (no fade out)
-        frame.style.opacity = '1';
-        frame.style.filter = 'none';
-        frame.style.pointerEvents = 'auto';
-        if (stickyWrap) {
-          stickyWrap.style.opacity = '1';
-          stickyWrap.style.filter = 'none';
-        }
-      }
-    });
-  };
-
-  const onScroll = () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateDescriptions();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', () => {
-    updateAlignment();
-    updateDescriptions();
-  });
-  window.addEventListener('load', () => {
-    updateAlignment();
-    updateDescriptions();
-  });
-
-  // Initial compute
-  updateAlignment();
-  updateDescriptions();
-}
 
 /**
  * Static Canvas Dot Grid Background for Work section.
@@ -690,7 +782,7 @@ function initFooterReveal() {
  * Seamlessly integrates with Lenis smooth scroll and native fallback.
  */
 function initSmoothScroll() {
-  const isHomePage = !document.body.classList.contains('project-page');
+  const isHomePage = !document.body.classList.contains('project-page') && !document.body.classList.contains('about-page');
 
   // Logo click behavior
   const logo = document.querySelector('.header__logo');
@@ -718,10 +810,11 @@ function initSmoothScroll() {
       const hashIndex = href.indexOf('#');
       if (hashIndex !== -1) {
         const hash = href.substring(hashIndex);
+        const isLocalAnchor = href.startsWith('#');
         
-        if (isHomePage) {
-          e.preventDefault();
+        if (isHomePage || isLocalAnchor) {
           if (hash === '#contact') {
+            e.preventDefault();
             if (window.lenis) {
               window.lenis.scrollTo(document.body.scrollHeight, { duration: 1.4 });
             } else {
@@ -730,9 +823,10 @@ function initSmoothScroll() {
                 behavior: 'smooth'
               });
             }
-          } else {
+          } else if (isHomePage) {
             const targetElem = document.querySelector(hash);
             if (targetElem) {
+              e.preventDefault();
               if (window.lenis) {
                 window.lenis.scrollTo(targetElem, { duration: 1.2, offset: 0 });
               } else {
