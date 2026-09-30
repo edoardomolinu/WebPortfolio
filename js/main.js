@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initInteractiveGrid();
   initContactSpotlight();
   initFooterReveal();
+  initContactMessageChanger();
   initSmoothScroll();
 });
 
@@ -377,9 +378,9 @@ function initAboutFadeScroll() {
       const rect = profileSection.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       
-      // Start fading when top of the section enters the reading zone at mid-page (50vh):
-      const startScroll = viewportHeight * 0.50;
-      const endScroll = viewportHeight * 0.22;
+      // Start fading when top of the section enters the reading zone earlier (65vh):
+      const startScroll = viewportHeight * 0.65;
+      const endScroll = viewportHeight * 0.30;
       
       let progress = (startScroll - rect.top) / (startScroll - endScroll);
       progress = Math.max(0, Math.min(1, progress));
@@ -565,7 +566,7 @@ function initAboutPageScroll() {
 /**
  * Synchronized word rotation for the Hero section headline.
  * Locks the alternating words ("Bold", "Autonomous", "Invisible", "Biomimetic")
- * directly to the GeneralTrailer.mp4 duration and playback timeline.
+ * directly to the Home.mp4 duration and playback timeline.
  * Divides video duration equally by words count (4) so words transition on exact quarter-marks
  * and seamlessly restart on video loop with zero temporal drift.
  */
@@ -886,5 +887,47 @@ function initSmoothScroll() {
       }, 150);
     });
   }
+}
+
+/**
+ * Rotating Message Changer for the Contact section.
+ * Alternates between:
+ * 1. "End of Portfolio. Start of a Conversation."
+ * 2. "Beyond the pages. Let's design what's next."
+ * 3. "This concludes my work. Let's start ours."
+ * with a 4-second interval and cinematic Blur Reveal transition.
+ */
+function initContactMessageChanger() {
+  const messageElements = document.querySelectorAll('.contact-message');
+  if (!messageElements.length) return;
+
+  const phrases = [
+    "End of Portfolio. Start of a Conversation.",
+    "Beyond the pages. Let's design what's next.",
+    "This concludes my work. Let's start ours."
+  ];
+
+  let currentIndex = 0;
+  let isTransitioning = false;
+
+  const nextPhrase = () => {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    const nextIndex = (currentIndex + 1) % phrases.length;
+    currentIndex = nextIndex;
+
+    messageElements.forEach(el => el.classList.add('is-changing'));
+
+    setTimeout(() => {
+      messageElements.forEach(el => {
+        el.textContent = phrases[nextIndex];
+        void el.offsetWidth; // Force reflow
+        el.classList.remove('is-changing');
+      });
+      isTransitioning = false;
+    }, 400);
+  };
+
+  setInterval(nextPhrase, 4000);
 }
 

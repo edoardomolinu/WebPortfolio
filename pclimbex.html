@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Climbex project details. Designed by Edoardo Molinu.">
-  <title>Climbex | Politecnico di Milano - Edoardo Molinu</title>
+  <title>Climbex | PoliMi - Edoardo Molinu</title>
   
   <!-- Preconnect and Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@700&family=Trispace:wght@100..800&display=swap" rel="stylesheet">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="./css/style.css?v=70.0">
+  <link rel="stylesheet" href="./css/style.css?v=80.0">
 </head>
 <body class="project-page p-climbex">
 
@@ -40,11 +40,11 @@
       <div class="container">
         
         <!-- A. Titolo Principale -->
-        <h1 class="project-detail-title text-fade-reveal">Climbex | Politecnico di Milano</h1>
+        <h1 class="project-detail-title text-fade-reveal">Climbex | PoliMi</h1>
         
         <!-- B. Prima Immagine -->
         <div class="project-detail-image-container cover-frame img-reveal-top-down">
-          <img src="./asset/img/ClimbexCop.jpg" alt="Climbex Cover" class="project-detail-img">
+          <img src="./asset/img/ClimBEXHero.jpg" alt="Climbex Cover" class="project-detail-img">
         </div>
 
         <!-- Section 1: Intro Text Left Aligned -->
@@ -78,7 +78,7 @@
         </div>
 
         <!-- Section 5: Fullscreen Ibex Image with Left Overlay Text -->
-        <div class="project-detail-image-container concept-frame full-width-concept pd-climbex-fullscreen-img-overlay img-reveal-top-down">
+        <div class="project-detail-image-container concept-frame full-width-concept pd-climbex-fullscreen-img-overlay img-reveal-top-down" style="margin-bottom: calc(1.5 * var(--space-md));">
           <img src="./asset/img/CLIbex.webp" alt="Climbex Ibex Details" class="project-detail-img">
           
           <div class="pd-climbex-left-overlay-text text-fade-reveal">
@@ -87,8 +87,19 @@
           </div>
         </div>
 
+        <!-- Section 5b: Climbex 1:1 Video (Left) + Concept Text (Right) -->
+        <div class="pd-climbex-concept-row text-fade-reveal">
+          <div class="pd-climbex-concept-video-col img-reveal-top-down">
+            <video src="./asset/video/Climbex_T.mp4" autoplay loop muted playsinline class="pd-climbex-video-sq"></video>
+          </div>
+          <div class="pd-climbex-concept-text-col">
+            <h4 class="pd-climbex-concept-title">Concept</h4>
+            <p class="pd-climbex-concept-p">Climbex combines a downturn transferring power for stability, an asymmetric shape increasing tension for big toe precision, a dedicated toe patch for hooking, and a toe cap shielding toes against impacts and heavy abrasion.</p>
+          </div>
+        </div>
+
         <!-- Section 6: Fullscreen Hoof Image with Annotated Text Callouts -->
-        <div class="project-detail-image-container concept-frame full-width-concept pd-climbex-fullscreen-img-overlay pd-climbex-hoof-section img-reveal-top-down">
+        <div class="project-detail-image-container concept-frame full-width-concept pd-climbex-fullscreen-img-overlay pd-climbex-hoof-section img-reveal-top-down" style="margin-top: calc(0.75 * var(--space-md));">
           <img src="./asset/img/CLHoof.webp" alt="Climbex Ibex Hoof Details" class="project-detail-img">
           
 
@@ -131,15 +142,6 @@
           </div>
         </div>
 
-        <!-- Section 7c: Video Row with Left Text and Right 1:1 Masked Video -->
-        <div class="pd-climbex-video-row text-fade-reveal" style="margin-bottom: 0;">
-          <div class="pd-climbex-video-text">
-            <p>Climbex combines a downturn transferring power for stability, an asymmetric shape increasing tension for big toe precision, a dedicated toe patch for hooking, and a toe cap shielding toes against impacts and heavy abrasion.</p>
-          </div>
-          <div class="pd-climbex-video-container img-reveal-top-down">
-            <video src="./asset/video/Climbex.mp4" autoplay loop muted playsinline class="pd-climbex-video-sq"></video>
-          </div>
-        </div>
 
         <!-- Section 7d: Shoes Render (ClimbexShoes2.jpg, respecting left and right page margins) -->
         <div class="project-detail-image-container img-reveal-top-down" style="margin-top: 0; margin-bottom: calc(1.5 * var(--space-md));">
@@ -154,6 +156,17 @@
           <div class="pd-climbex-strap-text-col">
             <p>Climbex combines a fast, reinforced biomimetic velcro strap, pull loops for easy slip-on and transport, an asymmetric tongue for a precise fit, and a Sling shot structure for support, shape retention, and power transfer.</p>
           </div>
+        </div>
+
+        <!-- Section 7f: Design Journey Text Block -->
+        <div class="pd-climbex-journey-text-block text-fade-reveal">
+          <h4 class="pd-climbex-journey-title">Design Journey</h4>
+          <p class="pd-climbex-journey-p">Completed in just one week, Climbex merged traditional design methods with early AI tools. The workflow evolved into three phases: paper sketching, digital transposition, and Vizcom prompting for the final 3D rendering.</p>
+        </div>
+
+        <!-- Section 7g: Fullscreen Climbex Journey Image -->
+        <div class="project-detail-image-container concept-frame full-width-concept pd-climbex-fullscreen-img img-reveal-top-down" style="margin-top: 0;">
+          <img src="./asset/img/ClimbexJourney.jpg" alt="Climbex Journey Details" class="project-detail-img">
         </div>
 
         <!-- Section 8: Fullscreen Shoes Image (CLShoes.webp) -->
@@ -235,6 +248,6 @@
   <!-- Lenis Smooth Scroll Engine -->
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <!-- Local Scripts -->
-  <script src="./js/main.js?v=70.0"></script>
+  <script src="./js/main.js?v=75.0"></script>
 </body>
 </html>
