@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLenis();
   initScrollReveal();
   setupDynamicHeader();
+  initMobileMenu();
   initHeroFadeScroll();
   initWorkStickyScroll();
   initAboutFadeScroll();
@@ -174,6 +175,12 @@ function setupDynamicHeader() {
   let ticking = false;
 
   const updateHeader = () => {
+    // If mobile menu is open, guarantee header stays visible
+    if (document.body.classList.contains('mobile-menu-open') || header.classList.contains('header--menu-open')) {
+      header.classList.remove('header--hidden');
+      return;
+    }
+
     const currentScrollY = window.scrollY;
     const scrollHeight = document.documentElement.scrollHeight;
     const viewportHeight = window.innerHeight;
@@ -231,6 +238,79 @@ function setupDynamicHeader() {
 }
 
 /**
+ * Mobile Hamburger Navigation Menu Controller
+ * Manages mobile drawer state, two-line to X transformation, white opacity veil, and smooth navigation.
+ */
+function initMobileMenu() {
+  const header = document.querySelector('.header');
+  const burger = document.querySelector('.header__burger');
+  const nav = document.querySelector('.header__nav');
+  const navLinks = document.querySelectorAll('.header__nav .header__link');
+  
+  if (!header || !burger || !nav) return;
+
+  const openMenu = () => {
+    burger.classList.add('is-active');
+    burger.setAttribute('aria-expanded', 'true');
+    header.classList.add('header--menu-open');
+    header.classList.remove('header--hidden');
+    nav.classList.add('is-open');
+    document.body.classList.add('mobile-menu-open');
+    if (window.lenis) {
+      window.lenis.stop();
+    }
+  };
+
+  const closeMenu = () => {
+    burger.classList.remove('is-active');
+    burger.setAttribute('aria-expanded', 'false');
+    header.classList.remove('header--menu-open');
+    nav.classList.remove('is-open');
+    document.body.classList.remove('mobile-menu-open');
+    if (window.lenis) {
+      window.lenis.start();
+    }
+  };
+
+  const toggleMenu = () => {
+    const isOpen = burger.classList.contains('is-active');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  };
+
+  burger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  // Close menu when clicking any navigation link
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (document.body.classList.contains('mobile-menu-open')) {
+        closeMenu();
+      }
+    });
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('mobile-menu-open')) {
+      closeMenu();
+    }
+  });
+
+  // Automatically reset menu if viewport is resized to desktop width
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && document.body.classList.contains('mobile-menu-open')) {
+      closeMenu();
+    }
+  });
+}
+
+/**
  * Immersive sticky hero scroll effect.
  * Keeps the video pinned full-screen while gradually transitioning
  * the hero overlay opacity to 1.0 (pure FFFFFF) proportionally to scroll.
@@ -255,6 +335,10 @@ function initHeroFadeScroll() {
   };
   
   const updateHeroFade = () => {
+    if (window.innerWidth <= 768) {
+      if (fadeOverlay) fadeOverlay.style.opacity = '0';
+      return;
+    }
     let progress = 0;
     if (pinWrapper) {
       const rect = pinWrapper.getBoundingClientRect();
@@ -279,8 +363,8 @@ function initHeroFadeScroll() {
       heroContent.style.opacity = Math.max(0, 1 - progress * 1.5);
     }
 
-    // Trigger reveal of fixed "Work" title directly on the spot (at 70% of video trailer fade-out)
-    if (workTitle) {
+    // Trigger reveal of fixed "Work" title directly on the spot (at 70% of video trailer fade-out) on desktop
+    if (workTitle && window.innerWidth > 768) {
       if (overlayOpacity >= 0.70) {
         workTitle.classList.add('is-visible');
       } else {
@@ -289,8 +373,8 @@ function initHeroFadeScroll() {
     }
 
     // When the top margin of Climbex reaches the top of "Work",
-    // Work pins to Climbex and travels upward out of the screen.
-    if (workHeader && lastProject) {
+    // Work pins to Climbex and travels upward out of the screen on desktop.
+    if (workHeader && lastProject && window.innerWidth > 768) {
       const lastRect = lastProject.getBoundingClientRect();
       if (workHeaderDefaultTop === 0) {
         measureDefaultTop();
@@ -463,6 +547,22 @@ function initAboutPageScroll() {
   };
 
   const updateAboutAnimation = () => {
+    const windowWidth = window.innerWidth;
+    const isMobile = windowWidth <= 768;
+
+    if (isMobile) {
+      photoWrapper.style.transform = '';
+      photoWrapper.style.opacity = '';
+      textContent.style.transform = '';
+      textContent.style.opacity = '';
+      if (textIntro) textIntro.style.transform = '';
+      if (streamContent) {
+        streamContent.style.transform = '';
+        streamContent.style.opacity = '';
+      }
+      return;
+    }
+
     updateDimensions();
     const rect = pinWrapper.getBoundingClientRect();
     const totalDist = pinWrapper.offsetHeight - window.innerHeight;
@@ -472,9 +572,7 @@ function initAboutPageScroll() {
       progress = Math.max(0, Math.min(1, scrolled / totalDist));
     }
 
-    const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
-    const isMobile = windowWidth < 768;
 
     // Calculate exact scroll distance needed for bottom of software line to reach bottom of photo:
     const bioHeight = bioBlock ? bioBlock.offsetHeight : 120;
@@ -509,50 +607,37 @@ function initAboutPageScroll() {
     const photoIntroY = (1 - pIntro) * startOffsetY;
     const photoOpacity = Math.min(1, pIntro * 2.8);
 
-    if (isMobile) {
-      photoWrapper.style.transform = `translate3d(-50%, calc(-50% + ${photoIntroY}px), 0)`;
-    } else {
-      photoWrapper.style.transform = `translate3d(0, calc(-50% + ${photoIntroY}px), 0)`;
-    }
+    photoWrapper.style.transform = `translate3d(0, calc(-50% + ${photoIntroY}px), 0)`;
     photoWrapper.style.opacity = photoOpacity;
 
     // 2. Headline Text Animation: moves from center to top-right in Phase 1, fades out as stream scrolls in Phase 2
-    if (isMobile) {
-      const mobileScale = 1 - (pIntro * 0.22);
-      const mobileY = -pIntro * (windowHeight * 0.24) + streamY;
-      const mobileTitleOpacity = Math.max(0, 1 - (streamMoved / (windowHeight * 0.18)));
-      textContent.style.transform = `translate3d(-50%, calc(-50% + ${mobileY}px), 0) scale(${mobileScale})`;
-      textContent.style.opacity = mobileTitleOpacity;
-      if (textIntro) textIntro.style.transform = 'none';
-    } else {
-      const targetScale = 0.76;
-      const currentScale = 1 - (pIntro * (1 - targetScale));
+    const targetScale = 0.76;
+    const currentScale = 1 - (pIntro * (1 - targetScale));
 
-      const nameWidth = textName.offsetWidth;
-      const introWidth = textIntro ? textIntro.offsetWidth : 0;
-      const blockWidth = textContent.offsetWidth;
+    const nameWidth = textName.offsetWidth;
+    const introWidth = textIntro ? textIntro.offsetWidth : 0;
+    const blockWidth = textContent.offsetWidth;
 
-      const rightPadding = Math.min(Math.max(windowWidth * 0.025, 24), 40);
-      const initialCenterX = windowWidth / 2;
-      const initialCenterY = windowHeight / 2;
-      const finalCenterX = windowWidth - rightPadding - (blockWidth * targetScale) / 2;
-      const targetTopY = windowHeight * 0.34;
-      const finalCenterY = targetTopY + (textContent.offsetHeight * targetScale) / 2;
+    const rightPadding = Math.min(Math.max(windowWidth * 0.025, 24), 40);
+    const initialCenterX = windowWidth / 2;
+    const initialCenterY = windowHeight / 2;
+    const finalCenterX = windowWidth - rightPadding - (blockWidth * targetScale) / 2;
+    const targetTopY = windowHeight * 0.34;
+    const finalCenterY = targetTopY + (textContent.offsetHeight * targetScale) / 2;
 
-      const deltaX = finalCenterX - initialCenterX;
-      const deltaY = finalCenterY - initialCenterY;
+    const deltaX = finalCenterX - initialCenterX;
+    const deltaY = finalCenterY - initialCenterY;
 
-      const currentX = pIntro * deltaX;
-      const currentY = (pIntro * deltaY) + streamY;
-      const titleOpacity = Math.max(0, 1 - (streamMoved / (windowHeight * 0.26)));
+    const currentX = pIntro * deltaX;
+    const currentY = (pIntro * deltaY) + streamY;
+    const titleOpacity = Math.max(0, 1 - (streamMoved / (windowHeight * 0.26)));
 
-      textContent.style.transform = `translate3d(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px), 0) scale(${currentScale})`;
-      textContent.style.opacity = titleOpacity;
+    textContent.style.transform = `translate3d(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px), 0) scale(${currentScale})`;
+    textContent.style.opacity = titleOpacity;
 
-      if (textIntro && nameWidth > introWidth) {
-        const introShiftX = ((nameWidth - introWidth) / 2) * pIntro;
-        textIntro.style.transform = `translate3d(${introShiftX}px, 0, 0)`;
-      }
+    if (textIntro && nameWidth > introWidth) {
+      const introShiftX = ((nameWidth - introWidth) / 2) * pIntro;
+      textIntro.style.transform = `translate3d(${introShiftX}px, 0, 0)`;
     }
 
     // 3. Right Column Continuous Stream Scroll:

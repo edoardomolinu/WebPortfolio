@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@700&family=Trispace:wght@100..800&display=swap" rel="stylesheet">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="./css/style.css?v=83.0">
+  <link rel="stylesheet" href="./css/style.css?v=84.0">
 </head>
 <body class="project-page">
 
@@ -27,6 +27,10 @@
     <a href="./index.html" class="header__logo" aria-label="Edoardo Molinu 26">
       <span class="header__logo-text"><span class="logo-char">E</span><span class="logo-expand">doardo.</span><span class="logo-char">M</span><span class="logo-expand">olinu</span><span class="logo-symbol-default">_</span><span class="logo-symbol-hover">&nbsp;</span><span class="logo-char">26</span></span>
     </a>
+    <button class="header__burger" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="burger-line burger-line--top"></span>
+      <span class="burger-line burger-line--bottom"></span>
+    </button>
     <nav class="header__nav">
       <a href="./index.html#work" class="header__link">Work</a>
       <a href="./about.html" class="header__link">About</a>
@@ -43,8 +47,8 @@
         <h1 class="project-detail-title text-fade-reveal">Leo | Casa Bugatti</h1>
         
         <!-- B. Prima Immagine -->
-        <div class="project-detail-image-container cover-frame img-reveal-top-down">
-          <img src="./asset/img/LeoCopertina.jpg" alt="Leo | Casa Bugatti Cover" class="project-detail-img">
+        <div class="project-detail-image-container contained-frame img-reveal-top-down">
+          <img src="./asset/img/LeoCopertina_.jpg" alt="Leo | Casa Bugatti Cover" class="project-detail-img">
         </div>
 
         <!-- C. Left-aligned Subtitle Block -->
@@ -77,9 +81,9 @@
           <img src="./asset/img/LeoConcept.jpg" alt="Leo Concept Details" class="project-detail-img">
         </div>
 
-        <div class="project-detail-kitchen-container img-reveal-top-down">
+        <div class="project-detail-kitchen-container contained-frame contained-kitchen img-reveal-top-down">
           <img src="./asset/img/LeoKitchen.jpg" alt="Leo in the Kitchen" class="project-detail-kitchen-img">
-          <div class="project-detail-kitchen-overlay text-fade-reveal">
+          <div class="project-detail-kitchen-overlay">
             <p class="project-detail-kitchen-text">
               A bold silhouette that reclaims the kitchen space. Leo merges Bugatti’s heritage with the modern micro-living ritual: high-end design without compromise.
             </p>
@@ -135,8 +139,8 @@
         </section>
 
         <!-- Fullscreen Trailer Image 2 -->
-        <div class="project-detail-image-container cover-frame img-reveal-top-down">
-          <img src="./asset/img/LeoTrailer_2.jpg" alt="Leo Details 2" class="project-detail-img">
+        <div class="project-detail-image-container contained-frame img-reveal-top-down">
+          <img src="./asset/img/LeoTrailer2.jpg" alt="Leo Details 2" class="project-detail-img">
         </div>
 
         <!-- K. Sezione Control Knob -->
@@ -161,8 +165,8 @@
         </section>
 
         <!-- Immagine LeoHeat.jpg allineata a sinistra con spigoli vivi -->
-        <div class="project-detail-image-container heat-frame img-reveal-top-down" style="width: calc(50% - var(--space-xs) / 2); margin-top: calc(3 * var(--space-md)); margin-bottom: calc(3 * var(--space-md)); margin-left: 0; margin-right: auto; border-radius: 0 !important; overflow: hidden;">
-          <img src="./asset/img/LeoHeat.jpg" alt="Leo Heating Detail" class="project-detail-img" style="border-radius: 0 !important; width: 100%; height: auto; display: block; object-fit: cover;">
+        <div class="project-detail-image-container heat-frame img-reveal-top-down">
+          <img src="./asset/img/LeoHeat.jpg" alt="Leo Heating Detail" class="project-detail-img">
         </div>
 
         <!-- L. Sezione Crumb-Tray -->

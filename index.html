@@ -27,6 +27,10 @@
     <a href="./index.html" class="header__logo" aria-label="Edoardo Molinu 26">
       <span class="header__logo-text"><span class="logo-char">E</span><span class="logo-expand">doardo.</span><span class="logo-char">M</span><span class="logo-expand">olinu</span><span class="logo-symbol-default">_</span><span class="logo-symbol-hover">&nbsp;</span><span class="logo-char">26</span></span>
     </a>
+    <button class="header__burger" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="burger-line burger-line--top"></span>
+      <span class="burger-line burger-line--bottom"></span>
+    </button>
     <nav class="header__nav">
       <a href="#work" class="header__link">Work</a>
       <a href="./about.html" class="header__link">About</a>
@@ -44,7 +48,7 @@
   <div class="hero-pin-wrapper" id="home">
     <section class="hero">
       <div class="hero__video-container">
-        <video class="hero__video" poster="./asset/img/LeoCopertina.jpg" autoplay loop muted playsinline webkit-playsinline preload="auto">
+        <video class="hero__video" poster="./asset/img/LeoCopertina_.jpg" autoplay loop muted playsinline webkit-playsinline preload="auto">
           <source src="./asset/video/Home.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -65,6 +69,11 @@
   <section class="work-section" id="work">
     <div class="container work-container">
       
+      <!-- Mobile Work Title (Visible only on mobile, scrolls naturally in document flow) -->
+      <div class="work-mobile-header">
+        <h2 class="work-mobile-title">Work</h2>
+      </div>
+
       <!-- Work Section Intro Statement (Right-aligned, line-by-line scroll reveal) -->
       <div class="work-intro-wrap">
         <p class="work-intro-text">
@@ -89,7 +98,10 @@
             <div class="work-info-content">
               <a href="./pLeo.html" class="work-info-link">
                 <h2 class="work-info-title">Leo | Casa Bugatti</h2>
-                <p class="work-info-desc">A toaster that transcends the role of a simple appliance into a collectible piece of art, transforming the bread-toasting ritual into an iconic experience tailored for modern luxury micro-living.</p>
+                <p class="work-info-desc">
+                  <span class="desc-desktop">A toaster that transcends the role of a simple appliance into a collectible piece of art, transforming the bread-toasting ritual into an iconic experience tailored for modern luxury micro-living.</span>
+                  <span class="desc-mobile">A toaster that transcends the role of a simple appliance into a collectible piece of art.</span>
+                </p>
               </a>
             </div>
           </div>
@@ -101,7 +113,10 @@
             <div class="work-info-content">
               <a href="./p10ext.html" class="work-info-link">
                 <h2 class="work-info-title">10EXT | PoliMi</h2>
-                <p class="work-info-desc">An automated industrial machine engineered to close the loop on polymer recycling for small businesses, producing high-precision, production-ready spools for 3D printing.</p>
+                <p class="work-info-desc">
+                  <span class="desc-desktop">An automated industrial machine engineered to close the loop on polymer recycling for small businesses, producing high-precision, production-ready spools for 3D printing.</span>
+                  <span class="desc-mobile">An automated industrial machine engineered to close the loop on polymer recycling.</span>
+                </p>
               </a>
             </div>
           </div>
@@ -127,7 +142,10 @@
             <div class="work-info-content">
               <a href="./pluminair.html" class="work-info-link">
                 <h2 class="work-info-title">LuminAir | Midea Group</h2>
-                <p class="work-info-desc">An active hygiene module developed for next-generation dishwashers, harnessing catalytic reactions to eliminate odors and continuously sanitize appliance cavities between wash cycles.</p>
+                <p class="work-info-desc">
+                  <span class="desc-desktop">An active hygiene module developed for next-generation dishwashers, harnessing catalytic reactions to eliminate odors and continuously sanitize appliance cavities between wash cycles.</span>
+                  <span class="desc-mobile">An active hygiene module developed sanitize appliance cavities between wash cycles.</span>
+                </p>
               </a>
             </div>
           </div>
@@ -139,7 +157,10 @@
             <div class="work-info-content">
               <a href="./pclimbex.html" class="work-info-link">
                 <h2 class="work-info-title">Climbex | PoliMi</h2>
-                <p class="work-info-desc">Biomimetic alpine footwear designed through nature-inspired biomechanics, engineered to redefine grip, adaptability, and performance across extreme rock and mountain terrains.</p>
+                <p class="work-info-desc">
+                  <span class="desc-desktop">Biomimetic alpine footwear designed through nature-inspired biomechanics, engineered to redefine grip, adaptability, and performance across extreme rock and mountain terrains.</span>
+                  <span class="desc-mobile">Biomimetic alpine footwear designed through nature-inspired biomechanics.</span>
+                </p>
               </a>
             </div>
           </div>
