@@ -1,5 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
+  initVideoAutoplayManager();
   initLenis();
   initScrollReveal();
   setupDynamicHeader();
@@ -937,4 +938,71 @@ function initContactMessageChanger() {
 
   setInterval(nextPhrase, 4000);
 }
+
+/**
+ * Cross-Device Video Autoplay & iOS Safari Resilience Manager
+ * Guarantees videos play seamlessly across iOS Safari, WebKit, Low Power Mode, and Android.
+ */
+function initVideoAutoplayManager() {
+  const videos = document.querySelectorAll('video');
+  if (!videos.length) return;
+
+  const attemptPlay = (video) => {
+    // Explicitly enforce muted and playsInline properties on the DOM node for iOS WebKit
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay policy prevented playback (e.g. iOS Low Power Mode).
+        // It will resume on first user touch, scroll, or click.
+      });
+    }
+  };
+
+  // 1. Initial attempt on load
+  videos.forEach(video => {
+    attemptPlay(video);
+
+    // If Safari pauses video unexpectedly after buffering
+    video.addEventListener('suspend', () => {
+      if (video.paused && !video.ended) {
+        attemptPlay(video);
+      }
+    });
+  });
+
+  // 2. Wake up all videos upon first user interaction (touch, scroll, click)
+  const wakeUpVideos = () => {
+    videos.forEach(video => {
+      if (video.paused) {
+        attemptPlay(video);
+      }
+    });
+  };
+
+  window.addEventListener('touchstart', wakeUpVideos, { passive: true, once: true });
+  window.addEventListener('scroll', wakeUpVideos, { passive: true, once: true });
+  window.addEventListener('pointerdown', wakeUpVideos, { passive: true, once: true });
+  document.addEventListener('click', wakeUpVideos, { passive: true, once: true });
+
+  // 3. Ensure videos resume when scrolling into view
+  if ('IntersectionObserver' in window) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          attemptPlay(video);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    videos.forEach(video => videoObserver.observe(video));
+  }
+}
+
 
