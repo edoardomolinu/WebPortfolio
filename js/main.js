@@ -75,11 +75,18 @@ function initScrollReveal() {
     });
   }, {
     root: null,
-    rootMargin: '0px 0px -20px 0px',
-    threshold: 0.85
+    rootMargin: '0px 0px -5% 0px',
+    threshold: 0.15
   });
 
-  textElements.forEach(el => textObserver.observe(el));
+  textElements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.95) {
+      el.classList.add('visible');
+    } else {
+      textObserver.observe(el);
+    }
+  });
 
   // Top-to-Bottom Fluid Image Mask Reveal when element arrives in position
   const imageElements = document.querySelectorAll('.img-reveal-top-down');
@@ -92,13 +99,13 @@ function initScrollReveal() {
     });
   }, {
     root: null,
-    rootMargin: '0px 0px -25% 0px', // Triggers when container is 25% clear in position on screen
+    rootMargin: '0px 0px -15% 0px',
     threshold: 0
   });
 
   imageElements.forEach(el => {
     const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.5) {
+    if (rect.top < window.innerHeight * 0.95) {
       el.classList.add('visible');
     } else {
       imageObserver.observe(el);
