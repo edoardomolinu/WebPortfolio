@@ -55,6 +55,25 @@
           <source src="./asset/video/Home.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
+        <script>
+          (function() {
+            if (window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+              var v = document.currentScript.previousElementSibling;
+              if (v && v.tagName === 'VIDEO') {
+                v.removeAttribute('poster');
+                v.muted = true;
+                v.defaultMuted = true;
+                v.playsInline = true;
+                v.setAttribute('playsinline', '');
+                v.setAttribute('webkit-playsinline', '');
+                var p = v.play();
+                if (p && typeof p.then === 'function') {
+                  p.catch(function() {});
+                }
+              }
+            }
+          })();
+        </script>
         <div class="hero__fade-overlay"></div>
       </div>
 
@@ -233,6 +252,6 @@
   <!-- Lenis Smooth Scroll Engine -->
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <!-- Local Scripts -->
-  <script src="./js/main.js?v=83.0"></script>
+  <script src="./js/main.js?v=86.0"></script>
 </body>
 </html>
