@@ -1040,36 +1040,30 @@ function initVideoAutoplayManager() {
     video.setAttribute('playsinline', '');
     video.setAttribute('webkit-playsinline', '');
 
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Autoplay policy prevented playback (e.g. iOS Low Power Mode).
-        // It will resume on first user touch, scroll, or click.
-      });
+    const doPlay = () => {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay policy prevented playback (e.g. iOS Low Power Mode).
+          // It will resume on first user touch, scroll, or click.
+        });
+      }
+    };
+
+    if (video.readyState >= 2) {
+      doPlay();
+    } else {
+      video.addEventListener('loadeddata', doPlay, { once: true });
+      video.addEventListener('canplay', doPlay, { once: true });
     }
   };
 
-  // Mobile-specific hero video immediate autoplay without static poster
+  // Mobile-specific hero video immediate setup without static poster
   const isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   if (isMobile) {
     const heroVideo = document.querySelector('.hero__video');
     if (heroVideo) {
       heroVideo.removeAttribute('poster');
-      const tryHeroPlay = () => {
-        heroVideo.muted = true;
-        heroVideo.defaultMuted = true;
-        heroVideo.playsInline = true;
-        const p = heroVideo.play();
-        if (p && typeof p.then === 'function') {
-          p.catch(() => {});
-        }
-      };
-      tryHeroPlay();
-      heroVideo.addEventListener('loadedmetadata', tryHeroPlay, { once: true });
-      heroVideo.addEventListener('loadeddata', tryHeroPlay, { once: true });
-      heroVideo.addEventListener('canplay', tryHeroPlay, { once: true });
-      window.addEventListener('pageshow', tryHeroPlay);
-      [100, 300, 600, 1000].forEach(delay => setTimeout(tryHeroPlay, delay));
     }
   }
 
