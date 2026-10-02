@@ -336,7 +336,27 @@ function initHeroFadeScroll() {
   
   const updateHeroFade = () => {
     if (window.innerWidth <= 768) {
-      if (fadeOverlay) fadeOverlay.style.opacity = '0';
+      if (!pinWrapper || !fadeOverlay) return;
+      const rect = pinWrapper.getBoundingClientRect();
+      const pinDistance = pinWrapper.offsetHeight - window.innerHeight;
+      if (pinDistance <= 0) {
+        fadeOverlay.style.opacity = '0';
+        return;
+      }
+      const scrolled = -rect.top;
+      let overlayOpacity = 0;
+      if (scrolled <= 0) {
+        overlayOpacity = 0;
+      } else if (scrolled <= pinDistance) {
+        // Phase 1: Video is pinned and still. Veil fades from 0% to 80% (0.80)
+        overlayOpacity = (scrolled / pinDistance) * 0.80;
+      } else {
+        // Phase 2: Work section starts rising up. Veil completes from 80% to 100%
+        const extraDistance = window.innerHeight * 0.35;
+        const extraScrolled = scrolled - pinDistance;
+        overlayOpacity = Math.min(1.0, 0.80 + (extraScrolled / extraDistance) * 0.20);
+      }
+      fadeOverlay.style.opacity = overlayOpacity.toFixed(3);
       return;
     }
     let progress = 0;
@@ -388,6 +408,9 @@ function initHeroFadeScroll() {
   };
 
   window.addEventListener('scroll', updateHeroFade, { passive: true });
+  if (window.lenis) {
+    window.lenis.on('scroll', updateHeroFade);
+  }
   window.addEventListener('resize', () => {
     measureDefaultTop();
     updateHeroFade();
