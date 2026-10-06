@@ -336,7 +336,16 @@ function initHeroFadeScroll() {
   
   const updateHeroFade = () => {
     if (window.innerWidth <= 768) {
-      if (fadeOverlay) fadeOverlay.style.opacity = '0';
+      const scrollY = window.scrollY;
+      const heroHeight = window.innerHeight;
+      // Option 1: Smooth continuous fade-to-white during the first 50% of scrolling the hero
+      const mobileProgress = Math.max(0, Math.min(1, scrollY / (heroHeight * 0.50)));
+      if (fadeOverlay) {
+        fadeOverlay.style.opacity = mobileProgress;
+      }
+      if (heroContent) {
+        heroContent.style.opacity = Math.max(0, 1 - mobileProgress * 1.5);
+      }
       return;
     }
     let progress = 0;

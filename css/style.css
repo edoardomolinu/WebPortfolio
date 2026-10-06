@@ -930,7 +930,7 @@ p {
 .work-projects-list {
   display: flex;
   flex-direction: column;
-  gap: clamp(9rem, 24vh, 21rem); /* Increased negative breathing room by 50% */
+  gap: clamp(11.25rem, 30vh, 26.25rem); /* Increased project spacing by 25% */
   width: 100%;
 }
 
@@ -1341,7 +1341,8 @@ p {
   }
 
   .hero__fade-overlay {
-    display: none !important;
+    display: block !important;
+    opacity: 0;
   }
 
   .hero__content-container {
@@ -1989,20 +1990,33 @@ p {
 /* LeoConcept container increased by a third (to 66.6%) and centered */
 .project-detail-image-container.concept-frame {
   width: 66.6%;
-  margin: 0 auto calc(3 * var(--space-md));
+  margin: 0 auto calc(2.5 * var(--space-md));
 }
 
-/* LeoKitchen overlay styles */
+/* LeoKitchen styles (Desktop) */
 .project-detail-kitchen-container {
+  display: flex;
+  flex-direction: column;
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw !important;
-  max-width: 100vw !important;
-  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  overflow: visible !important;
   border-radius: 0 !important;
   margin-bottom: calc(3 * var(--space-md));
-  background-color: var(--color-bg-secondary);
+  background-color: transparent !important;
+}
+
+.project-detail-kitchen-container.contained-frame,
+.project-detail-kitchen-container.contained-kitchen {
+  position: relative;
+  left: auto;
+  transform: none;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0;
+  margin-right: 0;
+  overflow: visible !important;
+  background-color: transparent !important;
 }
 
 .project-detail-kitchen-img {
@@ -2013,16 +2027,41 @@ p {
   border-radius: 0 !important;
 }
 
+.project-detail-kitchen-container.contained-frame .project-detail-kitchen-img,
+.project-detail-kitchen-container.contained-kitchen .project-detail-kitchen-img {
+  object-fit: contain;
+}
+
+/* Mask reveal on kitchen image, keeping text visible in negative space above */
+.project-detail-kitchen-container.img-reveal-top-down {
+  clip-path: none !important;
+}
+
+.project-detail-kitchen-container.img-reveal-top-down .project-detail-kitchen-img {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.6s linear 0s;
+  will-change: clip-path;
+}
+
+.project-detail-kitchen-container.img-reveal-top-down.visible .project-detail-kitchen-img {
+  clip-path: inset(0 0 0% 0);
+}
+
 .project-detail-kitchen-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
+  order: -1;
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  bottom: auto;
   width: 100%;
-  padding: var(--space-md) var(--space-sm) var(--space-lg);
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+  padding: 0;
+  margin: 0 auto calc(2 * var(--space-md));
+  background: none !important;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  box-sizing: border-box;
 }
 
 .project-detail-kitchen-text {
@@ -2030,11 +2069,11 @@ p {
   font-weight: var(--fw-light);
   font-size: clamp(1.2rem, 1.68vw, 1.5rem);
   line-height: 1.28;
-  color: #ffffff;
+  color: var(--color-text-primary);
   text-align: left;
   max-width: 800px;
   margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: none !important;
 }
 
 /* Mechanism Section */
@@ -2379,6 +2418,10 @@ p {
 }
 
 @media (max-width: 768px) {
+  .project-detail-title {
+    margin-bottom: calc(0.75 * var(--space-md));
+  }
+
   .project-detail-paragraph {
     max-width: 100%;
   }
@@ -2446,15 +2489,19 @@ p {
     transform: none;
     width: 100% !important;
     max-width: 100% !important;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
     margin: 0 0 var(--space-sm) 0;
   }
 
   .pd-mechanism-img-container img,
   .pd-mechanism-img-container video {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     object-fit: cover;
+    object-position: center;
+    aspect-ratio: 1 / 1;
   }
   
   .pd-mechanism-text-tr,
@@ -2490,6 +2537,10 @@ p {
     margin-top: calc(2 * var(--space-md));
     margin-bottom: calc(2 * var(--space-md));
     background-color: transparent;
+    clip-path: none !important;
+  }
+
+  .project-detail-kitchen-container.img-reveal-top-down .project-detail-kitchen-img {
     clip-path: none !important;
   }
 
@@ -2547,6 +2598,14 @@ p {
     flex-direction: column;
   }
 
+  .pd-handles-row .pd-handle-col:first-child {
+    align-self: flex-start;
+    width: 75% !important;
+    max-width: 75% !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+
   .project-detail-foot-container {
     display: flex;
     flex-direction: column;
@@ -2590,16 +2649,28 @@ p {
   }
   
   .project-detail-image-container.knob-frame {
+    width: 75% !important;
+    max-width: 75% !important;
+    aspect-ratio: 829 / 942;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    margin-bottom: 0;
+    overflow: hidden;
+  }
+
+  .project-detail-image-container.knob-frame img {
     width: 100%;
-    aspect-ratio: auto;
+    height: 100%;
+    object-fit: cover;
   }
 
   .project-detail-image-container.heat-frame {
-    width: 100% !important;
+    width: 75% !important;
+    max-width: 75% !important;
     margin-top: calc(2 * var(--space-md));
     margin-bottom: calc(2 * var(--space-md));
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: 0 !important;
+    margin-right: auto !important;
   }
 
   .pd-knob-text-block {
@@ -2607,7 +2678,7 @@ p {
     bottom: auto;
     left: auto;
     width: 100%;
-    margin-top: var(--space-xs);
+    margin-top: var(--space-sm);
   }
 
   .pd-control-knob-content .pd-section-title-left {
@@ -2693,7 +2764,6 @@ p {
 }
 
 .p-10ext .cover-frame {
-  margin-bottom: -1px !important;
   background-color: #000000;
 }
 
@@ -2704,7 +2774,7 @@ p {
   margin-right: calc(-50vw + 50%);
   padding-left: calc(50vw - 50%);
   padding-right: calc(50vw - 50%);
-  padding-top: calc(3 * var(--space-md));
+  padding-top: 0;
   padding-bottom: calc(2 * var(--space-md));
 }
 
@@ -2737,6 +2807,28 @@ p {
 
 .project-detail-image-container.concept-frame.full-width-concept {
   width: 100%;
+}
+
+.p-10ext .p10ext-concept-frame,
+.p-10ext .p10ext-context-frame {
+  position: relative !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 0 !important;
+}
+
+.p-10ext .p10ext-concept-frame img,
+.p-10ext .p10ext-context-frame img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 0 !important;
 }
 
 /* 10EXT specific alignment for Context text block inside overlay */
@@ -2795,7 +2887,20 @@ p {
 /* User Experience Section Styles for p10ext.html */
 .p-10ext .pd-ux-section {
   position: relative;
-  margin-top: 170px;
+  margin-top: 212.5px;
+}
+
+.p-10ext .pd-foot-section {
+  margin-top: calc(1.5 * var(--space-md)) !important;
+  margin-bottom: 0 !important;
+}
+
+.p-10ext .pd-foot-section .cover-frame {
+  margin-bottom: 0 !important;
+}
+
+.p-10ext .pd-crumb-tray-section {
+  margin-top: calc(1.5 * var(--space-md)) !important;
 }
 
 .p-10ext .pd-ux-section .pd-handles-row {
@@ -2894,7 +2999,7 @@ p {
   }
 
   .p-10ext .pd-ux-section {
-    margin-top: calc(2 * var(--space-md));
+    margin-top: calc(2.5 * var(--space-md));
   }
 
   .p-10ext .pd-trailer-paragraph-overlay {
@@ -3356,6 +3461,852 @@ p {
   margin: 0;
 }
 
+/* ==========================================================================
+   pLeo Specific Mobile Content Spacing Rhythm (@media (max-width: 768px)):
+   - Image/Video <-> Image/Video: 16px
+   - Text <-> Image/Video: 126px
+   - Text block <-> Text block: 126px
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. Cover Image (LeoCopertina_.jpg) -> Subtitle block (Image -> Text: 126px) */
+  .p-leo .leo-cover-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 2. Subtitle Block -> LeoTrailer.jpg (Text -> Image: 126px) */
+  .p-leo .pd-leo-subtitle-block {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 3. Trailer Image 1 (LeoTrailer.jpg) -> Centered Text Block (Image -> Text: 126px) */
+  .p-leo .leo-trailer1-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 4. Centered Text Block -> LeoConcept.jpg (Text -> Image: 126px) */
+  .p-leo .pd-leo-center-text-block {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 5. Concept Image (LeoConcept.jpg) -> Kitchen Text (Image -> Text: 126px) */
+  .p-leo .leo-concept-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 6. Kitchen Container:
+        - Kitchen Text -> LeoKitchen2.jpg (Text -> Image: 126px)
+        - LeoKitchen2.jpg -> Mechanism Section (Image -> Text: 126px) */
+  .p-leo .project-detail-kitchen-container {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-leo .project-detail-kitchen-overlay {
+    margin-bottom: 126px !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* 7. Mechanism Section:
+        - Mechanism Title + Upper text form a single group (var(--space-xs) = 8px)
+        - Upper text -> Video (Text -> Video: 126px)
+        - Video -> Lower text (Video -> Text: 126px)
+        - Lower text -> Handle 1 (Text -> Image: 126px) */
+  .p-leo .pd-mechanism-section {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-leo .pd-mechanism-text-tr {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-leo .pd-mechanism-img-container {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-leo .pd-mechanism-text-bl {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* 8. Handles Section:
+        - Handle 1 -> Handle 2 (Image -> Image: 16px)
+        - Handle 2 -> Foot Text (Image -> Text: 126px) */
+  .p-leo .pd-handles-row {
+    margin-top: 0 !important;
+    gap: 16px !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 9. Foot Section:
+        - Foot Text -> LeoFoot.jpg (Text -> Image: 126px)
+        - LeoFoot.jpg -> LeoTrailer2.jpg (Image -> Image: 16px) */
+  .p-leo .pd-foot-section {
+    margin-top: 0 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .p-leo .project-detail-foot-container {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-leo .project-detail-foot-overlay {
+    margin-bottom: 126px !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* 10. Trailer Image 2 (LeoTrailer2.jpg) -> LeoKnob.jpg (Image -> Image: 16px) */
+  .p-leo .leo-trailer2-frame {
+    margin-top: 0 !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* 11. Control Knob Section:
+         - LeoKnob.jpg -> Knob Text (Image -> Text: 126px)
+         - Knob Text -> LeoHeat.jpg (Text -> Image: 126px) */
+  .p-leo .pd-control-knob-section {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-leo .project-detail-image-container.knob-frame {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-leo .pd-knob-text-block {
+    margin-top: 126px !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* 12. LeoHeat.jpg -> Crumb-Tray Text (Image -> Text: 126px) */
+  .p-leo .project-detail-image-container.heat-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 13. Crumb-Tray Section:
+         - Crumb-Tray Text -> LeoCT.jpg (Text -> Image: 126px)
+         - LeoCT.jpg -> Colors Text (Image -> Text: 126px) */
+  .p-leo .pd-crumb-tray-section {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-leo .pd-crumb-tray-text-block {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-leo .pd-crumb-tray-section .pd-leo-fullscreen-img {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* 14. Colors Section:
+         - Colors Title + Paragraph stay closely grouped (var(--space-xs) = 8px)
+         - Colors Paragraph -> LeoColors.jpg (Text -> Image: 126px)
+         - LeoColors.jpg -> Projects Nav (Image -> Text/Nav: 126px) */
+  .p-leo .pd-colors-section {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-leo .pd-colors-section .project-detail-paragraph {
+    margin-bottom: 126px !important;
+  }
+
+  .p-leo .pd-colors-section .pd-leo-fullscreen-img {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* 15. Dual Project Navigation */
+  .p-leo .pd-projects-nav-section {
+    margin-top: 0 !important;
+  }
+}
+
+/* ==========================================================================
+   p10EXT Specific Mobile Content Spacing Rhythm (@media (max-width: 768px)):
+   - Image/Video <-> Image/Video: 16px
+   - Text <-> Image/Video: 126px
+   - Text block <-> Text block: 126px
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. Cover Image -> Text "Infinite Additive" (Image -> Text: 126px) */
+  .p-10ext .p10ext-cover-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 2. Text "Infinite Additive" -> 10EXTTrailer.jpg (Text -> Image: 126px) */
+  .p-10ext .pd-trailer-section-row-p10ext {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-10ext .pd-trailer-section-row-p10ext .pd-trailer-text-block-p10ext {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 3. 10EXTTrailer.jpg -> Text "Closing the loop..." (Image -> Text: 126px) */
+  .p-10ext .p10ext-trailer-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 4. Text "Closing the loop..." -> 10EXTConcept.jpg (Text -> Image: 126px) */
+  .p-10ext .pd-climbex-center-text-block {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 5. 10EXTConcept.jpg -> Text "One machine, zero waste..." (Image -> Text: 126px)
+        - Fullscreen breakout (100vw) on mobile */
+  .p-10ext .p10ext-concept-frame {
+    position: relative !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    aspect-ratio: 16 / 9 !important;
+    overflow: hidden !important;
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+    border-radius: 0 !important;
+  }
+
+  .p-10ext .p10ext-concept-frame img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    aspect-ratio: 16 / 9 !important;
+    border-radius: 0 !important;
+  }
+
+  /* 6. Text "One machine, zero waste..." -> 10EXTContext.jpg (Text -> Image: 126px) */
+  .p-10ext .p10ext-black-bg-wrapper .pd-trailer-text-block-p10ext {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 7. 10EXTContext.jpg -> Text "Steel Skeleton" (Image -> Text: 126px)
+        - Fullscreen breakout (100vw) on mobile */
+  .p-10ext .p10ext-context-frame {
+    position: relative !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    aspect-ratio: 16 / 9 !important;
+    overflow: hidden !important;
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+    border-radius: 0 !important;
+  }
+
+  .p-10ext .p10ext-context-frame img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    aspect-ratio: 16 / 9 !important;
+    border-radius: 0 !important;
+  }
+
+  /* 8. Mechanism Section:
+        - Text "Steel Skeleton" -> 10EXTMechanism2.jpg (Text -> Image: 126px)
+        - 10EXTMechanism2.jpg -> UX Section (Image -> Text: 126px) */
+  .p-10ext .pd-mechanism-section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-10ext .pd-mechanism-section .pd-leo-center-text-block {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-10ext .p10ext-mechanism-frame {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-10ext .p10ext-black-bg-wrapper {
+    padding-bottom: 63px !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* 9. UX Section:
+        - White space before "User Experience" text: 63px
+        - Text "User Experience" -> 10EXTS1.jpg (Text -> Image: 126px)
+        - 10EXTS1.jpg -> Maintenance Section (Image -> Text: 126px) */
+  .p-10ext .pd-ux-section {
+    margin-top: 63px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-10ext .pd-ux-section .pd-trailer-text-block-p10ext {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-10ext .p10ext-s1-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 10. Maintenance Section:
+         - Maintenance Title -> 10EXTS2.jpg (Text -> Image: 16px)
+         - 10EXTS2.jpg -> Access covers Section (Image -> Text: 126px) */
+  .p-10ext .pd-foot-section {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-10ext .pd-foot-section .pd-section-title-left {
+    margin-top: 0 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .p-10ext .pd-foot-section .cover-frame,
+  .p-10ext .p10ext-s2-frame {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* 11. Access covers Section:
+         - Title "Access covers" -> 10EXT_T.mp4 (Text -> Video: 16px)
+         - 10EXT_T.mp4 -> 10EXTEnd_.jpg (Video -> Image: 16px) */
+  .p-10ext .pd-crumb-tray-section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-10ext .pd-crumb-tray-section .pd-section-title-left {
+    margin-top: 0 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .p-10ext .p10ext-access-frame {
+    margin-top: 0 !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* 12. End Section:
+         - 10EXTEnd_.jpg -> Projects Navigation (Image -> Text/Nav: 126px) */
+  .p-10ext .pd-colors-section {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-10ext .p10ext-end-frame {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-10ext .pd-projects-nav-section {
+    margin-top: 0 !important;
+  }
+}
+
+/* ==========================================================================
+   pLuminAir Specific Mobile Content Spacing Rhythm (@media (max-width: 768px)):
+   - Image/Video <-> Image/Video: 16px
+   - Text <-> Image/Video: 126px
+   - Text block <-> Text block: 126px
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. Cover Image -> Subtitle "Beyond Wash" (Image -> Text: 126px) */
+  .p-luminair .luminair-cover-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 2. Subtitle "Beyond Wash" -> LuminAirTrailer.jpg (Text -> Image: 126px) */
+  .p-luminair .pd-trailer-section-row-p10ext {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-luminair .pd-trailer-section-row-p10ext .pd-trailer-text-block-p10ext {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 3. LuminAirTrailer.jpg -> Text "Elevating the high-capacity..." (Image -> Text: 126px) */
+  .p-luminair .luminair-trailer-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 4. Text "Elevating the high-capacity..." -> LuminAir_T.mp4 (Text -> Video: 126px) */
+  .p-luminair .pd-leo-center-text-block {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 5. LuminAir_T.mp4 -> Text row (Video -> Text: 126px)
+        - 1:1 Square Crop respecting page margins on mobile */
+  .p-luminair .luminair-video-frame {
+    position: relative;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    overflow: hidden !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-luminair .luminair-video-frame video {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  /* 6. Text row -> LuminAirContext.jpg (Text -> Image: 126px) */
+  .p-luminair .pd-two-col-text-row {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 7. LuminAirContext.jpg -> Text "Catalytic Capture..." (Image -> Text: 126px) */
+  .p-luminair .luminair-context-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 8. Mechanism Section:
+        - Text "Catalytic Capture..." -> LuminAirMechanism.jpg (Text -> Image: 126px)
+        - LuminAirMechanism.jpg -> Mechanism Lower Text (Image -> Text: 126px)
+        - Mechanism Lower Text -> Air Inlet Text (Text -> Text: 126px) */
+  .p-luminair .pd-mechanism-section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-luminair .pd-mechanism-section .pd-center-text-col {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-luminair .pd-mechanism-lead-title {
+    display: block !important;
+    font-family: var(--font-primary) !important;
+    font-weight: var(--fw-medium) !important;
+    font-size: clamp(1.2rem, 1.56vw, 1.5rem) !important;
+    line-height: 1.15 !important;
+    color: var(--color-text-primary) !important;
+    text-transform: none !important;
+    margin-top: 0 !important;
+    margin-bottom: var(--space-xs) !important;
+    text-align: left !important;
+  }
+
+  .p-luminair .luminair-mechanism-frame {
+    position: relative !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    aspect-ratio: 16 / 9 !important;
+    overflow: hidden;
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-luminair .luminair-mechanism-frame img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    aspect-ratio: 16 / 9 !important;
+    border-radius: 0 !important;
+  }
+
+  .p-luminair .pd-mechanism-section .pd-two-col-text-row {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+    gap: 126px !important;
+  }
+
+  /* 9. Air Inlet Section:
+        - Air Inlet Text -> LuminAirSection2.jpg (Text -> Image: 126px)
+        - LuminAirSection2.jpg -> Guide Removal Text (Image -> Text: 126px) */
+  .p-luminair .pd-ux-section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-luminair .pd-ux-section .pd-center-text-col {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-luminair .luminair-section-frame,
+  .p-luminair .pd-ux-section .pd-handles-row {
+    position: relative !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: hidden;
+  }
+
+  .p-luminair .luminair-section-frame .pd-handle-col,
+  .p-luminair .pd-ux-section .pd-handles-row .pd-handle-col,
+  .p-luminair .pd-ux-section .pd-handles-row .pd-handle-col:first-child {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    align-self: stretch !important;
+    border-radius: 0 !important;
+  }
+
+  .p-luminair .luminair-section-frame img,
+  .p-luminair .pd-ux-section .pd-handles-row img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 0 !important;
+  }
+
+  /* 10. Guide Removal Section:
+         - Guide Removal Text -> LuminAirGR.jpg (Text -> Image: 126px)
+         - LuminAirGR.jpg -> Interface Text (Image -> Text: 126px) */
+  .p-luminair .pd-foot-section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-luminair .pd-foot-section .pd-trailer-text-block-p10ext {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-luminair .project-detail-foot-container {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 11. Interface Section:
+         - Interface Text -> LuminAirDisplay.jpg (Text -> Image: 126px)
+         - LuminAirDisplay.jpg -> LuminAirEnd2.jpg (Image -> Image: 16px) */
+  .p-luminair .pd-crumb-tray-section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-luminair .pd-crumb-tray-section .pd-center-text-col {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-luminair .luminair-display-frame {
+    margin-top: 0 !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* 12. End Section:
+         - LuminAirEnd2.jpg -> Navigation (Image -> Text/Nav: 126px) */
+  .p-luminair .pd-colors-section {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-luminair .luminair-end-frame {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-luminair .pd-projects-nav-section {
+    margin-top: 0 !important;
+  }
+}
+
+/* ==========================================================================
+   pClimbex Specific Mobile Content Spacing Rhythm (@media (max-width: 768px)):
+   - Image/Video <-> Image/Video: 16px
+   - Text <-> Image/Video: 126px
+   - Text block <-> Text block: 126px
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. Cover Image -> Intro Text (Image -> Text: 126px) */
+  .p-climbex .climbex-cover-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 2. Intro Text -> CLContext_.jpg (Text -> Image: 126px) */
+  .p-climbex .pd-trailer-text-block-p10ext {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 3. CLContext_.jpg -> CLClimbers.webp (Image -> Image: 126px) */
+  .p-climbex .climbex-context-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 4. CLClimbers.webp container:
+        - CLClimbers.webp -> Overlay Text (Image -> Text: 126px)
+        - Overlay Text -> Climbex_T.mp4 (Text -> Video: 126px) */
+  .p-climbex .climbex-climbers-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-climbex .climbex-climbers-frame .pd-climbex-right-overlay-text {
+    margin-top: 126px !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* 5. Video Trailer -> CLHoof.webp (Video -> Image: 16px)
+        - 1:1 Square Crop respecting page margins on mobile */
+  .p-climbex .climbex-video-frame {
+    position: relative;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    overflow: hidden !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .p-climbex .climbex-video-frame video {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  /* 6. Hoof Section:
+        - 1:1 Square Crop respecting page margins on mobile
+        - CLHoof.webp -> Left Callout Text (Image -> Text: 126px)
+        - Left Callout Text -> Right Callout Text (Text -> Text: 126px)
+        - Right Callout Text -> CLFoot.webp (Text -> Image: 126px) */
+  .p-climbex .climbex-hoof-frame {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-climbex .climbex-hoof-frame img {
+    position: relative;
+    width: 100% !important;
+    max-width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    border-radius: 0 !important;
+  }
+
+  .p-climbex .pd-climbex-hoof-left-callout {
+    margin-top: 126px !important;
+    margin-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .p-climbex .pd-climbex-hoof-right-callout {
+    margin-top: 126px !important;
+    margin-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* 7. CLFoot.webp -> Foot Rubber Specs Text (Image -> Text: 126px)
+        - Fullscreen breakout (100vw) on mobile */
+  .p-climbex .climbex-foot-frame {
+    position: relative !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+    border-radius: 0 !important;
+  }
+
+  .p-climbex .climbex-foot-frame img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important;
+    border-radius: 0 !important;
+  }
+
+  /* 8. Foot Rubber Specs Text -> Down Turn Text (Text -> Text: 126px) */
+  .p-climbex .pd-climbex-foot-specs-row {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 9. Down Turn Row:
+        - Down Turn Text -> CLShape_.jpg (Text -> Image: 126px)
+        - CLShape_.jpg -> ClimbexShoes2.jpg (Image -> Image: 16px) */
+  .p-climbex .pd-climbex-shape-row {
+    margin-top: 0 !important;
+    margin-bottom: 16px !important;
+    gap: 126px !important;
+  }
+
+  .p-climbex .pd-climbex-shape-text-col {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .p-climbex .pd-climbex-shape-row .pd-climbex-shape-img-col {
+    width: 75% !important;
+    max-width: 75% !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    align-self: flex-end !important;
+  }
+
+  .p-climbex .pd-climbex-shape-row .pd-climbex-shape-img-col img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important;
+    border-radius: 0 !important;
+  }
+
+  /* 10. ClimbexShoes2.jpg -> ClimbexStrap.jpg (Image -> Image: 16px) */
+  .p-climbex .climbex-shoes-frame {
+    margin-top: 0 !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* 11. Strap Row:
+         - ClimbexStrap.jpg -> Strap Text (Image -> Text: 126px)
+         - Strap Text -> CLFront.jpg (Text -> Image: 126px) */
+  .p-climbex .pd-climbex-strap-row {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+    gap: 126px !important;
+  }
+
+  .p-climbex .pd-climbex-strap-row .pd-climbex-strap-img-col {
+    width: 75% !important;
+    max-width: 75% !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    align-self: flex-start !important;
+  }
+
+  .p-climbex .pd-climbex-strap-row .pd-climbex-strap-img-col img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important;
+    border-radius: 0 !important;
+  }
+
+  /* 12. CLFront.jpg -> Design Journey Text (Image -> Text: 126px)
+         - Fullscreen breakout (100vw) on mobile */
+  .p-climbex .climbex-front-frame {
+    position: relative !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+    border-radius: 0 !important;
+  }
+
+  .p-climbex .climbex-front-frame img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important;
+    border-radius: 0 !important;
+  }
+
+  /* 13. Design Journey Text -> ClimbexJourney_.jpg (Text -> Image: 126px) */
+  .p-climbex .pd-climbex-journey-text-block {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  /* 14. ClimbexJourney_.jpg -> CLShoes.webp (Image -> Image: 16px) */
+  .p-climbex .climbex-journey-frame {
+    margin-top: 0 !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* 15. CLShoes.webp -> Navigation (Image -> Text/Nav: 126px) */
+  .p-climbex .climbex-final-frame {
+    margin-top: 0 !important;
+    margin-bottom: 126px !important;
+  }
+
+  .p-climbex .pd-projects-nav-section {
+    margin-top: 0 !important;
+  }
+}
+
 /* Two Column Left/Right Text Row */
 .pd-two-col-text-row {
   display: flex;
@@ -3425,7 +4376,7 @@ p {
   align-items: flex-start;
   width: 100%;
   max-width: 850px;
-  margin: var(--space-sm) auto calc(1.5 * var(--space-md));
+  margin: var(--space-sm) auto calc(2.8125 * var(--space-md));
   padding: 0 var(--space-sm);
   gap: var(--space-md);
 }
@@ -3562,7 +4513,7 @@ p {
   align-items: center;
   width: 100%;
   margin-top: calc(3 * var(--space-md));
-  margin-bottom: calc(3 * var(--space-md));
+  margin-bottom: calc(2.25 * var(--space-md));
   gap: var(--space-md);
 }
 
@@ -3608,8 +4559,11 @@ p {
     gap: var(--space-md);
   }
   .pd-climbex-strap-img-col {
-    width: 100%;
-    max-width: 100%;
+    width: 75% !important;
+    max-width: 75% !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    align-self: flex-start !important;
   }
   .pd-climbex-strap-text-col {
     width: 100%;
@@ -3622,11 +4576,12 @@ p {
   width: 66.6%;
   max-width: 850px;
   text-align: left;
-  margin-top: calc(3 * var(--space-md));
-  margin-bottom: var(--space-md);
+  margin-top: calc(2.25 * var(--space-md));
+  margin-bottom: calc(0.5 * var(--space-md));
 }
 
-.pd-climbex-journey-title {
+.pd-climbex-journey-title,
+.pd-climbex-strap-title {
   font-family: var(--font-primary);
   font-weight: var(--fw-medium);
   font-size: clamp(1.2rem, 1.56vw, 1.5rem);
@@ -3652,3 +4607,87 @@ p {
     max-width: 100%;
   }
 }
+
+/* Climbex Down Turn (Shape) Section (Left title + text split top/bottom, Right 65% image) */
+.pd-climbex-shape-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 100%;
+  margin-top: calc(2.8125 * var(--space-md));
+  margin-bottom: calc(1.875 * var(--space-md));
+  gap: var(--space-md);
+}
+
+.pd-climbex-shape-text-col {
+  width: 32%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.pd-climbex-shape-title {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
+  line-height: 1.15;
+  color: var(--color-text-primary);
+  margin: 0;
+  text-transform: none;
+  text-align: left;
+}
+
+.pd-climbex-shape-p {
+  color: #000000;
+  font-family: var(--font-primary);
+  font-weight: var(--fw-light);
+  font-size: clamp(1.08rem, 1.44vw, 1.38rem);
+  line-height: 1.28;
+  margin: 0;
+  text-align: left;
+}
+
+.pd-climbex-shape-img-col {
+  flex: 1;
+  max-width: 65%;
+  overflow: hidden;
+  border-radius: 0 !important;
+  background-color: var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+}
+
+.pd-climbex-shape-img-col img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .pd-climbex-shape-row {
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: calc(1.5 * var(--space-md));
+    margin-bottom: calc(2 * var(--space-md));
+  }
+
+  .pd-climbex-shape-text-col {
+    width: 100%;
+    max-width: 100%;
+    gap: var(--space-xs);
+  }
+
+  .pd-climbex-shape-img-col {
+    width: 75% !important;
+    max-width: 75% !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    align-self: flex-end !important;
+  }
+}
+

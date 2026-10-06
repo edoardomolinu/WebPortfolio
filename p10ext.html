@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@700&family=Trispace:wght@100..800&display=swap" rel="stylesheet">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="./css/style.css?v=86.0">
+  <link rel="stylesheet" href="./css/style.css?v=91.8">
 </head>
 <body class="project-page p-10ext">
 
@@ -49,14 +49,14 @@
         <!-- A. Titolo Principale -->
         <h1 class="project-detail-title text-fade-reveal">10EXT | PoliMi</h1>
         
-        <!-- B. Prima Immagine -->
-        <div class="project-detail-image-container cover-frame img-reveal-top-down">
-          <img src="./asset/img/10EXT_Copertina.jpg" alt="10EXT | PoliMi Cover" class="project-detail-img">
-        </div>
-
-        <!-- C. Sezione con Sfondo Nero (Infinite Additive: Closing the Loop, Concept, Context, Mechanism) -->
+        <!-- C. Sezione con Sfondo Nero (Copertina, Infinite Additive: Closing the Loop, Concept, Context, Mechanism) -->
         <div class="p10ext-black-bg-wrapper">
           
+          <!-- B. Prima Immagine -->
+          <div class="project-detail-image-container cover-frame p10ext-cover-frame img-reveal-top-down">
+            <img src="./asset/img/10EXT_Copertina.jpg" alt="10EXT | PoliMi Cover" class="project-detail-img">
+          </div>
+
           <!-- Trailer Row inside Black Background -->
           <section class="pd-trailer-section-row-p10ext" style="margin-top: 0; margin-bottom: calc(2 * var(--space-md));">
             <!-- Colonna di testo a sinistra -->
@@ -68,7 +68,7 @@
             </div>
 
             <!-- Immagine 10EXTTrailer.jpg a Tutto Schermo (100vw senza margini ai lati) -->
-            <div class="project-detail-image-container cover-frame img-reveal-top-down">
+            <div class="project-detail-image-container cover-frame p10ext-trailer-frame img-reveal-top-down">
               <img src="./asset/img/10EXTTrailer.jpg" alt="10EXT | PoliMi Details" class="project-detail-img">
             </div>
           </section>
@@ -81,7 +81,7 @@
           </div>
 
           <!-- G. Nuovi Contenuti (Concept e Context) -->
-          <div class="project-detail-image-container concept-frame full-width-concept img-reveal-top-down">
+          <div class="project-detail-image-container cover-frame p10ext-concept-frame img-reveal-top-down">
             <img src="./asset/img/10EXTConcept.jpg" alt="10EXT Concept Details" class="project-detail-img">
           </div>
 
@@ -92,11 +92,11 @@
             </p>
           </div>
 
-          <div class="project-detail-kitchen-container img-reveal-top-down">
-            <img src="./asset/img/10EXTContext.jpg" alt="10EXT Context Details" class="project-detail-kitchen-img">
+          <div class="project-detail-image-container cover-frame p10ext-context-frame img-reveal-top-down">
+            <img src="./asset/img/10EXTContext.jpg" alt="10EXT Context Details" class="project-detail-img">
           </div>
 
-          <!-- H. Sezione Mechanism (Steel Skeleton Subtitle + Text Above Fullscreen 10EXTMechanism.jpg) -->
+          <!-- H. Sezione Mechanism (Steel Skeleton Subtitle + Text Above Fullscreen 10EXTMechanism2.jpg) -->
           <section class="pd-mechanism-section">
             <div class="pd-leo-center-text-block text-fade-reveal" style="margin-bottom: calc(2 * var(--space-md));">
               <h3 class="pd-section-title-left" style="color: #ffffff !important; margin-bottom: var(--space-xs);">Steel Skeleton</h3>
@@ -105,9 +105,9 @@
               </p>
             </div>
 
-            <!-- Immagine 10EXTMechanism.jpg a Tutto Schermo -->
-            <div class="project-detail-image-container concept-frame full-width-concept img-reveal-top-down">
-              <img src="./asset/img/10EXTMechanism.jpg" alt="10EXT Mechanism" class="project-detail-img">
+            <!-- Immagine 10EXTMechanism2.jpg a Tutto Schermo -->
+            <div class="project-detail-image-container concept-frame full-width-concept p10ext-mechanism-frame img-reveal-top-down">
+              <img src="./asset/img/10EXTMechanism2.jpg" alt="10EXT Mechanism" class="project-detail-img">
             </div>
           </section>
 
@@ -122,24 +122,24 @@
           </div>
           
           <!-- Immagine 10EXTS1.jpg a Tutto Schermo (100vw senza margini ai lati) -->
-          <div class="project-detail-image-container cover-frame img-reveal-top-down">
+          <div class="project-detail-image-container cover-frame p10ext-s1-frame img-reveal-top-down" style="margin-bottom: calc(1.5 * var(--space-md));">
             <img src="./asset/img/10EXTS1.jpg" alt="10EXT Detail 1" class="project-detail-img">
           </div>
         </section>
 
         <!-- J. Sezione Maintenance -->
-        <section class="pd-foot-section">
+        <section class="pd-foot-section" style="margin-top: calc(1.5 * var(--space-md)); margin-bottom: 0;">
           <h3 class="pd-section-title-left text-fade-reveal">Maintenance</h3>
           <!-- Immagine 10EXTS2.jpg a Tutto Schermo (100vw senza margini ai lati) -->
-          <div class="project-detail-image-container cover-frame img-reveal-top-down">
+          <div class="project-detail-image-container cover-frame p10ext-s2-frame img-reveal-top-down" style="margin-bottom: 0;">
             <img src="./asset/img/10EXTS2.jpg" alt="10EXT Maintenance Details" class="project-detail-img">
           </div>
         </section>
 
-        <!-- L. Sezione Crumb-Tray (ora Extrusion) -->
-        <section class="pd-crumb-tray-section">
-          <h3 class="pd-section-title-left text-fade-reveal">Extrusion</h3>
-          <div class="project-detail-image-container cover-frame img-reveal-top-down">
+        <!-- L. Sezione Crumb-Tray (ora Access covers) -->
+        <section class="pd-crumb-tray-section" style="margin-top: calc(1.5 * var(--space-md));">
+          <h3 class="pd-section-title-left text-fade-reveal">Access covers</h3>
+          <div class="project-detail-image-container cover-frame p10ext-access-frame img-reveal-top-down">
             <video poster="./asset/img/10EXTTrailer.jpg" autoplay loop muted playsinline webkit-playsinline preload="auto" class="project-detail-img">
               <source src="./asset/video/10EXT_T.mp4" type="video/mp4">
             </video>
@@ -148,8 +148,8 @@
 
         <!-- M. Sezione Colors (ora End) -->
         <section class="pd-colors-section">
-          <div class="project-detail-image-container contained-frame img-reveal-top-down">
-            <img src="./asset/img/10EXTEnd.jpg" alt="10EXT End Details" class="project-detail-img">
+          <div class="project-detail-image-container contained-frame p10ext-end-frame img-reveal-top-down">
+            <img src="./asset/img/10EXTEnd_.jpg" alt="10EXT End Details" class="project-detail-img">
           </div>
         </section>
 
