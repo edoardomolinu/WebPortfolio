@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@700&family=Trispace:wght@100..800&display=swap" rel="stylesheet">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="./css/style.css?v=91.9">
+  <link rel="stylesheet" href="./css/style.css?v=92.0">
 </head>
 <body>
 
@@ -51,10 +51,25 @@
   <div class="hero-pin-wrapper" id="home">
     <section class="hero">
       <div class="hero__video-container">
-        <video class="hero__video" poster="./asset/img/LeoCopertina_.jpg" autoplay loop muted playsinline webkit-playsinline preload="auto">
+        <video class="hero__video" src="./asset/video/Home.mp4#t=0.001" poster="./asset/img/LeoCopertina_.jpg" autoplay loop muted playsinline webkit-playsinline preload="auto">
           <source src="./asset/video/Home.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
+        <script>
+          (function() {
+            if (window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+              var v = document.currentScript.previousElementSibling;
+              if (v && v.tagName === 'VIDEO') {
+                v.removeAttribute('poster');
+                v.muted = true;
+                v.defaultMuted = true;
+                v.playsInline = true;
+                v.setAttribute('playsinline', '');
+                v.setAttribute('webkit-playsinline', '');
+              }
+            }
+          })();
+        </script>
         <div class="hero__fade-overlay"></div>
       </div>
 
@@ -233,6 +248,6 @@
   <!-- Lenis Smooth Scroll Engine -->
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <!-- Local Scripts -->
-  <script src="./js/main.js?v=91.9"></script>
+  <script src="./js/main.js?v=92.0"></script>
 </body>
 </html>

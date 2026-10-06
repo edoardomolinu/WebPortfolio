@@ -397,6 +397,9 @@ function initHeroFadeScroll() {
   };
 
   window.addEventListener('scroll', updateHeroFade, { passive: true });
+  if (window.lenis) {
+    window.lenis.on('scroll', updateHeroFade);
+  }
   window.addEventListener('resize', () => {
     measureDefaultTop();
     updateHeroFade();
@@ -1049,14 +1052,32 @@ function initVideoAutoplayManager() {
     video.setAttribute('playsinline', '');
     video.setAttribute('webkit-playsinline', '');
 
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Autoplay policy prevented playback (e.g. iOS Low Power Mode).
-        // It will resume on first user touch, scroll, or click.
-      });
+    const doPlay = () => {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay policy prevented playback (e.g. iOS Low Power Mode).
+          // It will resume on first user touch, scroll, or click.
+        });
+      }
+    };
+
+    if (video.readyState >= 2) {
+      doPlay();
+    } else {
+      video.addEventListener('loadeddata', doPlay, { once: true });
+      video.addEventListener('canplay', doPlay, { once: true });
     }
   };
+
+  // Mobile-specific hero video immediate setup without static poster
+  const isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (isMobile) {
+    const heroVideo = document.querySelector('.hero__video');
+    if (heroVideo) {
+      heroVideo.removeAttribute('poster');
+    }
+  }
 
   // 1. Initial attempt on load
   videos.forEach(video => {

@@ -1327,15 +1327,20 @@ p {
   }
   
   /* ----------------------------------------------------
-     Mobile Hero Section: Direct Natural Flow (Zero Dead Space)
+     Mobile Hero Section: Sticky Scroll Fade
      ---------------------------------------------------- */
   .hero-pin-wrapper {
-    height: 100vh;
-    height: 100dvh;
+    position: relative;
+    width: 100%;
+    height: 170vh;
+    height: 170dvh;
   }
 
   .hero {
-    position: relative;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100vh;
     height: 100dvh;
   }
