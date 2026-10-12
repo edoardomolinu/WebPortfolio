@@ -3504,8 +3504,8 @@ p {
   }
 
   /* 6. Kitchen Container:
-        - Kitchen Text -> LeoKitchen2.jpg (Text -> Image: 126px)
-        - LeoKitchen2.jpg -> Mechanism Section (Image -> Text: 126px) */
+        - Kitchen Text -> LeoKitchen.jpg (Text -> Image: 126px)
+        - LeoKitchen.jpg -> Mechanism Section (Image -> Text: 126px) */
   .p-leo .project-detail-kitchen-container {
     margin-top: 0 !important;
     margin-bottom: 126px !important;
