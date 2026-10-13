@@ -532,15 +532,35 @@ p {
   margin-top: calc(50vh + (var(--about-photo-height, min(78vh, 700px)) / 2) - var(--about-bio-height, 120px));
 }
 
-.about-stream-education {
+.about-stream-work {
   margin-top: clamp(9.75rem, 20vh, 17.5rem);
 }
 
-.about-stream-work,
+.about-stream-education,
 .about-stream-awards,
 .about-stream-languages,
+.about-stream-skills,
 .about-stream-software {
   margin-top: clamp(7.8rem, 16vh, 14rem);
+}
+
+.about-skills-desc {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-light);
+  font-size: clamp(1.2rem, 1.56vw, 1.5rem);
+  line-height: 1.28;
+  color: var(--color-text-primary);
+  margin: 0;
+  text-transform: none;
+  max-width: 680px;
+}
+
+.about-skills-lead {
+  font-weight: var(--fw-semibold);
+}
+
+.br-desktop {
+  display: inline;
 }
 
 .about-lang-level {
@@ -813,8 +833,13 @@ p {
   .about-stream-work,
   .about-stream-awards,
   .about-stream-languages,
+  .about-stream-skills,
   .about-stream-software {
     margin-top: clamp(3.5rem, 7vh, 5rem);
+  }
+
+  .br-desktop {
+    display: none;
   }
 
   .about-card-text {
@@ -922,9 +947,15 @@ p {
   line-height: 1.2;
   color: #000000;
   margin: 0;
-  max-width: clamp(600px, 72vw, 1200px); /* 50% wider horizontal span (from 800px to 1200px) */
-  width: 100%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 100%;
   text-align: left;
+}
+
+.work-intro-text .profile-scroll-line {
+  display: block;
 }
 
 .work-projects-list {
@@ -1130,7 +1161,8 @@ p {
     font-size: clamp(1.6rem, 2.2vw, 2rem);
   }
 
-  .work-info-desc {
+  .work-info-desc,
+  .about-skills-desc {
     font-size: clamp(1.1rem, 1.4vw, 1.3rem);
   }
 }
@@ -1392,6 +1424,11 @@ p {
     font-weight: var(--fw-regular);
     line-height: 1.25;
     max-width: 100%;
+    width: 100%;
+  }
+
+  .work-intro-text .profile-scroll-line {
+    display: inline;
   }
 
   .work-projects-list {
@@ -1423,7 +1460,8 @@ p {
     margin-bottom: 8px;
   }
 
-  .work-info-desc {
+  .work-info-desc,
+  .about-skills-desc {
     font-size: clamp(1.4rem, 4.5vw, 1.8rem);
     font-weight: var(--fw-light);
     line-height: 1.28;
